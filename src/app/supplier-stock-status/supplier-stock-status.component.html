@@ -4,6 +4,71 @@
         <h3 class="panel-title">Supplier Stock Status</h3>      
     </div>
     <div class="panel-body">
-        
+        <div class="row">
+            <div class="col-sm-3">
+                Supplier
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <button class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Run Report</button>..
+                <button class="btn btn-success"><span class="glyphicon glyphicon-print"></span> Print Report</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Summary</p>
+                <p>Cost Value: 120,000.00</p>
+                <p>Net Value: 50,000.00</p>
+                <p>(Note: Negative stocks are excluded)</p>
+
+                <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
+                    <thead>
+                        <tr class="info">
+                            <td>Item Code</td>
+                            <td>Description</td>
+                            <td>Stck</td>
+                            <td>CP@</td>
+                            <td>SP@</td>
+                            <td>Stock Cost</td>
+                            <td>Stock Value</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>64946</td>
+                            <td>KILIMANJARO DRINKING WATER</td>
+                            <td>500</td>
+                            <td>1,000.00</td>
+                            <td>1,000.00</td>
+                            <td>5,000,000.00</td>
+                            <td>5,000,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>64946</td>
+                            <td>KILIMANJARO DRINKING WATER</td>
+                            <td>500</td>
+                            <td>1,000.00</td>
+                            <td>1,000.00</td>
+                            <td>5,000,000.00</td>
+                            <td>5,000,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>64946</td>
+                            <td>KILIMANJARO DRINKING WATER</td>
+                            <td>500</td>
+                            <td>1,000.00</td>
+                            <td>1,000.00</td>
+                            <td>5,000,000.00</td>
+                            <td>5,000,000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
 </div>
