@@ -3,12 +3,12 @@
       <h3 class="panel-title">Product Master</h3>
     </div>
     <div class="panel-body">
-        <form class="form form-horizontal" [formGroup]="productForm" (ngSubmit)="saveProductInfo()">
+        <form class="form form-horizontal" [formGroup]="productForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <div class="">
-                        <button name="newItem" [formControl]="newItem" class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> New Item</button>..  
-                        <button name="searchItem" [formControl]="searchItem" (click)="search()" class="btn btn-warning"><span class="glyphicon glyphicon-search"></span> Search Item</button>  
+                        <button name="newItem"  class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> New Item</button>..  
+                        <button name="searchItem"  class="btn btn-warning"><span class="glyphicon glyphicon-search"></span> Search Item</button>  
                     </div>
                 </div>
             </div>
@@ -17,32 +17,32 @@
                 <div class="col-sm-12 well">
                     <div class="row">
                         <div class="col-sm-2">Primary Barcode</div>
-                        <div class="col-sm-9"><input type="text" name="primaryBarcode" [formControl]="primaryBarcode" class="form-control" placeholder="--Primary Barcode--"></div>
+                        <div class="col-sm-9"><input type="text" name="primaryBarcode" formControlName="primaryBarcode" class="form-control" placeholder="--Primary Barcode--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Item Code</div>
-                        <div class="col-sm-9"><input type="text" name="itemCode" [formControl]="itemCode" ngDefaultControl class="form-control" placeholder="--Item Code--"></div>
+                        <div class="col-sm-9"><input type="text" name="itemCode" formControlName="itemCode" ngDefaultControl class="form-control" placeholder="--Item Code--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Long Description</div>
-                        <div class="col-sm-9"><input type="text" name="longDescription" [formControl]="longDescription" class="form-control" placeholder="--Long Description--"></div>
+                        <div class="col-sm-9"><input type="text" name="longDescription" formControlName="longDescription" class="form-control" placeholder="--Long Description--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Short Description</div>
-                        <div class="col-sm-9"><input type="text" name="shortDescription" [formControl]="shortDescription" class="form-control" placeholder="--Short Description--"></div>
+                        <div class="col-sm-9"><input type="text" name="shortDescription" formControlName="shortDescription" class="form-control" placeholder="--Short Description--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Pack Size</div>
-                        <div class="col-sm-9"><input type="text" name="packSize" [formControl]="packSize" class="form-control" placeholder="--Pack Size--"></div>
+                        <div class="col-sm-9"><input type="text" name="packSize" formControlName="packSize" class="form-control" placeholder="--Pack Size--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Supplier</div>
-                        <div class="col-sm-9"><input type="text" name="supplier" [formControl]="supplier" class="form-control" placeholder="--Supplier--"></div>
+                        <div class="col-sm-9"><input type="text" name="supplier" formControlName="supplier" class="form-control" placeholder="--Supplier--"></div>
                     </div>
                 </div>
             </div>
@@ -50,48 +50,48 @@
                 <div class="col-sm-6 well">
                     <div class="row">
                         <div class="col-sm-3">Department</div>
-                        <div class="col-sm-9"><input type="text" name="supplier" [formControl]="supplier" class="form-control" placeholder="--Department--"></div>
+                        <div class="col-sm-9"><input type="text" name="supplier" formControlName="supplier" class="form-control" placeholder="--Department--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Class</div>
-                        <div class="col-sm-9"><input type="text" name="_class" [formControl]="_class" class="form-control" placeholder="--Class--"></div>
+                        <div class="col-sm-9"><input type="text" name="_class" formControlName="_class" class="form-control" placeholder="--Class--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Sub Class</div>
-                        <div class="col-sm-9"><input type="text" name="subClass" [formControl]="subClass" class="form-control" placeholder="--Sub Class--"></div>
+                        <div class="col-sm-9"><input type="text" name="subClass" formControlName="subClass" class="form-control" placeholder="--Sub Class--"></div>
                     </div>
                 </div>
                 <div class="col-sm-6 well">
                     <div class="row">
                         <div class="col-sm-3">Cost Price @</div>
-                        <div class="col-sm-9"><input type="text" name="costPrice" [formControl]="costPrice" class="form-control" placeholder="--Cost Price @--"></div>
+                        <div class="col-sm-9"><input type="text" name="costPrice" formControlName="costPrice" class="form-control" placeholder="--Cost Price @--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Retail Price @</div>
-                        <div class="col-sm-9"><input type="text" name="retailPrice" [formControl]="retailPrice" class="form-control" placeholder="--Retail Price @--"></div>
+                        <div class="col-sm-9"><input type="text" name="retailPrice" formControlName="retailPrice" class="form-control" placeholder="--Retail Price @--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Profit Margin(%)</div>
-                        <div class="col-sm-9"><input type="text" name="profitMargin" [formControl]="profitMargin" class="form-control" placeholder="--Profit Margin--"></div>
+                        <div class="col-sm-9"><input type="text" name="profitMargin" formControlName="profitMargin" class="form-control" placeholder="--Profit Margin--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Standard UOM</div>
-                        <div class="col-sm-9"><input type="text" name="standardUOM" [formControl]="standardUOM" class="form-control" placeholder="--Standard UOM--"></div>
+                        <div class="col-sm-9"><input type="text" name="standardUom" formControlName="standardUom" class="form-control" placeholder="--Standard UOM--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">VAT(%)</div>
-                        <div class="col-sm-9"><input type="text" name="vat" [formControl]="vat" class="form-control" placeholder="--VAT(%)--"></div>
+                        <div class="col-sm-9"><input type="text" name="vat" formControlName="vat" class="form-control" placeholder="--VAT(%)--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Discount(%)</div>
-                        <div class="col-sm-9"><input type="text" name="discount" [formControl]="discount" class="form-control" placeholder="--Discount(%)--"></div>
+                        <div class="col-sm-9"><input type="text" name="discount" formControlName="discount" class="form-control" placeholder="--Discount(%)--"></div>
                     </div>
                 </div>
             </div>
@@ -99,9 +99,9 @@
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <div class="">
-                        <button type="submit" name="saveItem" [formControl]="saveItem" class="btn btn-success"><span class="glyphicon glyphicon-save-file"></span> Save Item</button>..  
-                        <button type="reset" name="reset" [formControl]="reset" class="btn btn-warning"><span class="glyphicon glyphicon-refresh"></span> Reset Form</button>..  
-                        <button type="" name="deleteItem" [formControl]="deleteItem" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Item</button>  
+                        <button type="submit" name="saveItem" class="btn btn-success"><span class="glyphicon glyphicon-save-file"></span> Save Item</button>..  
+                        <button type="reset" name="reset" class="btn btn-warning"><span class="glyphicon glyphicon-refresh"></span> Reset Form</button>..  
+                        <button type="" name="deleteItem" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Item</button>  
                     </div>
                 </div>
             </div> 
