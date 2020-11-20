@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class ItemService {
 
-  private baseUrl = (new AppComponent).baseUrl
+  private baseUrl = AppComponent.baseUrl
 
   constructor(private httpClient: HttpClient) { }
 
