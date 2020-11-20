@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpErrorInterceptor } from './http-error.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 
 
@@ -124,7 +126,13 @@ import { UserLoginComponent } from './user-login/user-login.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    //{
+      //provide: HTTP_INTERCEPTORS,
+      //useClass: HttpErrorInterceptor,
+      //multi: true
+    //}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

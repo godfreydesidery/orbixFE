@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'orbix3';
+  public static baseUrl = "http://localhost:8080";
 }

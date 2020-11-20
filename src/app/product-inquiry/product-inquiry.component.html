@@ -7,136 +7,179 @@
             <div class="row">
                 <div class="col-sm-2">
                     Item Code 
-                    <input type="text" class="form-control">
+                    <input type="hidden" name="id" [(ngModel)]="id">
+                    <input type="text" name="itemCode" [(ngModel)]="itemCode" class="form-control">
                 </div>
                 <div class="col-sm-2">
                     Barcode
-                    <input type="text" class="form-control">
+                    <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control">
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     Description
-                    <input type="text" class="form-control">
+                    <input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control">
                 </div>
-                <div class="col-sm-2">
-                    <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search</button>
+                <div class="col-sm-4">
+                    <br>
+                    <button type="button" (click)="searchItem()" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search</button>..
+                    <button type="button" (click)="clear()" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Clear</button>
                 </div>
             </div>
         </form>
         <hr>
         <div class="row">
             <div class="col-sm-2">
-                Item Code:
+                <b>Item Code:</b>
             </div>
             <div class="col-sm-6">
-                21659236
+                {{itemCode}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Barcode:
+                <b>Barcode:</b>
             </div>
             <div class="col-sm-6">
-                25497454464596156
+                {{primaryBarcode}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Long Description:
+                <b>Long Description:</b>
             </div>
             <div class="col-sm-6">
-                LINGUINI FRESH FRUIT SALAD SOUP
+                {{longDescription}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Short Description:
+                <b>Short Description:</b>
             </div>
             <div class="col-sm-6">
-                LINGUINI SOUP
+                {{shortDescription}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Pack Size:
+                <b>Pack Size:</b>
             </div>
             <div class="col-sm-6">
-                N/A
+                {{packSize}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Supplier:
+                <b>Supplier:</b>
             </div>
             <div class="col-sm-6">
-                ANDE AND SANILI FOOD PRODUCTS
+                {{supplier}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Dept:
+                <b>Dept:</b>
             </div>
             <div class="col-sm-2">
-                Food and Beverages
+                {{department}}
             </div>
             <div class="col-sm-2">
-                Class:
+                <b>Class:</b>
             </div>
             <div class="col-sm-2">
-                Food and Beverages
+                {{_class}}
             </div>
             <div class="col-sm-2">
-                Sub Class:
+                <b>Sub Class:</b>
             </div>
             <div class="col-sm-2">
-                Food and Beverages
+                {{subClass}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Cost Price @:
+                <b>Cost Price @:</b>
             </div>
             <div class="col-sm-6">
-                12,000.00
+                {{unitCostPrice}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Retail Price @:
+                <b>Retail Price @:</b>
             </div>
             <div class="col-sm-6">
-                15,000.00
+                {{unitRetailPrice}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Profit Margin(%):
+                <b>Profit Margin(%):</b>
             </div>
             <div class="col-sm-6">
-                25
+                {{profitMargin}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Standard UOM:
+                <b>Standard UOM:</b>
             </div>
             <div class="col-sm-6">
-                PCS
+                {{standardUom}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                VAT(%):
+                <b>VAT(%):</b>
             </div>
             <div class="col-sm-6">
-                18
+                {{vat}}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
-                Discount(%):
+                <b>Discount(%):</b>
             </div>
             <div class="col-sm-6">
-                0.0
+                {{discount}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <b>Quantity:</b>
+            </div>
+            <div class="col-sm-6">
+                {{quantity}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <b>Maximum Inventory:</b>
+            </div>
+            <div class="col-sm-6">
+                {{maximumInventory}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <b>Minimum Inventory:</b>
+            </div>
+            <div class="col-sm-6">
+                {{minimumInventory}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <b>Default Re Order Level:</b>
+            </div>
+            <div class="col-sm-6">
+                {{defaultReOrderLevel}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <b>Re Order Quantity:</b>
+            </div>
+            <div class="col-sm-6">
+                {{reOrderQuantity}}
             </div>
         </div>
     </div>

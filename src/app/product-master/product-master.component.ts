@@ -1,192 +1,345 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { interval } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { AppComponent } from'../app.component'
+import { ItemService } from '../item.service'
 import { Observable } from 'rxjs';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { StatusbarComponent } from '../statusbar/statusbar.component';
+import { delay, retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-master',
   templateUrl: './product-master.component.html',
   styleUrls: ['./product-master.component.css']
 })
+
+
 export class ProductMasterComponent implements OnInit {
+  //base url
+  private baseUrl = AppComponent.baseUrl
+  /**
+   * field variables
+   */
+  id
+  primaryBarcode
+  itemCode
+  longDescription
+  shortDescription
+  ingredients
+  packSize
+  supplier
+  department
+  _class
+  subClass
+  unitCostPrice
+  unitRetailPrice
+  profitMargin
+  standardUom
+  vat       
+  discount
+  quantity
+  maximumInventory
+  minimumInventory
+  defaultReOrderLevel
+  reOrderQuantity
 
-  private apiurl = "http://localhost:8080/test";
-  productForm : FormGroup;
-  submitted = false;
-  success = false;
-
-  constructor(private httpClient: HttpClient , private formBuilder :FormBuilder) {
-    this.productForm = this.formBuilder.group({
-      primaryBarcode   : [''],
-      itemCode         : [''],
-      longDescription  : [''],
-      shortDescription : [''],
-      packSize         : [''],
-      supplier         : [''],
-      department       : [''],
-      _class           : [''],
-      subClass         : [''],
-      costPrice        : [''],
-      retailPrice      : [''],
-      profitMargin     : [''],
-      standardUom      : [''],
-      vat              : [''],
-      discount         : ['']
-    })
+  constructor(private httpClient: HttpClient ) {
+    this.id               ='';
+    this.primaryBarcode   ='';
+    this.itemCode         ='';
+    this.longDescription  ='';
+    this.shortDescription ='';
+    this.ingredients      ='';
+    this.packSize         ='';
+    this.supplier         ='';
+    this.department       ='';
+    this._class           ='';
+    this.subClass         ='';
+    this.unitCostPrice    ='';
+    this.unitRetailPrice  ='';
+    this.profitMargin     ='';
+    this.standardUom      ='';
+    this.vat              ='';
+    this.discount         ='';
+    this.quantity         ='';
+    this.maximumInventory ='';
+    this.minimumInventory ='';
+    this.defaultReOrderLevel='';
+    this.reOrderQuantity  ='';
   }
 
   getItemData(){
+    /**
+     * gets item data from inputs
+     */
     var itemData = {
-      primaryBarcode   : this.productForm.get('primaryBarcode').value,
-      itemCode         : this.productForm.get('itemCode').value,
-      longDescription  : this.productForm.get('longDescription').value,
-      shortDescription : this.productForm.get('shortDescription').value,
-      packSize         : this.productForm.get('packSize').value,
-      supplier         : this.productForm.get('supplier').value,
-      department       : this.productForm.get('department').value,
-      _class           : this.productForm.get('_class').value,
-      subClass         : this.productForm.get('subClass').value,
-      unitCostPrice        : this.productForm.get('costPrice').value,
-      unitRetailPrice      : this.productForm.get('retailPrice').value,
-      profitMargin     : this.productForm.get('profitMargin').value,
-      standardUom      : this.productForm.get('standardUom').value,
-      vat              : this.productForm.get('vat').value,
-      discount         : this.productForm.get('discount').value
+      id                  : this.id,
+      primaryBarcode      : this.primaryBarcode,
+      itemCode            : this.itemCode,
+      longDescription     : this.longDescription,
+      shortDescription    : this.shortDescription,
+      ingredients         : this.ingredients,
+      packSize            : this.packSize,
+      supplier            : this.supplier,
+      department          : this.department,
+      _class              : this._class,
+      subClass            : this.subClass,
+      unitCostPrice       : this.unitCostPrice,
+      unitRetailPrice     : this.unitRetailPrice,
+      profitMargin        : this.profitMargin,
+      standardUom         : this.standardUom,
+      vat                 : this.vat,
+      discount            : this.discount,
+      quantity            : this.quantity,
+      maximumInventory    : this.maximumInventory,
+      minimumInventory    : this.minimumInventory,
+      defaultReOrderLevel : this.defaultReOrderLevel,
+      reOrderQuantity     : this.reOrderQuantity
     }
     return itemData;
   }
 
-  onSubmit(){
-    if(this.productForm.invalid){
-      alert('Invalid input')
-      return;
-    }
-    this.success = true;
-    this.httpClient.post(this.apiurl,this.getItemData())
-    .toPromise()
-    .then((data : any )=>console.log(data))
-    .catch((err : HttpErrorResponse)=>console.error(err.error));
-
+  clear(){
+    /**
+     * clear the fields
+     */
+    this.id               ='';
+    this.primaryBarcode   ='';
+    this.itemCode         ='';
+    this.longDescription  ='';
+    this.shortDescription ='';
+    this.ingredients      ='';
+    this.packSize         ='';
+    this.supplier         ='';
+    this.department       ='';
+    this._class           ='';
+    this.subClass         ='';
+    this.unitCostPrice    ='';
+    this.unitRetailPrice  ='';
+    this.profitMargin     ='';
+    this.standardUom      ='';
+    this.vat              ='';
+    this.discount         ='';
+    this.quantity         ='';
+    this.maximumInventory ='';
+    this.minimumInventory ='';
+    this.defaultReOrderLevel='';
+    this.reOrderQuantity  ='';
   }
 
-  ngOnInit(): void {};
+  showItem(item){
+    
+    /**
+     * render item information for display, these are displayed 
+     * automatically using two way data binding
+     */
+    this.id                   = item['id']
+    this.primaryBarcode       = item['primaryBarcode']
+    this.itemCode             = item['itemCode']
+    this.longDescription      = item['longDescription']
+    this.shortDescription     = item['shortDescription']
+    this.ingredients          = item['ingredients']
+    this.packSize             = item['packSize']
+    this.supplier             = item['supplier']
+    this.department           = item['department']
+    this._class               = item['_class']
+    this.subClass             = item['subClass']
+    this.unitCostPrice        = item['unitCostPrice']
+    this.unitRetailPrice      = item['unitRetailPrice']
+    this.profitMargin         = item['profitMargin']
+    this.standardUom          = item['standardUom']
+    this.vat                  = item['vat']
+    this.discount             = item['discount']
+    this.quantity             = item['quantity']
+    this.maximumInventory     = item['maximumInventory']
+    this.minimumInventory     = item['minimumInventory']
+    this.defaultReOrderLevel  = item['defaultReOrderLevel']
+    this.reOrderQuantity      = item['reOrderQuantity']
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //control fields from the product form
-  newItem          = new FormControl('');
-  searchItem       = new FormControl('');
-  saveItem         = new FormControl('');
-  reset            = new FormControl('');
-  deleteItem       = new FormControl('');
-
-  primaryBarcode   = new FormControl('');
-  itemCode         = new FormControl('');
-  longDescription  = new FormControl('');
-  shortDescription = new FormControl('');
-  packSize         = new FormControl('');
-  supplier         = new FormControl('');
-  department       = new FormControl('');
-  _class           = new FormControl('');
-  subClass         = new FormControl('');
-  costPrice        = new FormControl('');
-  retailPrice      = new FormControl('');
-  profitMargin     = new FormControl('');
-  standardUOM      = new FormControl('');
-  vat              = new FormControl('');
-  discount         = new FormControl('');
-  
-  
-  
 
   
+  async getItem (id) {
+    /**
+     * gets item details with a specified id from datastore
+     */
+    this.clear
+    var item = {}
+    await this.httpClient.get(this.baseUrl+"/items/"+id)
+    .toPromise()
+    .then(
+      data=>{
+        item=data
+        console.log(item)
+      },
+      error=>{
+        if(error['status']==404){
 
+        }else if (error['status']==400){
+          window.alert('Bad request, undefined operation!')
+        }
+        console.log(error)
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    return item
+  }
 
-
-
-
-
-
-
-/*
-
-
-  productForm = new FormGroup({
-    //itemCode: new FormControl(''),
-  });
-
- 
-  search() {
-    alert(this.itemCode.value)
-  };
-  
-  
-
-
-  saveProductInfo()  {
-    var item = {
-      "primaryBarcode"    :this.primaryBarcode.value,
-      "itemCode"          :this.itemCode.value,
-      "longDescription"   :this.longDescription.value,
-      "shortDescription"  :this.shortDescription.value,
-      "packSize"          :this.packSize.value,
-      "supplier"          :this.supplier.value,
-      "department"        :this.department.value,
-      "_class"            :this._class.value,
-      "subClass"          :this.subClass.value,
-      "costPrice"         :this.costPrice.value,
-      "retailPrice"       :this.retailPrice.value,
-      "profitMargin"      :this.profitMargin.value,
-      "standardUOM"       :this.standardUOM.value,
-      "vat"               :this.vat.value,
-      "discount"          :this.discount.value
+  validateData(){
+    /**
+     * validates user inputs
+     * return false if validation fails
+     */
+    var valid : boolean = true
+    if(this.primaryBarcode == ''){
+      valid = false
+      window.alert('Barcode required')
+      return valid
     }
+    if(this.itemCode == ''){
+      valid = false
+      window.alert('Item code required')
+      return valid
+    }
+    if(this.longDescription == ''){
+      valid = false
+      window.alert('Long Description required')
+      return valid
+    }
+    if(this.shortDescription == ''){
+      valid = false
+      window.alert('Short Description required')
+      return valid
+    }
+    if(isNaN(this.packSize)){
+      valid = false
+      window.alert('Invalid pack size\nPack size should be a whole number')
+      return valid
+    }
+    
+    return valid
+  }
 
+  saveItem() { 
+    /**
+     * create or update an item
+     * first, check validation
+     */
+    if(this.validateData()==true){
+      if( this.id == '' || this.id == null || this.id == 0 ) {
+        //save a new item
+        this.httpClient.post(this.baseUrl + "/items" , this.getItemData())
+        .subscribe(
+          data=>{
+            window.alert('Item created successifully')
+            console.log(data)
+            this.id=data['id']
+          },
+          error=>{
+            console.log(error)
+          }
+        )
+      } else {
+        //update an existing item
+        this.httpClient.put(this.baseUrl + "/items/" + this.id , this.getItemData())
+        .subscribe(
+          data=>{
+            window.alert('Item updated successifully')
+            console.log(data)
+            this.id=data['id']
+          },
+          error=>{
+            console.log(error)
+          }
+        )
+      }  
+    }
+  }
 
+  async getItemId(barcode , itemCode , description){
+    /**
+     * gets item id given barcode, itemcode or description
+     * on preference basis
+     */
+    var id ='' 
+    if(barcode!='' && barcode!=null){
+      await this.httpClient.get(this.baseUrl+"/items/primary_barcode="+barcode)
+      .toPromise()
+      .then(
+        data=>{
+          id=data['id']
+        }
+      )
+      .catch(
+        error=>{}
+      )
+    }else if (itemCode!='' && itemCode!=null){
+      await this.httpClient.get(this.baseUrl+"/items/item_code="+itemCode)
+      .toPromise()
+      .then(
+        data=>{
+          id=data['id']
+        }
+      )
+      .catch(
+        error=>{}
+      )
+    }else{
+      await this.httpClient.get(this.baseUrl+"/items/long_description="+description)
+      .toPromise()
+      .then(
+        data=>{
+          id=data['id']
+        }
+      )
+      .catch(
+        error=>{}
+      )
+    }
+    return id
+  }
 
-    return this.httpClient.post<any>(this.apiurl, item);
+  async searchItem() { 
+    /**
+     * search item by id
+     * gets id from getItemId
+     */
+    var itemId=''
+    itemId = await this.getItemId(this.primaryBarcode,this.itemCode,this.longDescription)
+    if(itemId==''||itemId==null){
+      alert('No matching record')
+    }else{
+      var item
+      item =await this.getItem(itemId)
+      console.log(item)
+      this.showItem(item)
+    }
+  }
+  deleteItem() { 
+    /**
+     * delete an item given its id
+     */
+    var id = this.id
+    this.httpClient.delete(this.baseUrl+"/items/"+id)
+    .subscribe(
+      data=>{
+        console.log(data)
+        if(data==null){
+          this.clear()
+          alert('Item successifully deleted')
+        }
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+  }
 
-
-    //console.log(JSON.stringify(item))
-    //return this.httpClient.post(this.apiurl,item);
-
-  }*/
   
+
+  ngOnInit(): void {  };
+
 }

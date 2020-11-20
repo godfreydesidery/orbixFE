@@ -3,46 +3,53 @@
       <h3 class="panel-title">Product Master</h3>
     </div>
     <div class="panel-body">
-        <form class="form form-horizontal" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <form class="form form-horizontal">
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <div class="">
-                        <button name="newItem"  class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> New Item</button>..  
-                        <button name="searchItem"  class="btn btn-warning"><span class="glyphicon glyphicon-search"></span> Search Item</button>  
+                        <button type="reset" name="newItem"  class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> New Item</button>..  
+                        <button type="button" (click)="searchItem()" name="searchItem"  class="btn btn-warning"><span class="glyphicon glyphicon-search"></span> Search Item</button>  
                     </div>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-sm-12 well">
+                    <input type="hidden" name="id" [(ngModel)]="id">
+                    <br>
                     <div class="row">
                         <div class="col-sm-2">Primary Barcode</div>
-                        <div class="col-sm-9"><input type="text" name="primaryBarcode" formControlName="primaryBarcode" class="form-control" placeholder="--Primary Barcode--"></div>
+                        <div class="col-sm-9"><input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Primary Barcode--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Item Code</div>
-                        <div class="col-sm-9"><input type="text" name="itemCode" formControlName="itemCode" ngDefaultControl class="form-control" placeholder="--Item Code--"></div>
+                        <div class="col-sm-9"><input type="text" name="itemCode" [(ngModel)]="itemCode" ngDefaultControl class="form-control" placeholder="--Item Code--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Long Description</div>
-                        <div class="col-sm-9"><input type="text" name="longDescription" formControlName="longDescription" class="form-control" placeholder="--Long Description--"></div>
+                        <div class="col-sm-9"><input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control" placeholder="--Long Description--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Short Description</div>
-                        <div class="col-sm-9"><input type="text" name="shortDescription" formControlName="shortDescription" class="form-control" placeholder="--Short Description--"></div>
+                        <div class="col-sm-9"><input type="text" name="shortDescription" [(ngModel)]="shortDescription" class="form-control" placeholder="--Short Description--"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2">Ingredients</div>
+                        <div class="col-sm-9"><input type="text" name="ingredients" [(ngModel)]="ingredients" class="form-control" placeholder="--Ingredients--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Pack Size</div>
-                        <div class="col-sm-9"><input type="text" name="packSize" formControlName="packSize" class="form-control" placeholder="--Pack Size--"></div>
+                        <div class="col-sm-9"><input type="text" name="packSize" [(ngModel)]="packSize" class="form-control" placeholder="--Pack Size--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Supplier</div>
-                        <div class="col-sm-9"><input type="text" name="supplier" formControlName="supplier" class="form-control" placeholder="--Supplier--"></div>
+                        <div class="col-sm-9"><input type="text" name="supplier" [(ngModel)]="supplier" class="form-control" placeholder="--Supplier--"></div>
                     </div>
                 </div>
             </div>
@@ -50,48 +57,76 @@
                 <div class="col-sm-6 well">
                     <div class="row">
                         <div class="col-sm-3">Department</div>
-                        <div class="col-sm-9"><input type="text" name="supplier" formControlName="supplier" class="form-control" placeholder="--Department--"></div>
+                        <div class="col-sm-9"><input type="text" name="datartment" [(ngModel)]="department" class="form-control" placeholder="--Department--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Class</div>
-                        <div class="col-sm-9"><input type="text" name="_class" formControlName="_class" class="form-control" placeholder="--Class--"></div>
+                        <div class="col-sm-9"><input type="text" name="_class" [(ngModel)]="_class" class="form-control" placeholder="--Class--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Sub Class</div>
-                        <div class="col-sm-9"><input type="text" name="subClass" formControlName="subClass" class="form-control" placeholder="--Sub Class--"></div>
+                        <div class="col-sm-9"><input type="text" name="subClass" [(ngModel)]="subClass" class="form-control" placeholder="--Sub Class--"></div>
                     </div>
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-sm-3">Quantity</div>
+                        <div class="col-sm-9"><input type="text" name="quantity" [(ngModel)]="quantity" class="form-control" placeholder="--Quantity--"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">Maximum Inventory</div>
+                        <div class="col-sm-9"><input type="text" name="maximumInventory" [(ngModel)]="maximumInventory" class="form-control" placeholder="--Maximum Inventory--"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">Minimum Inventory</div>
+                        <div class="col-sm-9"><input type="text" name="minimumInventory" [(ngModel)]="minimumInventory" class="form-control" placeholder="--Minimum Inventory--"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">Default Re-Order Level</div>
+                        <div class="col-sm-9"><input type="text" name="defaultReOrderLevel" [(ngModel)]="defaultReOrderLevel" class="form-control" placeholder="--Default Re Order Level--"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">Re Order quantity</div>
+                        <div class="col-sm-9"><input type="text" name="reOrderQuantity" [(ngModel)]="reOrderQuantity" class="form-control" placeholder="--Re Order Quantity--"></div>
+                    </div>
+
                 </div>
                 <div class="col-sm-6 well">
                     <div class="row">
                         <div class="col-sm-3">Cost Price @</div>
-                        <div class="col-sm-9"><input type="text" name="costPrice" formControlName="costPrice" class="form-control" placeholder="--Cost Price @--"></div>
+                        <div class="col-sm-9"><input type="text" name="unitCostPrice" [(ngModel)]="unitCostPrice" class="form-control" placeholder="--Cost Price @--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Retail Price @</div>
-                        <div class="col-sm-9"><input type="text" name="retailPrice" formControlName="retailPrice" class="form-control" placeholder="--Retail Price @--"></div>
+                        <div class="col-sm-9"><input type="text" name="unitRetailPrice" [(ngModel)]="unitRetailPrice" class="form-control" placeholder="--Retail Price @--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Profit Margin(%)</div>
-                        <div class="col-sm-9"><input type="text" name="profitMargin" formControlName="profitMargin" class="form-control" placeholder="--Profit Margin--"></div>
+                        <div class="col-sm-9"><input type="text" name="profitMargin" [(ngModel)]="profitMargin" class="form-control" placeholder="--Profit Margin--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Standard UOM</div>
-                        <div class="col-sm-9"><input type="text" name="standardUom" formControlName="standardUom" class="form-control" placeholder="--Standard UOM--"></div>
+                        <div class="col-sm-9"><input type="text" name="standardUom" [(ngModel)]="standardUom" class="form-control" placeholder="--Standard UOM--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">VAT(%)</div>
-                        <div class="col-sm-9"><input type="text" name="vat" formControlName="vat" class="form-control" placeholder="--VAT(%)--"></div>
+                        <div class="col-sm-9"><input type="text" name="vat" [(ngModel)]="vat" class="form-control" placeholder="--VAT(%)--"></div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-3">Discount(%)</div>
-                        <div class="col-sm-9"><input type="text" name="discount" formControlName="discount" class="form-control" placeholder="--Discount(%)--"></div>
+                        <div class="col-sm-9"><input type="text" name="discount" [(ngModel)]="discount" class="form-control" placeholder="--Discount(%)--"></div>
                     </div>
                 </div>
             </div>
@@ -99,9 +134,9 @@
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <div class="">
-                        <button type="submit" name="saveItem" class="btn btn-success"><span class="glyphicon glyphicon-save-file"></span> Save Item</button>..  
+                        <button type="submit" name="saveItem" (click)="saveItem()" class="btn btn-success"><span class="glyphicon glyphicon-save-file"></span> Save Item</button>..  
                         <button type="reset" name="reset" class="btn btn-warning"><span class="glyphicon glyphicon-refresh"></span> Reset Form</button>..  
-                        <button type="" name="deleteItem" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Item</button>  
+                        <button type="button" (click)="deleteItem()" name="deleteItem" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Item</button>  
                     </div>
                 </div>
             </div> 
