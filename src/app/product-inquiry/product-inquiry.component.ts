@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { Data } from '../data';
+import * as bootstrap from "bootstrap";
+import * as $ from "jquery";
 
 
 @Component({
@@ -65,36 +68,53 @@ export class ProductInquiryComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
   }
 
-  searchItem() { 
-    //search item
-    this.id = '' //clear the field id
-    var itemId = this.getItemId(this.primaryBarcode,this.longDescription) //gets the field id from specified record
-    this.getItem(itemId) //search the record by id
+  async searchItem() { 
+    /**
+     * search item by id
+     * gets id from getItemId
+     */
+    var itemId=''
+    itemId = await (new ItemService(this.httpClient)).getItemId(this.primaryBarcode,this.itemCode,this.longDescription)
+    if(itemId==''||itemId==null){
+      alert('No matching record')
+    }else{
+      var item
+      item =await (new ItemService(this.httpClient)).getItem(itemId)
+      console.log(item)
+      this.showItem(item)
+    }
   }
-  getItem (id) {
-    //gets item details with the specified id from datastore
-    this.httpClient.get(this.baseUrl+"/items/"+id)
-    .subscribe(
+  async getItem (id) {
+    /**
+     * gets item details with a specified id from datastore
+     */
+    this.clear
+    var item = {}
+    await this.httpClient.get(Data.baseUrl+"/items/"+id)
+    .toPromise()
+    .then(
       data=>{
-        this.showItem(data)
+        item=data
+        console.log(item)
       },
       error=>{
         if(error['status']==404){
-          window.alert('No matching record')
+
         }else if (error['status']==400){
           window.alert('Bad request, undefined operation!')
         }
         console.log(error)
       }
     )
-  }
-  getItemId(barcode,description){
-    var id=this.primaryBarcode //just for testing, replace by ''
-    //find corresponding item id
-
-    return id;
+    .catch(
+      error=>{
+        alert('Error code: '+error['status'])
+      }
+    )
+    return item
   }
   showItem(item){
     //render item information for display, these are displayed 

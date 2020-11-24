@@ -63,6 +63,7 @@ import { PersonaEnrolmentComponent } from './persona-enrolment/persona-enrolment
 import { TillAdministrationComponent } from './till-administration/till-administration.component';
 import { TillPositionComponent } from './till-position/till-position.component';
 import { UserLoginComponent } from './user-login/user-login.component';
+import { Ng2CompleterModule } from 'ng2-completer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,7 +125,8 @@ import { UserLoginComponent } from './user-login/user-login.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2CompleterModule
   ],
   providers: [
     //{

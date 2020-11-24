@@ -7,6 +7,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { StatusbarComponent } from '../statusbar/statusbar.component';
 import { delay, retry } from 'rxjs/operators';
+import { Data } from '../data';
+import { SupplierService } from '../supplier.service';
+import { Ng2CompleterModule } from 'ng2-completer';
 
 @Component({
   selector: 'app-product-master',
@@ -16,8 +19,8 @@ import { delay, retry } from 'rxjs/operators';
 
 
 export class ProductMasterComponent implements OnInit {
-  //base url
-  private baseUrl = AppComponent.baseUrl
+
+  userData: any[] = ["1","2"];
   /**
    * field variables
    */
@@ -28,7 +31,7 @@ export class ProductMasterComponent implements OnInit {
   shortDescription
   ingredients
   packSize
-  supplier
+  supplierName
   department
   _class
   subClass
@@ -52,7 +55,7 @@ export class ProductMasterComponent implements OnInit {
     this.shortDescription ='';
     this.ingredients      ='';
     this.packSize         ='';
-    this.supplier         ='';
+    this.supplierName         ='';
     this.department       ='';
     this._class           ='';
     this.subClass         ='';
@@ -81,7 +84,7 @@ export class ProductMasterComponent implements OnInit {
       shortDescription    : this.shortDescription,
       ingredients         : this.ingredients,
       packSize            : this.packSize,
-      supplier            : this.supplier,
+      supplier            :{supplierName    : this.supplierName},
       department          : this.department,
       _class              : this._class,
       subClass            : this.subClass,
@@ -104,28 +107,28 @@ export class ProductMasterComponent implements OnInit {
     /**
      * clear the fields
      */
-    this.id               ='';
-    this.primaryBarcode   ='';
-    this.itemCode         ='';
-    this.longDescription  ='';
-    this.shortDescription ='';
-    this.ingredients      ='';
-    this.packSize         ='';
-    this.supplier         ='';
-    this.department       ='';
-    this._class           ='';
-    this.subClass         ='';
-    this.unitCostPrice    ='';
-    this.unitRetailPrice  ='';
-    this.profitMargin     ='';
-    this.standardUom      ='';
-    this.vat              ='';
-    this.discount         ='';
-    this.quantity         ='';
-    this.maximumInventory ='';
-    this.minimumInventory ='';
-    this.defaultReOrderLevel='';
-    this.reOrderQuantity  ='';
+    this.id                  ='';
+    this.primaryBarcode      ='';
+    this.itemCode            ='';
+    this.longDescription     ='';
+    this.shortDescription    ='';
+    this.ingredients         ='';
+    this.packSize            ='';
+    this.supplierName            ='';
+    this.department          ='';
+    this._class              ='';
+    this.subClass            ='';
+    this.unitCostPrice       ='';
+    this.unitRetailPrice     ='';
+    this.profitMargin        ='';
+    this.standardUom         ='';
+    this.vat                 ='';
+    this.discount            ='';
+    this.quantity            ='';
+    this.maximumInventory    ='';
+    this.minimumInventory    ='';
+    this.defaultReOrderLevel ='';
+    this.reOrderQuantity     ='';
   }
 
   showItem(item){
@@ -141,7 +144,7 @@ export class ProductMasterComponent implements OnInit {
     this.shortDescription     = item['shortDescription']
     this.ingredients          = item['ingredients']
     this.packSize             = item['packSize']
-    this.supplier             = item['supplier']
+    this.supplierName             = item['supplierName']
     this.department           = item['department']
     this._class               = item['_class']
     this.subClass             = item['subClass']
@@ -156,36 +159,6 @@ export class ProductMasterComponent implements OnInit {
     this.minimumInventory     = item['minimumInventory']
     this.defaultReOrderLevel  = item['defaultReOrderLevel']
     this.reOrderQuantity      = item['reOrderQuantity']
-  }
-
-
-  
-  async getItem (id) {
-    /**
-     * gets item details with a specified id from datastore
-     */
-    this.clear
-    var item = {}
-    await this.httpClient.get(this.baseUrl+"/items/"+id)
-    .toPromise()
-    .then(
-      data=>{
-        item=data
-        console.log(item)
-      },
-      error=>{
-        if(error['status']==404){
-
-        }else if (error['status']==400){
-          window.alert('Bad request, undefined operation!')
-        }
-        console.log(error)
-      }
-    )
-    .catch(
-      error=>{}
-    )
-    return item
   }
 
   validateData(){
@@ -229,9 +202,11 @@ export class ProductMasterComponent implements OnInit {
      * first, check validation
      */
     if(this.validateData()==true){
+      var item = this.getItemData()
+      //item['supplier_id'] = (new SupplierService(this.httpClient)).getSupplierId(null,this.supplier)
       if( this.id == '' || this.id == null || this.id == 0 ) {
         //save a new item
-        this.httpClient.post(this.baseUrl + "/items" , this.getItemData())
+        this.httpClient.post(Data.baseUrl + "/items" , item)
         .subscribe(
           data=>{
             window.alert('Item created successifully')
@@ -244,7 +219,7 @@ export class ProductMasterComponent implements OnInit {
         )
       } else {
         //update an existing item
-        this.httpClient.put(this.baseUrl + "/items/" + this.id , this.getItemData())
+        this.httpClient.put(Data.baseUrl + "/items/" + this.id , item)
         .subscribe(
           data=>{
             window.alert('Item updated successifully')
@@ -258,62 +233,19 @@ export class ProductMasterComponent implements OnInit {
       }  
     }
   }
-
-  async getItemId(barcode , itemCode , description){
-    /**
-     * gets item id given barcode, itemcode or description
-     * on preference basis
-     */
-    var id ='' 
-    if(barcode!='' && barcode!=null){
-      await this.httpClient.get(this.baseUrl+"/items/primary_barcode="+barcode)
-      .toPromise()
-      .then(
-        data=>{
-          id=data['id']
-        }
-      )
-      .catch(
-        error=>{}
-      )
-    }else if (itemCode!='' && itemCode!=null){
-      await this.httpClient.get(this.baseUrl+"/items/item_code="+itemCode)
-      .toPromise()
-      .then(
-        data=>{
-          id=data['id']
-        }
-      )
-      .catch(
-        error=>{}
-      )
-    }else{
-      await this.httpClient.get(this.baseUrl+"/items/long_description="+description)
-      .toPromise()
-      .then(
-        data=>{
-          id=data['id']
-        }
-      )
-      .catch(
-        error=>{}
-      )
-    }
-    return id
-  }
-
   async searchItem() { 
     /**
      * search item by id
      * gets id from getItemId
      */
     var itemId=''
-    itemId = await this.getItemId(this.primaryBarcode,this.itemCode,this.longDescription)
+    this.clear
+    itemId = await (new ItemService(this.httpClient)).getItemId(this.primaryBarcode,this.itemCode,this.longDescription)
     if(itemId==''||itemId==null){
       alert('No matching record')
     }else{
       var item
-      item =await this.getItem(itemId)
+      item =await (new ItemService(this.httpClient)).getItem(itemId)
       console.log(item)
       this.showItem(item)
     }
@@ -323,7 +255,7 @@ export class ProductMasterComponent implements OnInit {
      * delete an item given its id
      */
     var id = this.id
-    this.httpClient.delete(this.baseUrl+"/items/"+id)
+    this.httpClient.delete(Data.baseUrl+"/items/"+id)
     .subscribe(
       data=>{
         console.log(data)
