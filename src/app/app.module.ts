@@ -64,6 +64,7 @@ import { TillAdministrationComponent } from './till-administration/till-administ
 import { TillPositionComponent } from './till-position/till-position.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { Ng2CompleterModule } from 'ng2-completer';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,6 +120,7 @@ import { Ng2CompleterModule } from 'ng2-completer';
     TillAdministrationComponent,
     TillPositionComponent,
     UserLoginComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,11 +14,19 @@ import { Ng2CompleterModule } from 'ng2-completer';
 @Component({
   selector: 'app-product-master',
   templateUrl: './product-master.component.html',
-  styleUrls: ['./product-master.component.css']
+  styleUrls: ['./product-master.component.css'],
+
+
 })
 
 
 export class ProductMasterComponent implements OnInit {
+
+
+
+
+
+  
 
   userData: any[] = ["1","2"];
   /**
@@ -84,7 +92,9 @@ export class ProductMasterComponent implements OnInit {
       shortDescription    : this.shortDescription,
       ingredients         : this.ingredients,
       packSize            : this.packSize,
-      supplier            :{supplierName    : this.supplierName},
+      supplier            :{
+                            supplierName:this.supplierName
+                          },
       department          : this.department,
       _class              : this._class,
       subClass            : this.subClass,
@@ -270,7 +280,7 @@ export class ProductMasterComponent implements OnInit {
     )
   }
 
-  
+
 
   ngOnInit(): void {  };
 
