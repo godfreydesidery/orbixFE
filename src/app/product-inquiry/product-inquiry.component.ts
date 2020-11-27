@@ -2,12 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from'../app.component'
 import { ItemService } from '../item.service'
 import { Observable } from 'rxjs';
-
+import { AfterContentInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Data } from '../data';
 import * as bootstrap from "bootstrap";
-import * as $ from "jquery";
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
+import { CompleterService, CompleterData } from 'ng2-completer';
+
+//import * as $ from 'jquery-ui/external/requirejs/require.js';
+
 
 
 @Component({
@@ -42,7 +50,11 @@ export class ProductInquiryComponent implements OnInit {
   defaultReOrderLevel
   reOrderQuantity
 
-  constructor(private httpClient: HttpClient ) {
+  constructor(private httpClient: HttpClient,private completerService: CompleterService ) {
+
+    this.dataService = completerService.local(this.searchData, 'color', 'color');
+
+
     this.id               ='';
     this.primaryBarcode   ='';
     this.itemCode         ='';
@@ -69,6 +81,10 @@ export class ProductInquiryComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  ngAfterContentInit() {
+   
   }
 
   async searchItem() { 
@@ -168,4 +184,29 @@ export class ProductInquiryComponent implements OnInit {
     this.reOrderQuantity  ='';
   }
 
+  
+
+  public searchStr: string;
+  public captain: string;
+  public dataService: CompleterData;
+  public searchData = [
+    { color: 'red', value: '#f00' },
+    { color: 'green', value: '#0f0' },
+    { color: 'blue', value: '#00f' },
+    { color: 'cyan', value: '#0ff' },
+    { color: 'magenta', value: '#f0f' },
+    { color: 'yellow', value: '#ff0' },
+    { color: 'black', value: '#000' }
+  ];
+  public captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett' ];
+ 
+  
+
+
+  
+
+  
+
+
 }
+

@@ -83,6 +83,27 @@ export class SupplierService {
     return id
   } 
 
+  public async  getSuppliersNames (){
+    /**
+     * list suppliers by supplier name attribute
+     */
+    var values: any= new Array()
+    var suppliers: any=['']
+    await this.httpClient.get(Data.baseUrl+"/suppliers/supplier_names")
+    .toPromise()
+    .then(
+      data=>{
+        values = data
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    Object.values(values).map((data)=>{
+      suppliers.push(data)
+    })
+    return suppliers
+  } 
   
 
 }

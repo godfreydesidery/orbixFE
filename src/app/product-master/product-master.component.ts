@@ -10,6 +10,8 @@ import { delay, retry } from 'rxjs/operators';
 import { Data } from '../data';
 import { SupplierService } from '../supplier.service';
 import { Ng2CompleterModule } from 'ng2-completer';
+import { CompleterService, CompleterData } from 'ng2-completer';
+import { Crud } from '../crud';
 
 @Component({
   selector: 'app-product-master',
@@ -20,15 +22,7 @@ import { Ng2CompleterModule } from 'ng2-completer';
 })
 
 
-export class ProductMasterComponent implements OnInit {
-
-
-
-
-
-  
-
-  userData: any[] = ["1","2"];
+export class ProductMasterComponent implements OnInit  {
   /**
    * field variables
    */
@@ -55,6 +49,10 @@ export class ProductMasterComponent implements OnInit {
   defaultReOrderLevel
   reOrderQuantity
 
+  //public items : any =[]
+  public items: string [] = []
+  public suppliers: string [] = []
+
   constructor(private httpClient: HttpClient ) {
     this.id               ='';
     this.primaryBarcode   ='';
@@ -63,7 +61,7 @@ export class ProductMasterComponent implements OnInit {
     this.shortDescription ='';
     this.ingredients      ='';
     this.packSize         ='';
-    this.supplierName         ='';
+    this.supplierName     ='';
     this.department       ='';
     this._class           ='';
     this.subClass         ='';
@@ -78,7 +76,36 @@ export class ProductMasterComponent implements OnInit {
     this.minimumInventory ='';
     this.defaultReOrderLevel='';
     this.reOrderQuantity  ='';
+
+    
   }
+  ngOnInit(): void { 
+    /**
+     * load items description to enable autocomplete
+     */
+    ((new ItemService(this.httpClient)).getItemsLongDescriptions())
+    .then(
+      res=>{
+        Object.values(res).map((longDescription:string)=>{
+          this.items.push(longDescription)
+        })
+      }
+    );
+
+    /**
+     * load supplier names to enable autocomplete
+     */
+    ((new SupplierService(this.httpClient)).getSuppliersNames())
+    .then(
+      res=>{
+        Object.values(res).map((supplierName:string)=>{
+          this.suppliers.push(supplierName)
+        })
+      }
+    );
+
+   }
+  
 
   getItemData(){
     /**
@@ -154,7 +181,7 @@ export class ProductMasterComponent implements OnInit {
     this.shortDescription     = item['shortDescription']
     this.ingredients          = item['ingredients']
     this.packSize             = item['packSize']
-    this.supplierName             = item['supplierName']
+    this.supplierName         = item['supplier'].supplierName
     this.department           = item['department']
     this._class               = item['_class']
     this.subClass             = item['subClass']
@@ -279,9 +306,5 @@ export class ProductMasterComponent implements OnInit {
       }
     )
   }
-
-
-
-  ngOnInit(): void {  };
 
 }

@@ -28,7 +28,7 @@ export class ItemService {
     .then(
       data=>{
         item=data
-        console.log(item)
+        console.log(item['supplier_id'])
       },
       error=>{
         if(error['status']==404){
@@ -89,6 +89,28 @@ export class ItemService {
       )
     }
     return id
+  } 
+
+  public async  getItemsLongDescriptions (){
+    /**
+     * list items by long description attribute
+     */
+    var values: any= new Array()
+    var items: any=['']
+    await this.httpClient.get(Data.baseUrl+"/items/long_descriptions")
+    .toPromise()
+    .then(
+      data=>{
+        values = data
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    Object.values(values).map((data)=>{
+      items.push(data)
+    })
+    return items
   } 
 
   public getCostPrice(id){

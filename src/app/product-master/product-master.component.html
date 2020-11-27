@@ -19,9 +19,18 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Primary Barcode</div>
-                        <div class="col-sm-9"><input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Primary Barcode--"></div>
+                        <div class="col-sm-9">
+                            <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Primary Barcode--">
+                        </div>
                     </div>
                     <br>
+                    <!--<div class="row">
+                        <div class="col-sm-2">Primary Barcode</div>
+                        <div class="col-sm-9">
+                            <ng2-completer name="primaryBarcode" [(ngModel)]="primaryBarcode" [inputClass]="'form-control form-control-inline'" [datasource]="captains" [minSearchLength]="1" placeholder="--Primary Barcode--"></ng2-completer>
+                        </div>
+                    </div>
+                    <br>-->
                     <div class="row">
                         <div class="col-sm-2">Item Code</div>
                         <div class="col-sm-9"><input type="text" name="itemCode" [(ngModel)]="itemCode" ngDefaultControl class="form-control" placeholder="--Item Code--"></div>
@@ -29,7 +38,9 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Long Description</div>
-                        <div class="col-sm-9"><input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control" placeholder="--Long Description--"></div>
+                        <div class="col-sm-9">
+                            <ng2-completer style="width: 100%;" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="1" placeholder="--Long Description--"></ng2-completer>
+                        </div>
                     </div>
                     <br>
                     <div class="row">
@@ -49,7 +60,11 @@
                     <br>
                     <div class="row">
                         <div class="col-sm-2">Supplier</div>
-                        <div class="col-sm-9"><input type="text" name="supplierName" [(ngModel)]="supplierName" class="form-control" placeholder="--Supplier--"></div>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="supplierName" name="supplierName" class="form-control" placeholder="--Supplier--">
+                                <option *ngFor="let supplier of suppliers" [ngValue]="supplier">{{supplier}}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
