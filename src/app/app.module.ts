@@ -65,6 +65,9 @@ import { TillPositionComponent } from './till-position/till-position.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { LoginComponent } from './login/login.component';
+import { DepartmentComponent } from './department/department.component';
+import { ClassComponent } from './class/class.component';
+import { SubClassComponent } from './sub-class/sub-class.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,6 +124,9 @@ import { LoginComponent } from './login/login.component';
     TillPositionComponent,
     UserLoginComponent,
     LoginComponent,
+    DepartmentComponent,
+    ClassComponent,
+    SubClassComponent,
   ],
   imports: [
     BrowserModule,

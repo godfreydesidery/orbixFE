@@ -2,23 +2,24 @@
     <div class="panel-heading">
       <h3 class="panel-title">Product Inquiry</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body well">
         <form class="">
             <div class="row">
                 <div class="col-sm-2">
                     Item Code 
                     <input type="hidden" name="id" [(ngModel)]="id">
-                    <input type="text" id="tags" name="itemCode" [(ngModel)]="itemCode" class="form-control">
+                    <input type="text" id="tags" name="itemCode" [(ngModel)]="itemCode" class="form-control" placeholder="--Item Code--">
                 </div>
                 <div class="col-sm-2">
                     Barcode
-                    <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control">
+                    <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Barcode--">
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     Description
-                    <input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control">
+                    <!--<input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control">-->
+                    <ng2-completer style="width: 100%;" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="1" placeholder="--Long Description--"></ng2-completer>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <br>
                     <button type="button" (click)="searchItem()" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search</button>..
                     <button type="button" (click)="clear()" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Clear</button>

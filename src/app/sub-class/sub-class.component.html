@@ -1,0 +1,70 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Sub Classes</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-2">Sub Class Code</div>
+            <input type="hidden" name="id" [(ngModel)]="id">
+            <div class="col-sm-5"><input type="text" name="subClassCode" [(ngModel)]="subClassCode" class="form-control" placeholder="--Sub Class Code--"></div>
+            <div class="col-sm 7">
+                <button type="reset" name="newSubClass"  class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>..  
+                <button type="button" (click)="searchSubClass()" name="searchSubClass" class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">Sub Class Name</div>
+            <div class="col-sm-10"><input type="text" name="subClassName" [(ngModel)]="subClassName" class="form-control" placeholder="--Sub Class Name--"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">Select Department</div>
+            <div class="col-sm-10">
+                <select name="subClassName" [(ngModel)]="subClassName" class="form-control">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">Select Class</div>
+            <div class="col-sm-10">
+                <select name="subClassName" [(ngModel)]="subClassName" class="form-control">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button type="button" name="saveSubClass" (click)="saveSubClass()" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save / Update</button>..
+                <button type="button" name="deleteSubClass" (click)="deleteSubClass()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>..
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-condensed data-table table-hover">
+                    <thead>
+                        <tr class="info">
+                            <td>Sub Class Code</td>
+                            <td>Sub Class Name</td>
+                            <td>Department</td>
+                            <td>Class</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>AKILI AND COMPANY</td>
+                            <td>Robert Simkoko</td>
+                            <td>Robert Simkoko</td>
+                            <td><a class="glyphicon glyphicon-pencil">Edit</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

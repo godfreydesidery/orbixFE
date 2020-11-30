@@ -49,7 +49,6 @@ export class ProductMasterComponent implements OnInit  {
   defaultReOrderLevel
   reOrderQuantity
 
-  //public items : any =[]
   public items: string [] = []
   public suppliers: string [] = []
 

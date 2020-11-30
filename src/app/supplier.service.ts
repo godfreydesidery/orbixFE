@@ -9,7 +9,7 @@ export class SupplierService {
 
   constructor( private httpClient: HttpClient ) { }
 
-  async getSupplier (id) {
+  async getSupplier (id : any) {
     /**
      * gets supplier details with a specified id from datastore
      */
@@ -19,33 +19,24 @@ export class SupplierService {
     .then(
       data=>{
         supplier=data
-        console.log(supplier)
-      },
-      error=>{
-        if(error['status']==404){
-
-        }else if (error['status']==400){
-          window.alert('Bad request, undefined operation!')
-        }
-        console.log(error)
       }
     )
     .catch(
       error=>{
-        alert('Error code: '+error['status'])
+        console.log(error)
+        alert('Error code: '+error['status']+",  "+error['message'])
       }
     )
     return supplier
   }
 
-  public async getSupplierId (supplierCode , supplierName ){
+  public async getSupplierId (supplierCode :string , supplierName :string){
     /**
-     * gets supplier id given code or name
-     * on preference basis
+     * Get the supplier id for supplier with given supplier code or name
+     * 
      */
-    var id:number = 0 
-    if(supplierCode!='' && supplierCode!=null){
-      
+    var id : null 
+    if(supplierCode !=''){
       await this.httpClient.get(Data.baseUrl+"/suppliers/supplier_code="+supplierCode)
       .toPromise()
       .then(
@@ -54,9 +45,11 @@ export class SupplierService {
         }
       )
       .catch(
-        error=>{}
+        error=>{
+          id = null
+        }
       )
-    }else if (supplierName!='' && supplierName!=null){
+    }else {
       await this.httpClient.get(Data.baseUrl+"/suppliers/supplier_name="+supplierName)
       .toPromise()
       .then(
@@ -65,21 +58,11 @@ export class SupplierService {
         }
       )
       .catch(
-        error=>{}
-      )
-    }else{
-      await this.httpClient.get(Data.baseUrl+"/suppliers/supplier_name="+supplierName)
-      .toPromise()
-      .then(
-        data=>{
-          id=data['id']
+        error=>{
+          id = null
         }
-      )
-      .catch(
-        error=>{}
       )
     }
-    alert(id)
     return id
   } 
 
@@ -88,7 +71,7 @@ export class SupplierService {
      * list suppliers by supplier name attribute
      */
     var values: any= new Array()
-    var suppliers: any=['']
+    var suppliers: any=[]
     await this.httpClient.get(Data.baseUrl+"/suppliers/supplier_names")
     .toPromise()
     .then(
@@ -104,6 +87,23 @@ export class SupplierService {
     })
     return suppliers
   } 
-  
 
+
+  public async  getSuppliers (){
+    /**
+     * List all suppliers
+     */
+    var suppliers = {}
+    await this.httpClient.get(Data.baseUrl+"/suppliers")
+    .toPromise()
+    .then(
+      data=>{
+        suppliers = data
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    return suppliers
+  } 
 }

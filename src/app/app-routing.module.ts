@@ -47,6 +47,10 @@ import { PersonaEnrolmentComponent } from './persona-enrolment/persona-enrolment
 import { TillAdministrationComponent } from './till-administration/till-administration.component';
 import { TillPositionComponent } from './till-position/till-position.component';
 
+import { DepartmentComponent } from './department/department.component';
+import { ClassComponent } from './class/class.component';
+import { SubClassComponent } from './sub-class/sub-class.component';
+
 
 const routes: Routes = [
   { path :'product_master',component : ProductMasterComponent },
@@ -93,7 +97,10 @@ const routes: Routes = [
   { path :'biometric-enrolment',component : BiometricEnrolmentComponent },
   { path :'persona-enrolment',component : PersonaEnrolmentComponent },
   { path :'till-administration',component : TillAdministrationComponent },
-  { path :'till-position',component : TillPositionComponent }
+  { path :'till-position',component : TillPositionComponent },
+  { path :'department',component : DepartmentComponent },
+  { path :'class',component : ClassComponent },
+  { path :'sub-class',component : SubClassComponent },
 ];
 
 

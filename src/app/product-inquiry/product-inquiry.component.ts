@@ -25,7 +25,9 @@ import { CompleterService, CompleterData } from 'ng2-completer';
 })
 export class ProductInquiryComponent implements OnInit {
 
-  private baseUrl = AppComponent.baseUrl
+  public items: string [] = []
+  public suppliers: string [] = []
+
   //field variables
   id
   primaryBarcode
@@ -50,10 +52,7 @@ export class ProductInquiryComponent implements OnInit {
   defaultReOrderLevel
   reOrderQuantity
 
-  constructor(private httpClient: HttpClient,private completerService: CompleterService ) {
-
-    this.dataService = completerService.local(this.searchData, 'color', 'color');
-
+  constructor(private httpClient: HttpClient ) {
 
     this.id               ='';
     this.primaryBarcode   ='';
@@ -80,7 +79,17 @@ export class ProductInquiryComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    /**
+     * load items description to enable autocomplete
+     */
+    ((new ItemService(this.httpClient)).getItemsLongDescriptions())
+    .then(
+      res=>{
+        Object.values(res).map((longDescription:string)=>{
+          this.items.push(longDescription)
+        })
+      }
+    );
   }
 
   ngAfterContentInit() {
@@ -135,27 +144,27 @@ export class ProductInquiryComponent implements OnInit {
   showItem(item){
     //render item information for display, these are displayed 
     //automatically using two way data binding
-    this.id                   = item['id'],
-    this.primaryBarcode       = item['primaryBarcode'],
-    this.itemCode             = item['itemCode'],
-    this.longDescription      = item['longDescription'],
-    this.shortDescription     = item['shortDescription'],
-    this.ingredients          = item['ingredients'],
-    this.packSize             = item['packSize'],
-    this.supplier             = item['supplier'],
-    this.department           = item['department'],
-    this._class               = item['_class'],
-    this.subClass             = item['subClass'],
-    this.unitCostPrice        = item['unitCostPrice'],
-    this.unitRetailPrice      = item['unitRetailPrice'],
-    this.profitMargin         = item['profitMargin'],
-    this.standardUom          = item['standardUom'],
-    this.vat                  = item['vat'],
+    this.id                   = item['id']
+    this.primaryBarcode       = item['primaryBarcode']
+    this.itemCode             = item['itemCode']
+    this.longDescription      = item['longDescription']
+    this.shortDescription     = item['shortDescription']
+    this.ingredients          = item['ingredients']
+    this.packSize             = item['packSize']
+    this.supplier             = item['supplier'].supplierName
+    this.department           = item['department']
+    this._class               = item['_class']
+    this.subClass             = item['subClass']
+    this.unitCostPrice        = item['unitCostPrice']
+    this.unitRetailPrice      = item['unitRetailPrice']
+    this.profitMargin         = item['profitMargin']
+    this.standardUom          = item['standardUom']
+    this.vat                  = item['vat']
     this.discount             = item['discount']
-    this.quantity             = item['quantity'],
-    this.maximumInventory     = item['maximumInventory'],
-    this.minimumInventory     = item['minimumInventory'],
-    this.defaultReOrderLevel  = item['defaultReOrderLevel'],
+    this.quantity             = item['quantity']
+    this.maximumInventory     = item['maximumInventory']
+    this.minimumInventory     = item['minimumInventory']
+    this.defaultReOrderLevel  = item['defaultReOrderLevel']
     this.reOrderQuantity      = item['reOrderQuantity']
   }
   clear(){
@@ -183,30 +192,6 @@ export class ProductInquiryComponent implements OnInit {
     this.defaultReOrderLevel='';
     this.reOrderQuantity  ='';
   }
-
-  
-
-  public searchStr: string;
-  public captain: string;
-  public dataService: CompleterData;
-  public searchData = [
-    { color: 'red', value: '#f00' },
-    { color: 'green', value: '#0f0' },
-    { color: 'blue', value: '#00f' },
-    { color: 'cyan', value: '#0ff' },
-    { color: 'magenta', value: '#f0f' },
-    { color: 'yellow', value: '#ff0' },
-    { color: 'black', value: '#000' }
-  ];
-  public captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett' ];
- 
-  
-
-
-  
-
-  
-
 
 }
 
