@@ -20,14 +20,13 @@ export class UnitService {
    * getdepdid
    * getdeptnames
    */
-  public async getDepartmentId (departmentCode,departmentName){
+  public async getDepartmentId (departmentCode : string, departmentName : string){
     /**
-     * gets department id given departmentCode or departmentName
+     * Get a department id given code or name
      * on preference basis
      */
-    var id = '' 
-    if(departmentCode != '' && departmentCode != null){
-      
+    var id = null
+    if(departmentCode != ''){
       await this.httpClient.get(Data.baseUrl+"/departments/department_code="+departmentCode)
       .toPromise()
       .then(
@@ -36,9 +35,11 @@ export class UnitService {
         }
       )
       .catch(
-        error=>{}
+        error=>{
+          //alert(error['status']+" "+error['name'])
+        }
       )
-    }else if (departmentName != '' && departmentName != null){
+    }else if (departmentName != ''){
       await this.httpClient.get(Data.baseUrl+"/departments/department_name="+departmentName)
       .toPromise()
       .then(
@@ -47,18 +48,19 @@ export class UnitService {
         }
       )
       .catch(
-        error=>{}
+        error=>{
+          //alert(error['status']+" "+error['name'])
+        }
       )
     }
     return id
   } 
 
 
-  async getDepartment (id) {
+  async getDepartment (id : any) {
     /**
-     * gets item details with a specified id from datastore
+     * Gets department details with a specified id from datastore
      */
-    //this.clear
     var department = {}
     await this.httpClient.get(Data.baseUrl+"/departments/"+id)
     .toPromise()
@@ -67,12 +69,7 @@ export class UnitService {
         department=data
       },
       error=>{
-        if(error['status']==404){
-
-        }else if (error['status']==400){
-          window.alert('Bad request, undefined operation!')
-        }
-        console.log(error)
+        
       }
     )
     .catch(
@@ -86,27 +83,39 @@ export class UnitService {
   
 
   public async getDepartmentNames(){
-    var depts = ['1','2','3']
-
-    return depts
+    /**
+     * Return the names of all the departments
+     */
+    var values: any= new Array()
+    var departments: any=[]
+    await this.httpClient.get(Data.baseUrl+"/departments/department_names")
+    .toPromise()
+    .then(
+      data=>{
+        values = data
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    Object.values(values).map((data)=>{
+      departments.push(data)
+    })
+    return departments
   }
   
    /**
     * Class
     */
-   public async getClassNames(dep){
-     var _classes
+   
 
-     return _classes
-   }
-
-   public async getClassId (classCode,className){
+   public async getClassId (classCode :string, className : string){
     /**
      * gets department id given departmentCode or departmentName
      * on preference basis
      */
-    var id = '' 
-    if(classCode != '' && classCode != null){
+    var id = null 
+    if(classCode != '' ){
       
       await this.httpClient.get(Data.baseUrl+"/classes/class_code="+classCode)
       .toPromise()
@@ -118,7 +127,7 @@ export class UnitService {
       .catch(
         error=>{}
       )
-    }else if (className != '' && className != null){
+    }else if (className != '' ){
       await this.httpClient.get(Data.baseUrl+"/classes/class_name="+className)
       .toPromise()
       .then(
@@ -133,11 +142,10 @@ export class UnitService {
     return id
   } 
 
-  async getClass (id) {
+  async getClass (id : any) {
     /**
      * gets item details with a specified id from datastore
      */
-    //this.clear
     var _class = {}
     await this.httpClient.get(Data.baseUrl+"/classes/"+id)
     .toPromise()

@@ -44,6 +44,7 @@ export class ItemService {
         alert('Error code: '+error['status'])
       }
     )
+    console.log(item)
     return item
   }
 

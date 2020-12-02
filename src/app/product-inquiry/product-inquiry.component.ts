@@ -36,8 +36,8 @@ export class ProductInquiryComponent implements OnInit {
   shortDescription
   ingredients
   packSize
-  supplier
-  department
+  supplierName
+  departmentName
   _class
   subClass
   unitCostPrice
@@ -61,8 +61,8 @@ export class ProductInquiryComponent implements OnInit {
     this.shortDescription ='';
     this.ingredients      ='';
     this.packSize         ='';
-    this.supplier         ='';
-    this.department       ='';
+    this.supplierName         ='';
+    this.departmentName       ='';
     this._class           ='';
     this.subClass         ='';
     this.unitCostPrice    ='';
@@ -151,8 +151,8 @@ export class ProductInquiryComponent implements OnInit {
     this.shortDescription     = item['shortDescription']
     this.ingredients          = item['ingredients']
     this.packSize             = item['packSize']
-    this.supplier             = item['supplier'].supplierName
-    this.department           = item['department']
+    this.supplierName             = item['supplier'].supplierName
+    this.departmentName           = item['department'].departmentName
     this._class               = item['_class']
     this.subClass             = item['subClass']
     this.unitCostPrice        = item['unitCostPrice']
@@ -176,8 +176,8 @@ export class ProductInquiryComponent implements OnInit {
     this.shortDescription ='';
     this.ingredients      ='';
     this.packSize         ='';
-    this.supplier         ='';
-    this.department       ='';
+    this.supplierName         ='';
+    this.departmentName       ='';
     this._class           ='';
     this.subClass         ='';
     this.unitCostPrice    ='';

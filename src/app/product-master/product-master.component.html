@@ -53,6 +53,7 @@
                         <div class="col-sm-3">Supplier</div>
                         <div class="col-sm-9">
                             <select [(ngModel)]="supplierName" name="supplierName" class="form-control" placeholder="--Supplier--">
+                                <option></option>
                                 <option *ngFor="let supplier of suppliers" [ngValue]="supplier">{{supplier}}</option>
                             </select>
                         </div>
@@ -63,15 +64,21 @@
                 <div class="col-sm-6 ">
                     <div class="row">
                         <div class="col-sm-3">Department</div>
-                        <div class="col-sm-9"><input type="text" name="datartment" [(ngModel)]="department" class="form-control" placeholder="--Department--"></div>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="departmentName" name="departmentName" class="form-control" placeholder="--Class--">
+                                <option></option>
+                                <option *ngFor="let department of departmentNames" [ngValue]="department">{{department}}</option>
+                            </select>
+                            <!--<input type="text" name="datartment" [(ngModel)]="department" class="form-control" placeholder="--Department--">-->
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">Class</div>
-                        <div class="col-sm-9"><input type="text" name="_class" [(ngModel)]="_class" class="form-control" placeholder="--Class--"></div>
+                        <div class="col-sm-9"><input type="text" name="_className" [(ngModel)]="_className" class="form-control" placeholder="--Class--"></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">Sub Class</div>
-                        <div class="col-sm-9"><input type="text" name="subClass" [(ngModel)]="subClass" class="form-control" placeholder="--Sub Class--"></div>
+                        <div class="col-sm-9"><input type="text" name="subClassName" [(ngModel)]="subClassName" class="form-control" placeholder="--Sub Class--"></div>
                     </div>
                     <hr>
 

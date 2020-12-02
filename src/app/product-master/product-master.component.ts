@@ -12,6 +12,7 @@ import { SupplierService } from '../supplier.service';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { CompleterService, CompleterData } from 'ng2-completer';
 import { Crud } from '../crud';
+import { UnitService } from '../unit.service';
 
 @Component({
   selector: 'app-product-master',
@@ -26,31 +27,34 @@ export class ProductMasterComponent implements OnInit  {
   /**
    * field variables
    */
-  id
-  primaryBarcode
-  itemCode
-  longDescription
-  shortDescription
-  ingredients
-  packSize
-  supplierName
-  department
-  _class
-  subClass
-  unitCostPrice
-  unitRetailPrice
-  profitMargin
-  standardUom
-  vat       
-  discount
-  quantity
-  maximumInventory
-  minimumInventory
-  defaultReOrderLevel
-  reOrderQuantity
+  id:any
+  primaryBarcode:string
+  itemCode:string
+  longDescription:string
+  shortDescription:string
+  ingredients:string
+  packSize:number
+  supplierName:string
+  departmentName:string
+  _className:string
+  subClassName:string
+  unitCostPrice:number
+  unitRetailPrice:number
+  profitMargin:number
+  standardUom:string
+  vat:number       
+  discount:number
+  quantity:number
+  maximumInventory:number
+  minimumInventory:number
+  defaultReOrderLevel:number
+  reOrderQuantity:number
 
   public items: string [] = []
   public suppliers: string [] = []
+
+  public classNames: string [] = []
+  public departmentNames: string [] = []
 
   constructor(private httpClient: HttpClient ) {
     this.id               ='';
@@ -59,26 +63,26 @@ export class ProductMasterComponent implements OnInit  {
     this.longDescription  ='';
     this.shortDescription ='';
     this.ingredients      ='';
-    this.packSize         ='';
+    this.packSize         =null;
     this.supplierName     ='';
-    this.department       ='';
-    this._class           ='';
-    this.subClass         ='';
-    this.unitCostPrice    ='';
-    this.unitRetailPrice  ='';
-    this.profitMargin     ='';
+    this.departmentName       ='';
+    this._className           ='';
+    this.subClassName         ='';
+    this.unitCostPrice    =null;
+    this.unitRetailPrice  =null;
+    this.profitMargin     =null;
     this.standardUom      ='';
-    this.vat              ='';
-    this.discount         ='';
-    this.quantity         ='';
-    this.maximumInventory ='';
-    this.minimumInventory ='';
-    this.defaultReOrderLevel='';
-    this.reOrderQuantity  ='';
+    this.vat              =null;
+    this.discount         =null;
+    this.quantity         =null;
+    this.maximumInventory =null;
+    this.minimumInventory =null;
+    this.defaultReOrderLevel=null;
+    this.reOrderQuantity  =null;
 
     
   }
-  ngOnInit(): void { 
+  async ngOnInit(): Promise<void> { 
     /**
      * load items description to enable autocomplete
      */
@@ -103,6 +107,8 @@ export class ProductMasterComponent implements OnInit  {
       }
     );
 
+    this.departmentNames = await (new UnitService(this.httpClient)).getDepartmentNames()
+
    }
   
 
@@ -118,12 +124,10 @@ export class ProductMasterComponent implements OnInit  {
       shortDescription    : this.shortDescription,
       ingredients         : this.ingredients,
       packSize            : this.packSize,
-      supplier            :{
-                            supplierName:this.supplierName
-                          },
-      department          : this.department,
-      _class              : this._class,
-      subClass            : this.subClass,
+      supplier            :{supplierName:this.supplierName},
+      department          :{departmentName:this.departmentName},
+      _class              : this._className,
+      subClass            : this.subClassName,
       unitCostPrice       : this.unitCostPrice,
       unitRetailPrice     : this.unitRetailPrice,
       profitMargin        : this.profitMargin,
@@ -135,6 +139,7 @@ export class ProductMasterComponent implements OnInit  {
       minimumInventory    : this.minimumInventory,
       defaultReOrderLevel : this.defaultReOrderLevel,
       reOrderQuantity     : this.reOrderQuantity
+
     }
     return itemData;
   }
@@ -149,25 +154,25 @@ export class ProductMasterComponent implements OnInit  {
     this.longDescription     ='';
     this.shortDescription    ='';
     this.ingredients         ='';
-    this.packSize            ='';
+    this.packSize            =null;
     this.supplierName            ='';
-    this.department          ='';
-    this._class              ='';
-    this.subClass            ='';
-    this.unitCostPrice       ='';
-    this.unitRetailPrice     ='';
-    this.profitMargin        ='';
+    this.departmentName          ='';
+    this._className              ='';
+    this.subClassName            ='';
+    this.unitCostPrice       =null;
+    this.unitRetailPrice     =null;
+    this.profitMargin        =null;
     this.standardUom         ='';
-    this.vat                 ='';
-    this.discount            ='';
-    this.quantity            ='';
-    this.maximumInventory    ='';
-    this.minimumInventory    ='';
-    this.defaultReOrderLevel ='';
-    this.reOrderQuantity     ='';
+    this.vat                 =null;
+    this.discount            =null;
+    this.quantity            =null;
+    this.maximumInventory    =null;
+    this.minimumInventory    =null;
+    this.defaultReOrderLevel =null;
+    this.reOrderQuantity     =null;
   }
 
-  showItem(item){
+  showItem(item: object){
     
     /**
      * render item information for display, these are displayed 
@@ -180,10 +185,6 @@ export class ProductMasterComponent implements OnInit  {
     this.shortDescription     = item['shortDescription']
     this.ingredients          = item['ingredients']
     this.packSize             = item['packSize']
-    this.supplierName         = item['supplier'].supplierName
-    this.department           = item['department']
-    this._class               = item['_class']
-    this.subClass             = item['subClass']
     this.unitCostPrice        = item['unitCostPrice']
     this.unitRetailPrice      = item['unitRetailPrice']
     this.profitMargin         = item['profitMargin']
@@ -195,6 +196,11 @@ export class ProductMasterComponent implements OnInit  {
     this.minimumInventory     = item['minimumInventory']
     this.defaultReOrderLevel  = item['defaultReOrderLevel']
     this.reOrderQuantity      = item['reOrderQuantity']
+
+    this.supplierName         = item['supplier'].supplierName
+    this.departmentName       = item['department'].departmentName
+    this._className           = item['_class']
+    this.subClassName         = item['subClass']
   }
 
   validateData(){
@@ -203,32 +209,31 @@ export class ProductMasterComponent implements OnInit  {
      * return false if validation fails
      */
     var valid : boolean = true
+    var message : string = ''
     if(this.primaryBarcode == ''){
       valid = false
-      window.alert('Barcode required')
-      return valid
+      message = message+'\nPrimary barcode is a required field!'
     }
     if(this.itemCode == ''){
       valid = false
-      window.alert('Item code required')
-      return valid
+      message = message+'\nItem code is a required field!'
     }
     if(this.longDescription == ''){
       valid = false
-      window.alert('Long Description required')
-      return valid
+      message = message+'\nLong description is a required field!'
     }
     if(this.shortDescription == ''){
       valid = false
-      window.alert('Short Description required')
-      return valid
+      message = message+'\nShort description is a required field!'
     }
     if(isNaN(this.packSize)){
       valid = false
-      window.alert('Invalid pack size\nPack size should be a whole number')
-      return valid
+      message = message+'\nPack size is a required field!'
     }
     
+    if (message != ''){
+      alert('Error:'+message)
+    }
     return valid
   }
 

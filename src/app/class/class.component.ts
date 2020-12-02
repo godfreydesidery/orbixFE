@@ -21,19 +21,24 @@ import { UnitService} from '../unit.service'
 })
 export class ClassComponent implements OnInit {
 
-  public classes: string [] = []
+  public classNames: string [] = []
+  public departmentNames: string [] = []
+  public classes : object = {}
+  //public classes: string [] = []
 
-  id
-  classCode
-  className
+  id : any
+  classCode : string
+  className :string
+  departmentName : string
 
   constructor(private httpClient : HttpClient) {
     this.id = ''
     this.classCode = ''
     this.className = ''
+    this.departmentName = ''
    }
 
-   ngOnInit(): void { 
+   async ngOnInit(): Promise<void> { 
     /**
      * load items description to enable autocomplete
      */
@@ -46,6 +51,12 @@ export class ClassComponent implements OnInit {
       }
     );*/
 
+    /**
+     * Load all departments to list on page
+     */
+    this.classes= await this.getClasses()
+    this.departmentNames = await (new UnitService(this.httpClient)).getDepartmentNames()
+
    }
   
 
@@ -57,29 +68,52 @@ export class ClassComponent implements OnInit {
       id        : this.id,
       classCode : this.classCode,
       className : this.className,
+      department:{
+                  departmentName:this.departmentName
+                  }
     }
     return classData;
   }
+
+  public async  getClasses (){
+    /**
+     * Return a list of all the classes
+     */
+    var classes = {}
+    await this.httpClient.get(Data.baseUrl+"/classes")
+    .toPromise()
+    .then(
+      data=>{
+        classes = data
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    return classes
+  } 
 
   clear(){
     /**
      * clear the fields
      */
-    this.id        = '';
-    this.classCode = '';
-    this.className = '';
+    this.id             = '';
+    this.classCode      = '';
+    this.className      = '';
+    this.departmentName = '';
     
   }
 
-  showClass(_class){
+  showClass(_class : any){
     
     /**
      * render information for display, these are displayed 
      * automatically using two way data binding
      */
-    this.id         = _class['id']
-    this.classCode  = _class['classCode']
-    this.className  = _class['className']
+    this.id             = _class['id']
+    this.classCode      = _class['classCode']
+    this.className      = _class['className']
+    this.departmentName = _class['department'].departmentName
     
   }
 
@@ -91,7 +125,17 @@ export class ClassComponent implements OnInit {
     var valid : boolean = true
     if(this.classCode == ''){
       valid = false
-      window.alert('Barcode required')
+      window.alert('Error: Class Code required!')
+      return valid
+    } 
+    if(this.className == ''){
+      valid = false
+      window.alert('Error: Class Name required!')
+      return valid
+    } 
+    if(this.departmentName == ''){
+      valid = false
+      window.alert('Error: Class Name required!')
       return valid
     } 
     return valid
@@ -99,13 +143,13 @@ export class ClassComponent implements OnInit {
 
   saveClass() { 
     /**
-     * create or update an 
-     * first, check validation
+     * Create a new class, or
+     * update an existing class
      */
     if(this.validateData()==true){
       var _class = this.getClassData()
       if( this.id == '' || this.id == null || this.id == 0 ) {
-        //save a new department
+        //save a new class
         this.httpClient.post(Data.baseUrl + "/classes" , _class)
         .subscribe(
           data=>{
@@ -135,39 +179,62 @@ export class ClassComponent implements OnInit {
   }
   async searchClass() { 
     /**
-     * search department by id
-     * gets id from getDepartmentId
+     * search class by id
+     * gets id from getClassId
      */
-    var classId=''
-    this.clear
+    var classId = null
     classId = await (new UnitService(this.httpClient)).getClassId(this.classCode,this.className)
-    if(classId == ''||classId == null){
-      alert('No matching record')
+    if(classId == null){
+      if(this.classCode == '' && this.className == ''){
+        alert('Please enter a search key!')
+      }else{
+        alert('The requested record could not be found')
+      }
     }else{
-      var _class
+      var _class : any
       _class =await (new UnitService(this.httpClient)).getClass(classId)
       console.log(_class)
       this.showClass(_class)
     }
   }
+
+
+  /**
+   * 
+   * @param id Search a the selected class
+   */
+  async search(id : any){
+    this.clear()
+    var _class =await (new UnitService(this.httpClient)).getClass(id)
+    this.showClass(_class)
+  }
+
   deleteClass() { 
     /**
-     * delete an department given its id
+     * Delete a class given class id
+     * PRE:Class record originally in the database
+     * POS:Class record removed from the database
      */
     var id = this.id
-    this.httpClient.delete(Data.baseUrl+"/classes/"+id)
-    .subscribe(
-      data=>{
-        console.log(data)
-        if(data==null){
-          this.clear()
-          alert('Class successifully deleted')
+    if(id == ''){
+      alert('Please select a class to delete')
+      return
+    }
+    if(window.confirm('Delete the selected class?\nThe class will be removed and this action can not be undone.\nConfirm?')){
+      this.httpClient.delete(Data.baseUrl+"/classes/"+id)
+      .subscribe(
+        data=>{
+          console.log(data)
+          if(data==null){
+            this.clear()
+            alert('Class Successiful deleted')
+          }
+        },
+        error=>{
+          alert('Could not delete the selected class')
         }
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+      )
+    }
   }
 
 

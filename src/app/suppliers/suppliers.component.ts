@@ -241,6 +241,10 @@ export class SuppliersComponent implements OnInit {
       this.showSupplier(supplier)
     }
   }
+  /**
+   * 
+   * @param id Search a the selected supplier
+   */
   async search(id : any){
     this.clear()
     var supplier =await (new SupplierService(this.httpClient)).getSupplier(id)

@@ -31,7 +31,7 @@ export class DepartmentComponent implements OnInit {
   public departmentName :string
 
   constructor(private httpClient: HttpClient) {
-    this.id = ''
+    this.id             = ''
     this.departmentCode = ''
     this.departmentName = ''
    }
@@ -48,13 +48,15 @@ export class DepartmentComponent implements OnInit {
         })
       }
     );
+    /**
+     * Load all departments to list on page
+     */
     this.departments= await this.getDepartments()
-    console.log(this.departments)
   }
 
   public async  getDepartments (){
     /**
-     * list items by long description attribute
+     * Return a list of all the departments
      */
     var departments = {}
     await this.httpClient.get(Data.baseUrl+"/departments")
@@ -67,7 +69,6 @@ export class DepartmentComponent implements OnInit {
     .catch(
       error=>{}
     )
-    
     return departments
   } 
 
@@ -93,7 +94,7 @@ export class DepartmentComponent implements OnInit {
     
   }
 
-  showDepartment(department){
+  showDepartment(department : any){
     
     /**
      * render information for display, these are displayed 
@@ -113,12 +114,12 @@ export class DepartmentComponent implements OnInit {
     var valid : boolean = true
     if(this.departmentCode == ''){
       valid = false
-      window.alert('Department Code required')
+      window.alert('Error: Department Code required!')
       return valid
     } 
     if(this.departmentName == ''){
       valid = false
-      window.alert('Department Name required')
+      window.alert('Error: Department Name required!')
       return valid
     } 
     return valid
@@ -126,8 +127,8 @@ export class DepartmentComponent implements OnInit {
 
   saveDepartment() { 
     /**
-     * create or update an 
-     * first, check validation
+     * Create a new department, or
+     * update an existing department
      */
     if(this.validateData()==true){
       var department = this.getDepartmentData()
@@ -141,7 +142,7 @@ export class DepartmentComponent implements OnInit {
             this.id=data['id']
           },
           error=>{
-            console.log(error)
+            alert('Error: Could not create department')
           }
         )
       } else {
@@ -150,11 +151,10 @@ export class DepartmentComponent implements OnInit {
         .subscribe(
           data=>{
             window.alert('Department updated successifully')
-            console.log(data)
             this.id=data['id']
           },
           error=>{
-            console.log(error)
+            alert('Error: Could not update department')
           }
         )
       }  
@@ -165,35 +165,55 @@ export class DepartmentComponent implements OnInit {
      * search department by id
      * gets id from getDepartmentId
      */
-    var departmentId=''
-    this.clear
+    var departmentId = null
     departmentId = await (new UnitService(this.httpClient)).getDepartmentId(this.departmentCode,this.departmentName)
-    if(departmentId == ''||departmentId == null){
-      alert('No matching record')
+    if(departmentId == null){
+      if(this.departmentCode == '' && this.departmentName == ''){
+        alert('Please enter a search key!')
+      }else{
+        alert('The requested record could not be found')
+      }
     }else{
-      var department
+      var department : any
       department =await (new UnitService(this.httpClient)).getDepartment(departmentId)
       console.log(department)
       this.showDepartment(department)
     }
   }
+  /**
+   * 
+   * @param id Search a the selected department
+   */
+  async search(id : any){
+    this.clear()
+    var department =await (new UnitService(this.httpClient)).getDepartment(id)
+    this.showDepartment(department)
+  }
   deleteDepartment() { 
     /**
-     * delete an department given its id
+     * Delete a department given department id
+     * PRE:Department record originally in the database
+     * POS:Department record removed from the database
      */
     var id = this.id
-    this.httpClient.delete(Data.baseUrl+"/departments/"+id)
-    .subscribe(
-      data=>{
-        console.log(data)
-        if(data==null){
-          this.clear()
-          alert('Department successifully deleted')
+    if(id == ''){
+      alert('Please select a department to delete')
+      return
+    }
+    if(window.confirm('Delete the selected department?\nThe department will be removed and this action can not be undone.\nConfirm?')){
+      this.httpClient.delete(Data.baseUrl+"/departments/"+id)
+      .subscribe(
+        data=>{
+          console.log(data)
+          if(data==null){
+            this.clear()
+            alert('Department Successiful deleted')
+          }
+        },
+        error=>{
+          alert('Could not delete the selected department')
         }
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+      )
+    }
   }
 }
