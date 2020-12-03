@@ -134,7 +134,7 @@ export class SuppliersComponent implements OnInit {
     }
     return supplierData;
   }
-  showSupplier(supplier){
+  showSupplier(supplier : any){
     
     /**
      * render supplier information for display, these are displayed 

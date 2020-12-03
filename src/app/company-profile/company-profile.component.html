@@ -5,79 +5,71 @@
     <div class="panel-body well">
         <div class="row">
             <div class="col-sm-2">Name</div>
-            <div class="col-sm-10"><input type="text" class="form-control"></div>
+            <div class="col-sm-10"><input type="text" name="companyName" [(ngModel)]="companyName" class="form-control"></div>
         </div>  
         <div class="row">
             <div class="col-sm-2">TIN</div>
-            <div class="col-sm-4"><input type="text" class="form-control"></div>
+            <div class="col-sm-4"><input type="text" name="tin" [(ngModel)]="tin"  class="form-control"></div>
             <div class="col-sm-2">VRN</div>
-            <div class="col-sm-4"><input type="text" class="form-control"></div>
+            <div class="col-sm-4"><input type="text" name="vrn" [(ngModel)]="vrn"  class="form-control"></div>
         </div>  
         <div class="row">
             <div class="col-sm-6 well">
                 <div class="row">
                     <div class="col-sm-4">Postal Addr</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="postAddress" [(ngModel)]="postAddress"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Postal Code</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="postCode" [(ngModel)]="postCode"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Physical Addr</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="physicalAddress" [(ngModel)]="physicalAddress"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Tel</div>
-                    <div class="col-sm-8"><input type="tel" class="form-control"></div>
+                    <div class="col-sm-8"><input type="tel" name="telephone" [(ngModel)]="telephone"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Mob</div>
-                    <div class="col-sm-8"><input type="tel" class="form-control"></div>
+                    <div class="col-sm-8"><input type="tel" name="mobile" [(ngModel)]="mobile"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Email</div>
-                    <div class="col-sm-8"><input type="email" class="form-control"></div>
+                    <div class="col-sm-8"><input type="email" name="email" [(ngModel)]="email"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Fax</div>
-                    <div class="col-sm-8"><input type="tel" class="form-control"></div>
+                    <div class="col-sm-8"><input type="tel" name="fax" [(ngModel)]="fax"  class="form-control"></div>
                 </div>
             </div>
             <div class="col-sm-6 well">
                 <div class="row">
                     <div class="col-sm-4">Bank Acc Name</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="bankAccountName" [(ngModel)]="bankAccountName"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Bank Acc Addr</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="bankAccountAddress" [(ngModel)]="bankAccountAddress"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Bank Postal Code</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="bankPostCode" [(ngModel)]="bankPostCode"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Bank Name</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="bankName" [(ngModel)]="bankName"  class="form-control"></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">Bank Acc No</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">Email</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">Fax</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8"><input type="text" name="bankAccountNo" [(ngModel)]="addrebankAccountNoss"  class="form-control"></div>
                 </div>
             </div>
         </div>
          <div class="row">
         <div class="col-sm-12 text-center">
-            <button class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Update / Save</button>
+            <button type="button" class="btn btn-success" name="saveCompany" (click)="saveCompany()"><span class="glyphicon glyphicon-floppy-disk"></span> Update / Save</button>
         </div>
     </div>
     </div>

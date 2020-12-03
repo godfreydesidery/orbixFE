@@ -4,42 +4,58 @@
     </div>
     <div class="panel-body well">
         <div class="row">
+            <input type="hidden" name="id" [(ngModel)]="id">
             <div class="col-sm-2">Customer No</div>
-            <div class="col-sm-5"><input type="text" class="form-control"></div>
-            <div class="col-sm 7"><button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button></div>
+            <div class="col-sm-2"><input type="text" name="customerNo" [(ngModel)]="customerNo" class="form-control form-control-sm" placeholder="--Customer No--"></div>
+            <div class="col-sm-5 text-center">
+                <button type="button" class="btn btn-success" (click)="clear()" name="newCustomer" style="margin: 1px;" ><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>
+                <button type="button" class="btn btn-warning" (click)="searchCustomer()" name="searchCustomer" style="margin: 1px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            </div> 
         </div>
         <div class="row">
             <div class="col-sm-2">Name</div>
-            <div class="col-sm-10"><input type="text" class="form-control"></div>
+            <div class="col-sm-10">
+                <ng2-completer style="width: 100%;" name="customerName" [(ngModel)]="customerName" [inputClass]="'form-control form-control-inline'" [datasource]="customersNames" [minSearchLength]="1" placeholder="--Customer Name--"></ng2-completer>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">Address</div>
-            <div class="col-sm-10"><input type="text" class="form-control"></div>
+            <div class="col-sm-10">
+                <input type="text" name="address" [(ngModel)]="address" class="form-control form-control-sm" placeholder="--Address--">
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">Tel</div>
-            <div class="col-sm-10"><input type="tel" class="form-control"></div>
+            <div class="col-sm-10">
+                <input type="tel" name="telephone" [(ngModel)]="telephone" class="form-control form-control-sm" placeholder="--Telephone--">
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">VAT No</div>
-            <div class="col-sm-10"><input type="text" class="form-control"></div>
+            <div class="col-sm-10">
+                <input type="text" name="vatNo" [(ngModel)]="vatNo" class="form-control form-control-sm" placeholder="--VAT No--">
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">Credit Limit</div>
-            <div class="col-sm-10"><input type="text" class="form-control"></div>
+            <div class="col-sm-10">
+                <input type="text" name="creditLimit" [(ngModel)]="creditLimit" class="form-control form-control-sm" placeholder="--Credit Limit--">
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">Credit Days</div>
-            <div class="col-sm-10"><input type="text" class="form-control"></div>
+            <div class="col-sm-10">
+                <input type="text" name="creditDays" [(ngModel)]="creditDays" class="form-control form-control-sm" placeholder="--Credit Days--">
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">Amount Due</div>
-            <div class="col-sm-10">1000,000.00</div>
+            <div class="col-sm-10">{{amountDue}}</div>
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save / Update</button>..
-                <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>..
+                <button type="button" name="saveCustomer" (click)="saveCustomer()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save / Update</button>
+                <button type="button" name="deleteCustomer" (click)="deleteCustomer()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
             </div>
         </div>
         <div class="row">
@@ -55,32 +71,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1001</td>
-                            <td>AKILI AND COMPANY</td>
-                            <td>26 Dar</td>
-                            <td>Limit:20,000,000.00  Due:1,000,000.00</td>
-                            <td><a class="glyphicon glyphicon-pencil">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>ANDE GENERAL SUPPLIES</td>
-                            <td>26 Dar</td>
-                            <td>Limit:20,000,000.00  Due:1,000,000.00</td>
-                            <td><a class="glyphicon glyphicon-pencil">Edit</a></td>
-                        </tr>
-                        <tr>
-                            <td>1003</td>
-                            <td>BUMACO FRESH FOODS AND FRUITS</td>
-                            <td>26 Dar</td>
-                            <td>Limit:20,000,000.00  Due:1,000,000.00</td>
-                            <td><a class="glyphicon glyphicon-pencil">Edit</a></td>
+                        <tr *ngFor="let customer of customers" [ngValue]="customer">
+                            <td>{{customer.customerNo}}</td>
+                            <td>{{customer.customerName}}</td>
+                            <td>{{customer.address}}</td>
+                            <td>{{customer.creditDays}}</td>
+                            <td><a class="glyphicon glyphicon-pencil badge" (click)="search(customer.id)">Select</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-         
     </div>
-    
   </div>
