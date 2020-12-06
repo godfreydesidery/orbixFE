@@ -10,53 +10,52 @@ import { SupplierService } from '../supplier.service';
 })
 export class LPOComponent implements OnInit {
 	/**LPO field variakbles */
-	id : any
-	lpoNo : string
-	supplierCode : string
-	supplierName :string
-	createdBy :string
-	approvedBy : string
-	lpoDate :Date
+	id             : any
+	lpoNo          : string
+	supplierCode   : string
+	supplierName   : string
+	createdBy      : string
+	approvedBy     : string
+	lpoDate        : Date
 	validityPeriod : number
-	validUntil : Date
-	status : string
+	validUntil     : Date
+	status         : string
 	
 	/**Lpo detail field variables */
 	lpoDetailId : any
-	barcode : any
-	itemCode : string
+	barcode     : any
+	itemCode    : string
 	description : string
-	qtyOrdered : number
-	costPrice : number
+	qtyOrdered  : number
+	costPrice   : number
 
 	/**Collections */
-	descriptions  :string[] = []
-	supplierNames :string[] = []
+	descriptions  : string[] = []
+	supplierNames : string[] = []
 
 	public lpoDetails : object = {}
 
 
   constructor(private httpClient : HttpClient) {
-	  this.id = ''
-	  this.barcode = ''
-	  this.lpoNo = ''
-	  this.supplierCode = ''
-	  this.supplierName = ''
-	  this.createdBy = ''
-	  this.approvedBy = ''
-	  this.lpoDate = null
+	  /**Lpo */
+	  this.id             = ''
+	  this.barcode        = ''
+	  this.lpoNo          = ''
+	  this.supplierCode   = ''
+	  this.supplierName   = ''
+	  this.createdBy      = ''
+	  this.approvedBy     = ''
+	  this.lpoDate        = null
 	  this.validityPeriod = null
-	  this.validUntil = null
-	  this.status = ''
-
-	  this.lpoDetailId = ''
-
-	  this.itemCode = ''
-	  this.description = ''
-	  this.qtyOrdered = null
-	  this.costPrice = null
+	  this.validUntil 	  = null
+	  this.status         = ''
+	  /**Lpo details */
+	  this.lpoDetailId    = ''
+	  this.itemCode       = ''
+	  this.description    = ''
+	  this.qtyOrdered     = null
+	  this.costPrice      = null
    }
-
 
   ngOnInit(): void {
 	  /**Load all supplier names */
@@ -95,6 +94,35 @@ export class LPOComponent implements OnInit {
 	  var saved : boolean = false
 
 	  return saved
+  }
+  showLpo(lpo : any){
+	  /**Renders lpo information for display */
+	  this.id             = lpo['id']
+	  this.lpoNo          = lpo['lpoNo']
+	  this.supplierCode   = lpo['supplierCode']
+	  this.supplierName   = lpo['supplierName']
+	  this.createdBy      = lpo['createdBy']
+	  this.approvedBy     = lpo['approvedBy']
+	  this.lpoDate        = lpo['lpoDate']
+	  this.validityPeriod = lpo['validityPeriod']
+	  this.validUntil     = lpo['validUntil']
+	  this.status         = lpo['status']
+  }
+  getLpoData(){
+	  /**Return an LPO object for further processing */
+	  return  {
+		  id             : this.id,
+		  lpoNo          : this.lpoNo,
+		  supplierCode   : this.supplierCode,
+		  supplierName   : this.supplierName,
+		  createdBy      : this.createdBy,
+		  approvedBy     : this.approvedBy,
+		  lpoDate        : this.lpoDate,
+		  validityPeriod : this.validityPeriod,
+		  validUntil     : this.validUntil,
+		  status         : this.status
+	  }
+
   }
   approveLpo(lpoNo : string){
 	  /**Approve a pending LPO */
