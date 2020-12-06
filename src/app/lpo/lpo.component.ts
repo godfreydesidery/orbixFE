@@ -140,19 +140,40 @@ export class LPOComponent implements OnInit {
 	approveLpo(lpoNo : string){
 		/**Approve a pending LPO */
 		var approved : boolean = false
-
+		if(lpoNo == ''){
+			MessageService.showMessage('Error: No LPO selected!\nPlease select an LPO to approve')
+		}else{
+			if(window.confirm('Confirm approval?\nThe LPO will be approved.\nConfirm?')){
+				/**Approve the selected lpo */
+				approved = true
+			}
+		}
 		return approved
 	}
-	printLpo(){
+	printLpo(lpoNo : string){
 		/**Print an approved LPO or reprint a printed LPO */
 		var printed : boolean = false
-
+		if(lpoNo == ''){
+			MessageService.showMessage('Error: No LPO selected!\nPlease select an LPO to print')
+		}else{
+			if(window.confirm('Confirm printing?\nThe LPO will be printed.\nConfirm?')){
+				/**Print the selected lpo */
+				printed = true
+			}
+		}
 		return printed
 	}
-	deleteLpo(lpoNo : string){
-		var deleted :boolean = false
-
-		return deleted
+	cancelLpo(lpoNo : string){
+		var canceled :boolean = false
+		if(lpoNo == ''){
+			MessageService.showMessage('Error: No LPO selected!\nPlease select an LPO to cancel')
+		}else{
+			if(window.confirm('Confirm Canceling?\nThe LPO will be canceled.\nConfirm?')){
+				/**Cancel the selected lpo */
+				canceled = true
+			}
+		}
+		return canceled
 	}
 	addLpoDetail(detail : any){
 		/**Add a new LPO detail */
@@ -174,7 +195,14 @@ export class LPOComponent implements OnInit {
 	deleteLpoDetail(id : any){
 		/**Delete an LPO detail */
 		var deleted : boolean = false
-
+		if(id == ''){
+			MessageService.showMessage('Error: No item selected!\nPlease select an item to delete')
+		}else{
+			if(window.confirm('Confirm delete?\nThe item will be removed from order details.\nConfirm?')){
+				/**Delete the selected item */
+				deleted = true
+			}
+		}
 		return deleted
 	}
 	showLpoDetail(lpoDetail : any){
