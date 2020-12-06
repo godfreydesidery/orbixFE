@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { error } from 'protractor';
 import { Data } from '../data';
 import { ItemService } from '../item.service';
 import { MessageService } from '../message.service';
@@ -35,7 +36,8 @@ export class LPOComponent implements OnInit {
 	descriptions  : string[] = []
 	supplierNames : string[] = []
 
-	public lpoDetails : object = {"itemCode":"1"}
+	public lpoDetails = {}
+	public lpoDetailss  = {"itemCode":"1"}
 
 
 	constructor(private httpClient : HttpClient) {
@@ -154,14 +156,21 @@ export class LPOComponent implements OnInit {
 		/**Renders lpo information for display */
 		this.id             = lpo['id']
 		this.lpoNo          = lpo['lpoNo']
-		this.supplierCode   = lpo['supplier'].supplierCode
-		this.supplierName   = lpo['supplier'].supplierName
 		this.createdBy      = lpo['createdBy']
 		this.approvedBy     = lpo['approvedBy']
 		this.lpoDate        = lpo['lpoDate']
 		this.validityPeriod = lpo['validityPeriod']
 		this.validUntil     = lpo['validUntil']
 		this.status         = lpo['status']
+		if(lpo['supplier'] != null){
+			this.supplierCode   = lpo['supplier'].supplierCode
+			this.supplierName   = lpo['supplier'].supplierName
+		}else{
+			this.supplierCode = ''
+			this.supplierName = ''
+		}
+		
+		
 	}
 	getLpoData(){
 		/**Return an LPO object for further processing */
@@ -224,14 +233,21 @@ export class LPOComponent implements OnInit {
 		*/
 		return {
 			lpoNo          : this.lpoNo,
-			supplierCode   : this.supplierCode,
-			supplierName   : this.supplierName,
+			supplier       :{
+							supplierCode   : this.supplierCode,
+							supplierName   : this.supplierName,
+							},
 			createdBy      : this.createdBy,
 			approvedBy     : '',
 			lpoDate        : this.lpoDate,
 			validityPeriod : this.validityPeriod,
 			validUntil     : this.validUntil,
 			status         : 'PENDING'
+		}
+	}
+	saveLpoDetail(){
+		if(this.lpoDetailId == ''){
+			this.addLpoDetail()
 		}
 	}
 
@@ -247,43 +263,51 @@ export class LPOComponent implements OnInit {
 				/**post lpo and return newly created lpo details and
 				 * assign it to the field variables
 				 */
-				this.httpClient.post(Data.baseUrl + "/lpos" , this.createLpo())
-				.subscribe(
-				  data=>{
-					this.id=data['id']
-				  },
-				  error=>{
-					return
-				  }
+				await this.httpClient.post(Data.baseUrl + "/lpos" , this.createLpo())
+				.toPromise()
+				.then(
+					data => {
+						this.id=data['id']
+				  	}
 				)
-				var lpo = {}
+				.catch(
+					error => {
+						return
+				  	}
+				)
+				alert(this.id)
 				await this.httpClient.get(Data.baseUrl+"/lpos/"+this.id)
 				.toPromise()
 				.then(
-					data=>{
-						lpo=data
+					data => {
+						this.showLpo(data)
 					}
 				)
 				.catch(
-					error=>{
+					error => {
 						return
 					}
 				)
-				this.showLpo(lpo)
 			}
 		}
 		/**Add a new LPO detail */
 		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
 			/**Add item */
-			this.httpClient.post(Data.baseUrl + "/lpo_details" , this.getLpoDetailData)
-				.subscribe(
-				  data=>{
+			this.httpClient.post(Data.baseUrl + "/lpo_details" , this.getLpoDetailData())
+			.toPromise()
+			.then(
+				data => {
 					added = true
-				  },
-				  error=>{
-					added = false
-				  }
-				)
+					alert('success')
+				}
+			)
+			.catch(
+				error => {
+					alert('error')
+					console.log(error)
+				}
+			)
+				
 		}else{
 			MessageService.showMessage('Error: Could not add item\nItem may not be available for this supplier')
 		}
@@ -339,7 +363,7 @@ export class LPOComponent implements OnInit {
 			itemCode    : this.itemCode,
 			description : this.description,
 			qtyOrdered  : this.qtyOrdered,
-			costPrice   : this.qtyOrdered 
+			costPrice   : this.costPrice 
 		}
 	}
 	validateSupplier(itemCode : string, supplierCode : string, supplierName : string){
@@ -347,7 +371,7 @@ export class LPOComponent implements OnInit {
 		 * checks if the item is supplied by that particular supplier and
 		 * returns true if supplier is active and supplies that particular item
 		 */
-		var valid : boolean = false
+		var valid : boolean = true
 
 		return valid
 	}
