@@ -8,8 +8,8 @@
             <input type="hidden" name="id" [(ngModel)]="id">
             <div class="col-sm-5"><input type="text" name="classCode" [(ngModel)]="classCode" class="form-control" placeholder="--Class Code--"></div>
             <div class="col-sm 7">
-                <button type="button" (click)="clear()" name="newClass"  class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>..  
-                <button type="button" (click)="searchClass()" name="searchClass" class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button>
+                <button type="button" (click)="clear()" name="newClass"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>  
+                <button type="button" (click)="searchClass()" name="searchClass" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
             </div>
         </div>
         <div class="row">
@@ -32,8 +32,8 @@
         
         <div class="row">
             <div class="col-sm-12 text-center">
-                <button type="button" name="saveClass" (click)="saveClass()" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save / Update</button>..
-                <button type="button" name="deleteClass" (click)="deleteClass()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>..
+                <button type="button" name="saveClass" (click)="saveClass()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save </button>
+                <button type="button" name="deleteClass" (click)="deleteClass()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
             </div>
         </div>
         <hr>

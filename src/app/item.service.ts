@@ -7,6 +7,9 @@ import { HttpClient, HttpErrorResponse, HttpHandler } from '@angular/common/http
 import { HttpClientModule } from '@angular/common/http';
 import { delay, retry } from 'rxjs/operators';
 import { Data } from './data';
+import { HttpErrorService } from './http-error.service';
+import { error } from 'protractor';
+import { ErrorService } from './error.service';
 
 
 
@@ -17,26 +20,16 @@ export class ItemService {
 
   constructor( private httpClient: HttpClient ) { }
 
-  async getItem (id) {
+  async getItem (id : any) {
     /**
      * gets item details with a specified id from datastore
      */
-    //this.clear
     var item = {}
     await this.httpClient.get(Data.baseUrl+"/items/"+id)
     .toPromise()
     .then(
       data=>{
         item=data
-        console.log(item['supplier_id'])
-      },
-      error=>{
-        if(error['status']==404){
-
-        }else if (error['status']==400){
-          window.alert('Bad request, undefined operation!')
-        }
-        console.log(error)
       }
     )
     .catch(
@@ -44,17 +37,16 @@ export class ItemService {
         alert('Error code: '+error['status'])
       }
     )
-    console.log(item)
     return item
   }
 
-  public async getItemId (barcode , itemCode , description){
+  public async getItemId (barcode :string , itemCode :string , description : string){
     /**
      * gets item id given barcode, itemcode or description
      * on preference basis
      */
     var id = '' 
-    if(barcode!='' && barcode!=null){
+    if(barcode != '' && barcode != null){
       
       await this.httpClient.get(Data.baseUrl+"/items/primary_barcode="+barcode)
       .toPromise()
@@ -64,7 +56,9 @@ export class ItemService {
         }
       )
       .catch(
-        error=>{}
+        error=>{
+          ErrorService.showHttpError(error, 'Requested resource could not be found')
+        }
       )
     }else if (itemCode!='' && itemCode!=null){
       await this.httpClient.get(Data.baseUrl+"/items/item_code="+itemCode)
@@ -75,7 +69,9 @@ export class ItemService {
         }
       )
       .catch(
-        error=>{}
+        error=>{
+          ErrorService.showHttpError(error, 'Requested resource could not be found')
+        }
       )
     }else{
       await this.httpClient.get(Data.baseUrl+"/items/long_description="+description)
@@ -86,7 +82,9 @@ export class ItemService {
         }
       )
       .catch(
-        error=>{}
+        error=>{
+          ErrorService.showHttpError(error, 'Requested resource could not be found')
+        }
       )
     }
     return id
@@ -113,14 +111,14 @@ export class ItemService {
     })
     return items
   } 
-
-  public getCostPrice(id){
+  
+  public getCostPrice(id : any){
     var price = 0
     //logic
     return price
   }
 
-  public getRetailPrice(id){
+  public getRetailPrice(id : any){
     var price = 0
     //logic
     return price

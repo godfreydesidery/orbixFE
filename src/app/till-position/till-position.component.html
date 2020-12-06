@@ -24,47 +24,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>548563</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                        </tr>
-                        <tr>
-                            <td>548563</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                        </tr>
-                        <tr>
-                            <td>548563</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
-                            <td>1,000,000.00</td>
+                        <tr *ngFor="let till of tills" [ngValue]="till">
+                            <td>{{till.tillNo}}</td>
+                            <td>{{till.total}}</td>
+                            <td>{{till.cash}}</td>
+                            <td>{{till.voucher}}</td>
+                            <td>{{till.cheque}}</td>
+                            <td>{{till.deposit}}</td>
+                            <td>{{till.loyalty}}</td>
+                            <td>{{till.crCard}}</td>
+                            <td>{{till.cap}}</td>
+                            <td>{{till.invoice}}</td>
+                            <td>{{till.crNote}}</td>
+                            <td>{{till.mobile}}</td>
                         </tr>
                     </tbody>
                 </table>

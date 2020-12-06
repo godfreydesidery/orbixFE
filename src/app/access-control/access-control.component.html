@@ -9,12 +9,13 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <p>Role</p>
-                        <input type="text" class="form-control">
+                        <input type="hidden" name="id" [(ngModel)]="id">
+                        <input type="text" name="roleName" [(ngModel)]="roleName" class="form-control" placeholder="--Role--">
                         <br>
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-new"></span> New</button>..
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit</button>..
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-trash"></span> Delete</button>..
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                        <button class="btn btn-success" (click)="clear()" style="margin: 2px;"><span class="glyphicon glyphicon-new"></span> New</button>
+                        <button class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                        <button class="btn btn-danger" (click)="deleteRole()" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                        <button class="btn btn-success" (click)="saveRole()" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
                     </div>
                 </div>
                 <div class="row">
@@ -24,33 +25,27 @@
                                 <tr class="info">
                                     <td>SN</td>
                                     <td>Role</td>
+                                    <td>Select</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>MANAGER</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>MANAGER</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>MANAGER</td>
+                                <tr *ngFor="let role of roles" [ngValue]="role">
+                                    <td>{{role.id}}</td>
+                                    <td>{{role.roleName}}</td>
+                                    <td><a class="glyphicon glyphicon-pencil badge" (click)="search(role.id)">Edit</a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                
             </div>
             <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-12">
                         <p>Select Role</p>
-                        <select class="form-control">
+                        <select [(ngModel)]="roleName" name="roleName" class="form-control" placeholder="--Class--">
                             <option></option>
+                            <option *ngFor="let role of roles" [ngValue]="role.roleName">{{role.roleName}}</option>
                         </select>
                     </div>
                     <p></p>

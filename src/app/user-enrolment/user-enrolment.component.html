@@ -8,49 +8,71 @@
             <div class="col-sm-5">
                 <div class="row">
                     <div class="col-sm-3"></div>
-                    <div class="col-sm-9">
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-new"></span> New</button>..
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Edit</button>..
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search</button>..
+                    <div class="col-sm-8 text-center">
+                        <button class="btn btn-success" (click)="clear()" style="margin: 2px;"><span class="glyphicon glyphicon-new"></span> New</button>
+                        <button class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                        <button class="btn btn-warning" (click)="searchUser()" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Search</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Payroll No</div>
+                    <input type="hidden" name="id" [(ngModel)]="id">
+                    <div class="col-sm-8">
+                        <input type="text" name="payRollNo" [(ngModel)]="payRollNo" class="form-control" placeholder="--Pay Roll No--">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Username</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">Payroll No</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    
+                    <div class="col-sm-8">
+                        <input type="text" name="username" [(ngModel)]="username" class="form-control" placeholder="--Username--">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">First Name</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8">
+                        <input type="text" name="firstName" [(ngModel)]="firstName" class="form-control" placeholder="--First Name--">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Second Name</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8">
+                        <input type="text" name="secondName" [(ngModel)]="secondName" class="form-control" placeholder="--Second Name--">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Last Name</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8">
+                        <input type="text" name="lastName" [(ngModel)]="lastName" class="form-control" placeholder="--Last Name--">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Role</div>
-                    <div class="col-sm-8"><input type="text" class="form-control"></div>
+                    <div class="col-sm-8">
+                        <select [(ngModel)]="roleName" name="roleName" class="form-control" placeholder="--Role--">
+                            <option></option>
+                            <option *ngFor="let roleName of roleNames" [ngValue]="roleName">{{roleName}}</option>
+                        </select>
+                        <!--<input type="text" name="role" [(ngModel)]="role" class="form-control" placeholder="--Role--">-->
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Password</div>
-                    <div class="col-sm-8"><input type="password" class="form-control"></div>
+                    <div class="col-sm-8">
+                        <input type="password" name="password" [(ngModel)]="password" class="form-control" placeholder="--Password--">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Confirm Password</div>
-                    <div class="col-sm-8"><input type="password" class="form-control"></div>
+                    <div class="col-sm-8">
+                        <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control" placeholder="--Confirm Password--">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3"></div>
-                    <div class="col-sm-9">
-                        <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>..
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>..
+                    <div class="col-sm-8 text-center">
+                        <button class="btn btn-danger" (click)="deleteUser()" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                        <button class="btn btn-success" (click)="saveUser()" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
                     </div>
                 </div>
             </div>
@@ -62,27 +84,18 @@
                             <td>Name</td>
                             <td>Role</td>
                             <td>Status</td>
+                            <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>8674869</td>
-                            <td>ALI HASSAN ABDALLAH</td>
-                            <td>MANAGER</td>
-                            <td>ACTIVE</td>
+                        <tr *ngFor="let user of users" [ngValue]="user">
+                            <td>{{user.payRollNo}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.role.roleName}}</td>
+                            <td>{{user.status}}</td>
+                            <td><a class="glyphicon glyphicon-pencil badge" (click)="search(user.id)">Edit</a></td>
                         </tr>
-                        <tr>
-                            <td>8674869</td>
-                            <td>ALI HASSAN ABDALLAH</td>
-                            <td>MANAGER</td>
-                            <td>ACTIVE</td>
-                        </tr>
-                        <tr>
-                            <td>8674869</td>
-                            <td>ALI HASSAN ABDALLAH</td>
-                            <td>MANAGER</td>
-                            <td>ACTIVE</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

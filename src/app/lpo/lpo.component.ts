@@ -5,7 +5,26 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './lpo.component.html',
   styleUrls: ['./lpo.component.css']
 })
-export class LPOComponent implements OnInit {
+export class ListLPOComponent implements OnInit {
+	/**LPO field variakbles */
+	id
+	lpoNo
+	supplierCode
+	supplierName
+	createdBy
+	approvedBy
+	lpoDate
+	validityPeriod
+	validUntil
+	status
+	
+	/**Lpo detail field variables */
+	lpoDetailId
+	itemCode
+	description
+	qtyOrdered
+	costPrice
+
 
   constructor() { }
 

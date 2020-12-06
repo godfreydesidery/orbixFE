@@ -29,53 +29,53 @@ export class ProductInquiryComponent implements OnInit {
   public suppliers: string [] = []
 
   //field variables
-  id
-  primaryBarcode
-  itemCode
-  longDescription
-  shortDescription
-  ingredients
-  packSize
-  supplierName
-  departmentName
-  _class
-  subClass
-  unitCostPrice
-  unitRetailPrice
-  profitMargin
-  standardUom
-  vat       
-  discount
-  quantity
-  maximumInventory
-  minimumInventory
-  defaultReOrderLevel
-  reOrderQuantity
+  id:any
+  primaryBarcode      : string
+  itemCode            : string
+  longDescription     : string
+  shortDescription    : string
+  ingredients         : string
+  packSize            : number
+  supplierName        : string
+  departmentName      : string
+  _className          : string
+  subClassName        : string
+  unitCostPrice       : number
+  unitRetailPrice     : number
+  profitMargin        : number
+  standardUom         : string
+  vat                 : number       
+  discount            : number
+  quantity            : number
+  maximumInventory    : number
+  minimumInventory    : number
+  defaultReOrderLevel : number
+  reOrderQuantity     : number
 
   constructor(private httpClient: HttpClient ) {
 
-    this.id               ='';
-    this.primaryBarcode   ='';
-    this.itemCode         ='';
-    this.longDescription  ='';
-    this.shortDescription ='';
-    this.ingredients      ='';
-    this.packSize         ='';
-    this.supplierName         ='';
-    this.departmentName       ='';
-    this._class           ='';
-    this.subClass         ='';
-    this.unitCostPrice    ='';
-    this.unitRetailPrice  ='';
-    this.profitMargin     ='';
-    this.standardUom      ='';
-    this.vat              ='';
-    this.discount         ='';
-    this.quantity         ='';
-    this.maximumInventory ='';
-    this.minimumInventory ='';
-    this.defaultReOrderLevel='';
-    this.reOrderQuantity  ='';
+    this.id                  = '';
+    this.primaryBarcode      = '';
+    this.itemCode            = '';
+    this.longDescription     = '';
+    this.shortDescription    = '';
+    this.ingredients         = '';
+    this.packSize            = null;
+    this.supplierName        = '';
+    this.departmentName      = '';
+    this._className          = '';
+    this.subClassName        = '';
+    this.unitCostPrice       = null;
+    this.unitRetailPrice     = null;
+    this.profitMargin        = null;
+    this.standardUom         = '';
+    this.vat                 = null;
+    this.discount            = null;
+    this.quantity            = null;
+    this.maximumInventory    = null;
+    this.minimumInventory    = null;
+    this.defaultReOrderLevel = null;
+    this.reOrderQuantity     = null;
    }
 
   ngOnInit(): void {
@@ -101,6 +101,11 @@ export class ProductInquiryComponent implements OnInit {
      * search item by id
      * gets id from getItemId
      */
+    if(this.primaryBarcode == '' && this.itemCode == '' && this.longDescription == ''){
+      alert('Please enter a search key!')
+      this.clear()
+      return
+    }
     var itemId=''
     itemId = await (new ItemService(this.httpClient)).getItemId(this.primaryBarcode,this.itemCode,this.longDescription)
     if(itemId==''||itemId==null){
@@ -151,10 +156,6 @@ export class ProductInquiryComponent implements OnInit {
     this.shortDescription     = item['shortDescription']
     this.ingredients          = item['ingredients']
     this.packSize             = item['packSize']
-    this.supplierName             = item['supplier'].supplierName
-    this.departmentName           = item['department'].departmentName
-    this._class               = item['_class']
-    this.subClass             = item['subClass']
     this.unitCostPrice        = item['unitCostPrice']
     this.unitRetailPrice      = item['unitRetailPrice']
     this.profitMargin         = item['profitMargin']
@@ -166,31 +167,35 @@ export class ProductInquiryComponent implements OnInit {
     this.minimumInventory     = item['minimumInventory']
     this.defaultReOrderLevel  = item['defaultReOrderLevel']
     this.reOrderQuantity      = item['reOrderQuantity']
+    this.supplierName         = item['supplier'].supplierName
+    this.departmentName       = item['department'].departmentName
+    this._className           = item['_class']
+    this.subClassName         = item['subClass']
   }
   clear(){
     //clear the fields
-    this.id               ='';
-    this.primaryBarcode   ='';
-    this.itemCode         ='';
-    this.longDescription  ='';
-    this.shortDescription ='';
-    this.ingredients      ='';
-    this.packSize         ='';
-    this.supplierName         ='';
-    this.departmentName       ='';
-    this._class           ='';
-    this.subClass         ='';
-    this.unitCostPrice    ='';
-    this.unitRetailPrice  ='';
-    this.profitMargin     ='';
-    this.standardUom      ='';
-    this.vat              ='';
-    this.discount         ='';
-    this.quantity         ='';
-    this.maximumInventory ='';
-    this.minimumInventory ='';
-    this.defaultReOrderLevel='';
-    this.reOrderQuantity  ='';
+    this.id                  = '';
+    this.primaryBarcode      = '';
+    this.itemCode            = '';
+    this.longDescription     = '';
+    this.shortDescription    = '';
+    this.ingredients         = '';
+    this.packSize            = null;
+    this.supplierName        = '';
+    this.departmentName      = '';
+    this._className          = '';
+    this.subClassName        = '';
+    this.unitCostPrice       = null;
+    this.unitRetailPrice     = null;
+    this.profitMargin        = null;
+    this.standardUom         = '';
+    this.vat                 = null;
+    this.discount            = null;
+    this.quantity            = null;
+    this.maximumInventory    = null;
+    this.minimumInventory    = null;
+    this.defaultReOrderLevel = null;
+    this.reOrderQuantity     = null;
   }
 
 }

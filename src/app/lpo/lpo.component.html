@@ -4,43 +4,107 @@
     </div>
     <div class="panel-body well">
         <div class="row">
-            <div class="col-sm-2" style="margin-top: 2px;"><input type="text" class="form-control" placeholder="Order#"></div>
-            <div class="col-sm-1" style="margin-top: 2px;"><button class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Order</button></div>
-            <div class="col-sm-2" style="margin-top: 2px;"><input type="text" class="form-control" placeholder="Supplier Code"></div>
-            <div class="col-sm-3" style="margin-top: 2px;"><input type="text" class="form-control" placeholder="Supplier"></div> 
-            <div class="col-sm-2" style="margin-top: 2px;"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-search"></span> Supplier</button></div>        
-            <div class="col-sm-2" style="margin-top: 2px;"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-file-open"></span> New Order</button></div>                  
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-12">
-                <p>Supplier: (1001) ANDE AND SANILI</p>
-                <p>Created by: Godfrey Shirima </p>
-                <p>Approved by: Ali Abdallah </p>
-                <p>Order Date: 11 Nov 2020, Validity Period: 30 days, Valid Until: 11 Dec 2020</p>
-                <p>Status: PENDING </p>
-                <p>Qty: 100</p>
-                <p>Order Cost: 100,000.00</p>
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-success form-control" style="margin: 2px;"><span class="glyphicon glyphicon-file-open"></span> New Order</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <input type="hidden" name="id" [(ngModel)]="id">
+                        <input type="text" name="lpoNo" [(ngModel)]="lpoNo"  class="form-control" placeholder="Order#" style="margin: 2px;">
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>
+                    </div>
+                </div>
+                <input type="text" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier Code" style="margin: 2px;">
+                <select [(ngModel)]="supplierName" name="supplierName" class="form-control" placeholder="--Supplier Name--">
+                    <option></option>
+                    <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
+                </select>
+                <button class="btn btn-warning form-control" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>
+                <div class="row">
+                    <div class="col-sm-12" style="background-color: rgb(241, 243, 213);">
+                        <span>
+                            Supplier: ({{supplierCode}}) {{supplierName}}<br>
+                            Created by: {{createdBy}}<br>
+                            Approved by: {{approvedBy}}<br>
+                            Order Date: {{lpoDate}}<br>
+                            Validity Period: {{validityPeriod}} days<br>
+                            Valid Until: {{validUntil}}<br>
+                            Status: {{status}}<br>
+                        </span>
+                        
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>..
-                <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Approve</button>..
-                <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Cancel</button>..
+
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">
+                        <input type="text" name="barcode" [(ngModel)]="barcode"  class="form-control" placeholder="Barcode" style="margin: 2px;">
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Item</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <input type="text" name="itemCode" [(ngModel)]="itemCode"  class="form-control" placeholder="Item Code" style="margin: 2px;">
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="1" placeholder="--Description--"></ng2-completer>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" style="margin: 2px;border-radius: 20px;"><span class=""></span>  - </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" name="qtyOrdered" [(ngModel)]="qtyOrdered" class="form-control" placeholder="Qty" style="margin: 2px;">
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary" style="margin: 2px;border-radius: 20px;"><span class=""></span>  + </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <button class="btn btn-primary form-control" style="margin: 2px;border-radius: 20px;">Add/Update Item</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <button class="btn btn-primary form-control" style="margin: 2px;border-radius: 20px;">Clear</button>
+                    </div>
+                </div>
+
             </div>
+            <div class="col-sm-1"></div>
+                    
+            <div class="col-sm-2" style="margin-top: 2px;">
+                <button class="btn btn-success form-control" style="margin: 3px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save Order</button>
+                <button class="btn btn-success form-control" style="margin: 3px;"><span class="glyphicon glyphicon-ok"></span> Approve Order</button>
+                <button class="btn btn-success form-control" style="margin: 3px;"><span class="glyphicon glyphicon-print"></span> Print Order</button>
+                <button class="btn btn-success form-control" style="margin: 3px;"><span class="glyphicon glyphicon-print"></span> Print with cost</button>
+                <button class="btn btn-danger form-control" style="margin: 3px;"><span class="glyphicon glyphicon-remove"></span> Cancel Order</button>
+            </div>                  
         </div>
-        <br>
+        
         <div class="row">
             <div class="col-sm-12">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
                         <tr class="info">
-                            <td>+-</td>
-                            <td>Barcode</td>
                             <td>Code</td>
                             <td>Descr</td>
-                            <td>Pck</td>
                             <td>Qty</td>
                             <td>CP@</td>
                             <td>Total CP</td>
@@ -48,51 +112,23 @@
                             <td>Total SP</td>
                             <td>Profit</td>
                             <td>Curr Stk</td>
+                            <td>Edit</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>+-</td>
-                            <td>8758749955848</td>
-                            <td>237659</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                            <td>6</td>
-                            <td>100</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>1,000.00</td>
-                            <td>20</td>
+                        <tr *ngFor="let lpoDetail of lpoDetails" [ngValue]="lpoDetail">
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.itemCode}}</td>
+                            <td><a class="glyphicon glyphicon-pencil badge">Edit</a></td>
                         </tr>
-                        <tr>
-                            <td>+-</td>
-                            <td>8758749955848</td>
-                            <td>237659</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                            <td>6</td>
-                            <td>100</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>1,000.00</td>
-                            <td>20</td>
-                        </tr>
-                        <tr>
-                            <td>+-</td>
-                            <td>8758749955848</td>
-                            <td>237659</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                            <td>6</td>
-                            <td>100</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>1,000.00</td>
-                            <td>20</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

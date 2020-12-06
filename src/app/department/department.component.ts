@@ -138,7 +138,6 @@ export class DepartmentComponent implements OnInit {
         .subscribe(
           data=>{
             window.alert('Department created successifully')
-            console.log(data)
             this.id=data['id']
           },
           error=>{
