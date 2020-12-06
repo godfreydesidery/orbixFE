@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Data } from '../data';
 import { ItemService } from '../item.service';
 import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
@@ -34,7 +35,7 @@ export class LPOComponent implements OnInit {
 	descriptions  : string[] = []
 	supplierNames : string[] = []
 
-	public lpoDetails : object = {}
+	public lpoDetails : object = {"itemCode":"1"}
 
 
 	constructor(private httpClient : HttpClient) {
@@ -153,8 +154,8 @@ export class LPOComponent implements OnInit {
 		/**Renders lpo information for display */
 		this.id             = lpo['id']
 		this.lpoNo          = lpo['lpoNo']
-		this.supplierCode   = lpo['supplierCode']
-		this.supplierName   = lpo['supplierName']
+		this.supplierCode   = lpo['supplier'].supplierCode
+		this.supplierName   = lpo['supplier'].supplierName
 		this.createdBy      = lpo['createdBy']
 		this.approvedBy     = lpo['approvedBy']
 		this.lpoDate        = lpo['lpoDate']
@@ -222,19 +223,19 @@ export class LPOComponent implements OnInit {
 		 * assign them to the lpo variables
 		*/
 		return {
-			lpoNo : this.lpoNo,
-			supplierCode : this.supplierCode,
-			supplierName : this.supplierName,
-			createdBy : this.createdBy,
-			approvedBy : '',
-			lpoDate : this.lpoDate,
+			lpoNo          : this.lpoNo,
+			supplierCode   : this.supplierCode,
+			supplierName   : this.supplierName,
+			createdBy      : this.createdBy,
+			approvedBy     : '',
+			lpoDate        : this.lpoDate,
 			validityPeriod : this.validityPeriod,
-			validUntil : this.validUntil,
-			status : 'PENDING'
+			validUntil     : this.validUntil,
+			status         : 'PENDING'
 		}
 	}
 
-	addLpoDetail(){
+	async addLpoDetail(){
 		var added : boolean = false
 		if(this.supplierCode == ''){
 			MessageService.showMessage('Please select a supplier')
@@ -243,16 +244,46 @@ export class LPOComponent implements OnInit {
 			this.lockLpo()
 			this.lockSupplier()
 			if(this.id == ''){
-				var lpo = this.createLpo()
 				/**post lpo and return newly created lpo details and
 				 * assign it to the field variables
 				 */
+				this.httpClient.post(Data.baseUrl + "/lpos" , this.createLpo())
+				.subscribe(
+				  data=>{
+					this.id=data['id']
+				  },
+				  error=>{
+					return
+				  }
+				)
+				var lpo = {}
+				await this.httpClient.get(Data.baseUrl+"/lpos/"+this.id)
+				.toPromise()
+				.then(
+					data=>{
+						lpo=data
+					}
+				)
+				.catch(
+					error=>{
+						return
+					}
+				)
+				this.showLpo(lpo)
 			}
 		}
 		/**Add a new LPO detail */
 		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
 			/**Add item */
-			added = true
+			this.httpClient.post(Data.baseUrl + "/lpo_details" , this.getLpoDetailData)
+				.subscribe(
+				  data=>{
+					added = true
+				  },
+				  error=>{
+					added = false
+				  }
+				)
 		}else{
 			MessageService.showMessage('Error: Could not add item\nItem may not be available for this supplier')
 		}
@@ -263,6 +294,22 @@ export class LPOComponent implements OnInit {
 		var updated : boolean =false
 
 		return updated
+	}
+	async refreshLpoDetails(id : any){
+		this.lpoDetails = {}
+		await this.httpClient.get(Data.baseUrl+"/lpos/"+id)
+		.toPromise()
+		.then(
+			data=>{
+				/**return an object with all the details of the specific lpo */
+				this.lpoDetails=data
+			}
+		)
+		.catch(
+			error=>{
+				return
+			}
+		)
 	}
 	deleteLpoDetail(id : any){
 		/**Delete an LPO detail */
