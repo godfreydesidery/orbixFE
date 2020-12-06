@@ -235,14 +235,23 @@ export class LPOComponent implements OnInit {
 	async searchSupplier(supplierCode : string, supplierName : string){
 		/**Search a supplier */
 		var found : boolean = false
-		var supplier = (new SupplierService(this.httpClient)
-							.getSupplier((new SupplierService(this.httpClient)
-							.getSupplierId(supplierCode,supplierName))))
+		var supplierId = await (new SupplierService(this.httpClient)).getSupplierId(supplierCode, supplierName)
+		var supplier = await (new SupplierService(this.httpClient)).getSupplier(supplierId)
 		this.supplierCode = supplier['supplierCode']
 		this.supplierName = supplier['supplierName']
+		if(supplier != '' && supplierId != null){
+			found = true
+		}
+		if(this.lock==true){
+			this.lock = false
+		}else{
+			this.lock = true
+		}
+		
 		return found
 	}
 	refresh(){
 		window.location.reload()
 	}
+	lock = true
 }
