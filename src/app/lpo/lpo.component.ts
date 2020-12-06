@@ -81,12 +81,35 @@ export class LPOComponent implements OnInit {
 	createLpo(){
 		/**Create a new Lpo */
 		var created : boolean =false
-
+		this.clear()
+		this.lockLpo()
+		this.lpoNo = this.generateLpoNo()
 		return created
+	}
+	clear(){
+		this.id             = ''
+		this.barcode        = ''
+		this.lpoNo          = ''
+		this.supplierCode   = ''
+		this.supplierName   = ''
+		this.createdBy      = ''
+		this.approvedBy     = ''
+		this.lpoDate        = null
+		this.validityPeriod = null
+		this.validUntil 	  = null
+		this.status         = ''
+		/**Lpo details */
+		this.lpoDetailId    = ''
+		this.itemCode       = ''
+		this.description    = ''
+		this.qtyOrdered     = null
+		this.costPrice      = null
 	}
 	generateLpoNo(){
 		/**Generate a unique LPO No */
-		var lpoNo : boolean = null
+		var lpoNo : string = ''
+		
+		lpoNo = '12345'
 
 		return lpoNo
 	}
@@ -176,6 +199,10 @@ export class LPOComponent implements OnInit {
 		return canceled
 	}
 	addLpoDetail(detail : any){
+
+
+		this.lockSupplier()
+
 		/**Add a new LPO detail */
 		var added : boolean = false
 		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
@@ -232,26 +259,51 @@ export class LPOComponent implements OnInit {
 
 		return valid
 	}
-	async searchSupplier(supplierCode : string, supplierName : string){
+	clearSupplier(){
+		this.supplierCode = ''
+		this.supplierName = ''
+	}
+	searchBySupplierName(){
+		this.supplierCode = ''
+		this.searchSupplier()
+	}
+	async searchSupplier(){
 		/**Search a supplier */
 		var found : boolean = false
-		var supplierId = await (new SupplierService(this.httpClient)).getSupplierId(supplierCode, supplierName)
+		var supplierId = await (new SupplierService(this.httpClient)).getSupplierId(this.supplierCode, this.supplierName)
 		var supplier = await (new SupplierService(this.httpClient)).getSupplier(supplierId)
 		this.supplierCode = supplier['supplierCode']
 		this.supplierName = supplier['supplierName']
 		if(supplier != '' && supplierId != null){
 			found = true
 		}
-		if(this.lock==true){
-			this.lock = false
-		}else{
-			this.lock = true
-		}
+		
 		
 		return found
 	}
 	refresh(){
 		window.location.reload()
 	}
-	lock = true
+	lockedSupplier : boolean = false
+	lockedLpo : boolean = false
+	lockedItem : boolean = false
+	private lockSupplier(){
+		this.lockedSupplier = true
+	}
+	private lockLpo(){
+		this.lockedLpo = true
+	}
+	private lockItem(){
+		this.lockedItem = true
+	}
+	private unlockSupplier(){
+		this.lockedSupplier = false
+	}
+	private unlockLpo(){
+		this.lockedLpo = false
+	}
+	private unlockItem(){
+		this.lockedItem = false
+	}
+
 }
