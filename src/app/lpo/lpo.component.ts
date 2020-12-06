@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../item.service';
+import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
 
 @Component({
@@ -89,6 +90,19 @@ export class LPOComponent implements OnInit {
 
 		return lpoNo
 	}
+	searchLpo(lpoNo : string){
+		/**Searches specified lpo, displays lpo and return true if found,
+		 * else return false
+		 */
+		var found : boolean = false
+
+		return found
+	}
+	searchLpoDetail(id : any){
+		/**Search lpo detail by id,
+		 * display detail in input fields for further processing */
+
+	}
 	saveLpo(lpoNo : string){
 		/**Save a new or update an existing LPO */
 		var saved : boolean = false
@@ -143,7 +157,12 @@ export class LPOComponent implements OnInit {
 	addLpoDetail(detail : any){
 		/**Add a new LPO detail */
 		var added : boolean = false
-
+		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
+			/**Add item */
+			added = true
+		}else{
+			MessageService.showMessage('Error: Could not add item\nItem may not be available for this supplier')
+		}
 		return added
 	}
 	updateLpoDetail(detail : any){
@@ -175,5 +194,14 @@ export class LPOComponent implements OnInit {
 			qtyOrdered  : this.qtyOrdered,
 			costPrice   : this.qtyOrdered 
 		}
+	}
+	validateSupplier(itemCode : string, supplierCode : string, supplierName : string){
+		/**Validate the supplier of a particular item,
+		 * checks if the item is supplied by that particular supplier and
+		 * returns true if supplier is active and supplies that particular item
+		 */
+		var valid : boolean = false
+
+		return valid
 	}
 }
