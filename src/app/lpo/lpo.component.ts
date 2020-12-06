@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { error } from 'protractor';
 import { Data } from '../data';
+import { ErrorService } from '../error.service';
+import { HttpErrorService } from '../http-error.service';
 import { ItemService } from '../item.service';
 import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
@@ -87,6 +89,8 @@ export class LPOComponent implements OnInit {
 		this.clear()
 		this.lockLpo()
 		this.unlockSupplier()
+		this.unlockItem()
+		this.lockAdd()
 		this.lpoNo = this.generateLpoNo()
 		return created
 	}
@@ -95,6 +99,7 @@ export class LPOComponent implements OnInit {
 		this.clear()
 		this.lockSupplier()
 		this.unlockLpo()
+		this.lockAdd()
 	}
 	clear(){
 		this.id             = ''
@@ -114,6 +119,16 @@ export class LPOComponent implements OnInit {
 		this.description    = ''
 		this.qtyOrdered     = null
 		this.costPrice      = null
+	}
+	clearItem(){
+		/**Clear item data */
+		this.lpoDetailId    = ''
+		this.itemCode       = ''
+		this.description    = ''
+		this.qtyOrdered     = null
+		this.costPrice      = null
+		this.unlockItem()
+		this.lockAdd()
 	}
 	generateLpoNo(){
 		/**Generate a unique LPO No */
@@ -138,6 +153,7 @@ export class LPOComponent implements OnInit {
 		var found : boolean = false
 		this.lockLpo()
 		this.lockSupplier()
+
 
 		return found
 	}
@@ -246,49 +262,61 @@ export class LPOComponent implements OnInit {
 		}
 	}
 	saveLpoDetail(){
+		if(this.lpoNo == ''){
+			MessageService.showMessage('Order number required.\nSelect new for a new order')
+			return
+		}
+		if(this.supplierCode == ''){
+			MessageService.showMessage('Please select a supplier')
+			return
+		}
+		if(this.itemCode == ''){
+			MessageService.showMessage('Please select an item')
+			return
+		}
+		if(this.qtyOrdered <= 0 || isNaN(this.qtyOrdered)){
+			MessageService.showMessage('Error: Invalid quantity!\nQuantity must be numeric and more than zero')
+			return
+		}
 		if(this.lpoDetailId == ''){
 			this.addLpoDetail()
+		}else{
+
 		}
 	}
 
 	async addLpoDetail(){
 		var added : boolean = false
-		if(this.supplierCode == ''){
-			MessageService.showMessage('Please select a supplier')
-			return
-		}else{
-			this.lockLpo()
-			this.lockSupplier()
-			if(this.id == ''){
-				/**post lpo and return newly created lpo details and
-				 * assign it to the field variables
-				 */
-				await this.httpClient.post(Data.baseUrl + "/lpos" , this.createLpo())
-				.toPromise()
-				.then(
-					data => {
-						this.id=data['id']
-				  	}
-				)
-				.catch(
-					error => {
-						return
-				  	}
-				)
-				alert(this.id)
-				await this.httpClient.get(Data.baseUrl+"/lpos/"+this.id)
-				.toPromise()
-				.then(
-					data => {
-						this.showLpo(data)
-					}
-				)
-				.catch(
-					error => {
-						return
-					}
-				)
-			}
+		this.lockLpo()
+		this.lockSupplier()
+		if(this.id == ''){
+			/**post lpo and return newly created lpo details and
+			 * assign it to the field variables
+			 */
+			await this.httpClient.post(Data.baseUrl + "/lpos" , this.createLpo())
+			.toPromise()
+			.then(
+				data => {
+					this.id=data['id']
+				}
+			)
+			.catch(
+				error => {
+					return
+				}
+			)
+			await this.httpClient.get(Data.baseUrl+"/lpos/"+this.id)
+			.toPromise()
+			.then(
+				data => {
+					this.showLpo(data)
+				}
+			)
+			.catch(
+				error => {
+					return
+				}
+			)
 		}
 		/**Add a new LPO detail */
 		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
@@ -298,13 +326,15 @@ export class LPOComponent implements OnInit {
 			.then(
 				data => {
 					added = true
-					alert('success')
+					MessageService.showMessage('Item added successifully')
+					this.clearItem()
+					this.unlockItem()
 				}
 			)
 			.catch(
 				error => {
-					alert('error')
-					console.log(error)
+					added = false
+					ErrorService.showHttpError(error, 'Could not add item')
 				}
 			)
 				
@@ -363,7 +393,10 @@ export class LPOComponent implements OnInit {
 			itemCode    : this.itemCode,
 			description : this.description,
 			qtyOrdered  : this.qtyOrdered,
-			costPrice   : this.costPrice 
+			costPrice   : this.costPrice,
+			lpo 		: {
+							lpoNo : this.lpoNo
+						}
 		}
 	}
 	validateSupplier(itemCode : string, supplierCode : string, supplierName : string){
@@ -397,12 +430,28 @@ export class LPOComponent implements OnInit {
 		
 		return found
 	}
+	async searchItem(barcode : string, itemCode : string, description : string){
+		/**Search and display an item */
+		var itemId = await (new ItemService(this.httpClient).getItemId(barcode , itemCode, description))
+		if(itemId != '' && itemId !=null){
+			var item = await (new ItemService(this.httpClient).getItem(itemId))
+			this.itemCode = item['itemCode']
+			this.description = item['longDescription']
+			this.lockItem()
+			this.unlockAdd()
+			this.lockSupplier()
+		}else{
+
+		}
+		
+	}
 	refresh(){
 		window.location.reload()
 	}
-	lockedSupplier : boolean = false
-	lockedLpo : boolean = false
+	lockedSupplier : boolean = true
+	lockedLpo : boolean = true
 	lockedItem : boolean = false
+	lockedAdd : boolean = true
 	private lockSupplier(){
 		this.lockedSupplier = true
 	}
@@ -412,6 +461,9 @@ export class LPOComponent implements OnInit {
 	private lockItem(){
 		this.lockedItem = true
 	}
+	private lockAdd(){
+		this.lockedAdd = true
+	}
 	private unlockSupplier(){
 		this.lockedSupplier = false
 	}
@@ -420,6 +472,9 @@ export class LPOComponent implements OnInit {
 	}
 	private unlockItem(){
 		this.lockedItem = false
+	}
+	private unlockAdd(){
+		this.lockedAdd = false
 	}
 
 }

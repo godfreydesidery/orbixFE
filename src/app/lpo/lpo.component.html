@@ -25,12 +25,14 @@
                         <button class="btn btn-warning" (click)="searchLpo(lpoNo)" [disabled]="lockedLpo" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>
                     </div>
                 </div>
-                <input type="text" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier Code" [readonly]="lockedSupplier" style="margin: 2px;">
+                <hr>
+                <input type="text" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier Code" readonly="true" style="margin: 2px;">
+                <label>Select Supplier</label>
                 <select [(ngModel)]="supplierName" name="supplierName" (change)="searchBySupplierName()" [disabled]="lockedSupplier" class="form-control" placeholder="--Supplier Name--">
                     <option></option>
                     <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
                 </select>
-                <button class="btn btn-warning form-control" (click)="searchSupplier()" [disabled]="lockedSupplier" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>
+                <!--<button class="btn btn-warning form-control" (click)="searchSupplier()" [disabled]="lockedSupplier" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>-->
                 <div class="row">
                     <div class="col-sm-12" style="background-color: rgb(241, 243, 213);">
                         <span>
@@ -52,22 +54,22 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">
-                        <input type="text" name="barcode" [(ngModel)]="barcode"  class="form-control" placeholder="Barcode" style="margin: 2px;">
+                        <input type="text" name="barcode" [(ngModel)]="barcode" [readonly]="lockedItem"  class="form-control" placeholder="Barcode" style="margin: 2px;">
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Item</button>
+                        <button class="btn btn-warning" (click)="searchItem(barcode,itemCode,description)" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Item</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-8">
-                        <input type="text" name="itemCode" [(ngModel)]="itemCode"  class="form-control" placeholder="Item Code" style="margin: 2px;">
+                        <input type="text" name="itemCode" [(ngModel)]="itemCode" [readonly]="lockedItem"  class="form-control" placeholder="Item Code" style="margin: 2px;">
                     </div>
                     <div class="col-sm-4">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="1" placeholder="--Description--"></ng2-completer>
+                        <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [disabled]="lockedItem" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="1" placeholder="--Description--"></ng2-completer>
                     </div>
                 </div>
                 <div class="row">
@@ -75,7 +77,7 @@
                         <button class="btn btn-primary" style="margin: 2px;border-radius: 20px;"><span class=""></span>  - </button>
                     </div>
                     <div class="col-sm-3">
-                        <input type="text" name="qtyOrdered" [(ngModel)]="qtyOrdered" class="form-control" placeholder="Qty" style="margin: 2px;">
+                        <input type="text" name="qtyOrdered" [(ngModel)]="qtyOrdered" class="form-control" placeholder="Qty" style="margin: 2px; border-radius: 8px;">
                     </div>
                     <div class="col-sm-2">
                         <button class="btn btn-primary" style="margin: 2px;border-radius: 20px;"><span class=""></span>  + </button>
@@ -83,12 +85,12 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <button class="btn btn-primary form-control" (click)="saveLpoDetail()" style="margin: 2px;border-radius: 20px;">Add/Update Item</button>
+                        <button class="btn btn-primary form-control" (click)="saveLpoDetail()" [disabled]="lockedAdd" style="margin: 2px;border-radius: 20px;">Add/Update Item</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <button class="btn btn-primary form-control" style="margin: 2px;border-radius: 20px;">Clear</button>
+                        <button class="btn btn-primary form-control" (click)="clearItem()" style="margin: 2px;border-radius: 20px;">Clear</button>
                     </div>
                 </div>
 
