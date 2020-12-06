@@ -73,5 +73,57 @@ export class LPOComponent implements OnInit {
       }
     );
   }
+  createLpo(){
+	  /**Create a new Lpo */
+	  var created : boolean =false
 
+	  return created
+  }
+  generateLpoNo(){
+	  /**Generate a unique LPO No */
+	  var lpoNo : boolean = null
+
+	  return lpoNo
+  }
+  saveLpo(lpoNo : string){
+	  /**Save a new or update an existing LPO */
+	  var saved : boolean = false
+
+	  return saved
+  }
+  approveLpo(lpoNo : string){
+	  /**Approve a pending LPO */
+	  var approved : boolean = false
+
+	  return approved
+  }
+  printLpo(){
+	  /**Print an approved LPO or reprint a printed LPO */
+	  var printed : boolean = false
+
+	  return printed
+  }
+  deleteLpo(lpoNo : string){
+	  var deleted :boolean = false
+
+	  return deleted
+  }
+  addLpoDetail(detail : any){
+	  /**Add a new LPO detail */
+	  var added : boolean = false
+
+	  return added
+  }
+  updateLpoDetail(detail : any){
+	  /**Update an existing LPO detail */
+	  var updated : boolean =false
+
+	  return updated
+  }
+  deleteLpoDetail(id : any){
+	  /**Delete an LPO detail */
+	  var deleted : boolean = false
+
+	  return deleted
+  }
 }
