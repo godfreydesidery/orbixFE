@@ -232,4 +232,17 @@ export class LPOComponent implements OnInit {
 
 		return valid
 	}
+	async searchSupplier(supplierCode : string, supplierName : string){
+		/**Search a supplier */
+		var found : boolean = false
+		var supplier = (new SupplierService(this.httpClient)
+							.getSupplier((new SupplierService(this.httpClient)
+							.getSupplierId(supplierCode,supplierName))))
+		this.supplierCode = supplier['supplierCode']
+		this.supplierName = supplier['supplierName']
+		return found
+	}
+	refresh(){
+		window.location.reload()
+	}
 }

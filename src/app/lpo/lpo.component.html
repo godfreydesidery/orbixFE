@@ -7,7 +7,7 @@
             <div class="col-sm-3">
                 <div class="row">
                     <div class="col-sm-12">
-                        <button class="btn btn-success form-control" style="margin: 2px;"><span class="glyphicon glyphicon-file-open"></span> New Order</button>
+                        <button class="btn btn-success form-control" (click)="refresh()" style="margin: 2px;"><span class="glyphicon glyphicon-file-open"></span> New Order</button>
                     </div>
                 </div>
                 <div class="row">
@@ -16,7 +16,7 @@
                         <input type="text" name="lpoNo" [(ngModel)]="lpoNo"  class="form-control" placeholder="Order#" style="margin: 2px;">
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>
+                        <button class="btn btn-warning" (click)="searchLpo(lpoNo)" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>
                     </div>
                 </div>
                 <input type="text" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier Code" style="margin: 2px;">
@@ -24,7 +24,7 @@
                     <option></option>
                     <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
                 </select>
-                <button class="btn btn-warning form-control" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>
+                <button class="btn btn-warning form-control" (click)="searchSupplier(supplierCode,supplierName)" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>
                 <div class="row">
                     <div class="col-sm-12" style="background-color: rgb(241, 243, 213);">
                         <span>
