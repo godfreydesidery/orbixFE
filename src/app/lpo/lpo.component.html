@@ -10,10 +10,10 @@
                         <button class="btn btn-success form-control" (click)="refresh()" style="margin: 2px;"><span class="glyphicon glyphicon-refresh"></span></button>
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn btn-success form-control" style="margin: 2px;"><span class="glyphicon glyphicon-file-open"></span> New </button>
+                        <button class="btn btn-success form-control" (click)="newLpo()" style="margin: 2px;"><span class="glyphicon glyphicon-file-open"></span> New </button>
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn btn-success form-control" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
+                        <button class="btn btn-success form-control" (click)="editLpo()" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit </button>
                     </div>
                 </div>
                 <div class="row">
@@ -22,7 +22,7 @@
                         <input type="text" name="lpoNo" [(ngModel)]="lpoNo" [readonly]="lockedLpo"  class="form-control" placeholder="Order#" style="margin: 2px;">
                     </div>
                     <div class="col-sm-4">
-                        <button class="btn btn-warning" (click)="searchLpo(lpoNo)" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>
+                        <button class="btn btn-warning" (click)="searchLpo(lpoNo)" [disabled]="lockedLpo" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>
                     </div>
                 </div>
                 <input type="text" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier Code" [readonly]="lockedSupplier" style="margin: 2px;">
@@ -30,7 +30,7 @@
                     <option></option>
                     <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
                 </select>
-                <button class="btn btn-warning form-control" (click)="searchSupplier()" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>
+                <button class="btn btn-warning form-control" (click)="searchSupplier()" [disabled]="lockedSupplier" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Supplier</button>
                 <div class="row">
                     <div class="col-sm-12" style="background-color: rgb(241, 243, 213);">
                         <span>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-7">
-                        <button class="btn btn-primary form-control" style="margin: 2px;border-radius: 20px;">Add/Update Item</button>
+                        <button class="btn btn-primary form-control" (click)="addLpoDetail()" style="margin: 2px;border-radius: 20px;">Add/Update Item</button>
                     </div>
                 </div>
                 <div class="row">

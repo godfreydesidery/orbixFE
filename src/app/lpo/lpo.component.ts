@@ -78,13 +78,20 @@ export class LPOComponent implements OnInit {
 		}
 		);
 	}
-	createLpo(){
+	newLpo(){
 		/**Create a new Lpo */
 		var created : boolean =false
 		this.clear()
 		this.lockLpo()
+		this.unlockSupplier()
 		this.lpoNo = this.generateLpoNo()
 		return created
+	}
+	editLpo(){
+		/**Prompts user to edit an existing order */
+		this.clear()
+		this.lockSupplier()
+		this.unlockLpo()
 	}
 	clear(){
 		this.id             = ''
@@ -107,17 +114,27 @@ export class LPOComponent implements OnInit {
 	}
 	generateLpoNo(){
 		/**Generate a unique LPO No */
-		var lpoNo : string = ''
-		
-		lpoNo = '12345'
 
-		return lpoNo
+
+		var anysize = 5;//the size of string 
+		var charset1 = "123456789"; //from where to create
+		var charset2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+		var result1="";
+		var result2=""
+		for( var i=0; i < anysize; i++ )
+			result1 += charset1[Math.floor(Math.random() * charset1.length)];
+		for( var i=0; i < 1; i++ )
+			result2 += charset2[Math.floor(Math.random() * charset2.length)];
+		return "LPO-"+result1+result2
 	}
 	searchLpo(lpoNo : string){
 		/**Searches specified lpo, displays lpo and return true if found,
 		 * else return false
 		 */
 		var found : boolean = false
+		this.lockLpo()
+		this.lockSupplier()
 
 		return found
 	}
@@ -198,13 +215,41 @@ export class LPOComponent implements OnInit {
 		}
 		return canceled
 	}
-	addLpoDetail(detail : any){
 
+	createLpo(){
+		/**Create a new lpo with the specified details
+		 * Return back the newly created order details and
+		 * assign them to the lpo variables
+		*/
+		return {
+			lpoNo : this.lpoNo,
+			supplierCode : this.supplierCode,
+			supplierName : this.supplierName,
+			createdBy : this.createdBy,
+			approvedBy : '',
+			lpoDate : this.lpoDate,
+			validityPeriod : this.validityPeriod,
+			validUntil : this.validUntil,
+			status : 'PENDING'
+		}
+	}
 
-		this.lockSupplier()
-
-		/**Add a new LPO detail */
+	addLpoDetail(){
 		var added : boolean = false
+		if(this.supplierCode == ''){
+			MessageService.showMessage('Please select a supplier')
+			return
+		}else{
+			this.lockLpo()
+			this.lockSupplier()
+			if(this.id == ''){
+				var lpo = this.createLpo()
+				/**post lpo and return newly created lpo details and
+				 * assign it to the field variables
+				 */
+			}
+		}
+		/**Add a new LPO detail */
 		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
 			/**Add item */
 			added = true
@@ -213,7 +258,7 @@ export class LPOComponent implements OnInit {
 		}
 		return added
 	}
-	updateLpoDetail(detail : any){
+	updateLpoDetail(){
 		/**Update an existing LPO detail */
 		var updated : boolean =false
 
