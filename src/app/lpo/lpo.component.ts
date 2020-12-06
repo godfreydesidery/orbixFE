@@ -23,6 +23,7 @@ export class LPOComponent implements OnInit {
 	
 	/**Lpo detail field variables */
 	lpoDetailId : any
+	barcode : any
 	itemCode : string
 	description : string
 	qtyOrdered : number
@@ -32,9 +33,12 @@ export class LPOComponent implements OnInit {
 	descriptions  :string[] = []
 	supplierNames :string[] = []
 
+	public lpoDetails : object = {}
+
 
   constructor(private httpClient : HttpClient) {
 	  this.id = ''
+	  this.barcode = ''
 	  this.lpoNo = ''
 	  this.supplierCode = ''
 	  this.supplierName = ''
@@ -46,6 +50,7 @@ export class LPOComponent implements OnInit {
 	  this.status = ''
 
 	  this.lpoDetailId = ''
+
 	  this.itemCode = ''
 	  this.description = ''
 	  this.qtyOrdered = null
