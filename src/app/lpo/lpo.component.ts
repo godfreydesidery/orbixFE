@@ -119,6 +119,8 @@ export class LPOComponent implements OnInit {
 		this.description    = ''
 		this.qtyOrdered     = null
 		this.costPrice      = null
+
+		this.lpoDetails     = null
 	}
 	clearItem(){
 		/**Clear item data */
@@ -146,13 +148,26 @@ export class LPOComponent implements OnInit {
 			result2 += charset2[Math.floor(Math.random() * charset2.length)];
 		return "LPO-"+result1+result2
 	}
-	searchLpo(lpoNo : string){
+	async searchLpo(lpoNo : string){
 		/**Searches specified lpo, displays lpo and return true if found,
 		 * else return false
 		 */
 		var found : boolean = false
 		this.lockLpo()
 		this.lockSupplier()
+
+		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+lpoNo)
+			.toPromise()
+			.then(
+				data => {
+					this.showLpo(data)
+				}
+			)
+			.catch(
+				error => {
+					return
+				}
+			)
 
 
 		return found
@@ -197,8 +212,13 @@ export class LPOComponent implements OnInit {
 			this.supplierCode = ''
 			this.supplierName = ''
 		}
-		
-		
+		if(lpo['lpoDetail'] != null){
+			this.lpoDetails = lpo['lpoDetail']
+			
+		}else{
+			this.lpoDetails = {}
+		}
+		this.refreshDetails(this.lpoNo)
 	}
 	getLpoData(){
 		/**Return an LPO object for further processing */
@@ -393,15 +413,31 @@ export class LPOComponent implements OnInit {
 		if(id == ''){
 			MessageService.showMessage('Error: No item selected!\nPlease select an item to delete')
 		}else{
-			if(window.confirm('Confirm delete?\nThe item will be removed from order details.\nConfirm?')){
-				/**Delete the selected item */
-				deleted = true
-			}
+			/**Delete the selected item */
+
+			this.httpClient.delete(Data.baseUrl+"/lpo_details/"+id)
+			.toPromise()
+			.then(
+				data => {
+					this.clearItem()
+					this.refreshDetails(this.lpoNo)
+				}
+			)
+			.catch(
+				error => {
+					MessageService.showMessage('Could not delete')
+					console.log(error)
+				}
+			)
+
+
+			deleted = true
 		}
 		return deleted
 	}
 	showLpoDetail(lpoDetail : any){
 		/**Renders lpo detail information for display */
+		this.lockItem()
 		this.lpoDetailId = lpoDetail['id']
 		this.itemCode    = lpoDetail['itemCode']
 		this.description = lpoDetail['description']
