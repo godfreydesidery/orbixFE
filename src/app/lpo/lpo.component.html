@@ -126,15 +126,18 @@
                     <tbody>
                         <tr *ngFor="let lpoDetail of lpoDetails" [ngValue]="lpoDetail">
                             <td>{{lpoDetail.itemCode}}</td>
+                            <td>{{lpoDetail.description}}</td>
+                            <td>{{lpoDetail.qtyOrdered}}</td>
+                            <td>{{lpoDetail.costPrice}}</td>
+                            <td>{{lpoDetail.qtyReceived}}</td>
                             <td>{{lpoDetail.itemCode}}</td>
                             <td>{{lpoDetail.itemCode}}</td>
                             <td>{{lpoDetail.itemCode}}</td>
                             <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td><a class="glyphicon glyphicon-pencil badge">Edit</a></td>
+                            <td>
+                                <button type="button" class="btn btn-success" (click)="searchLpoDetail(lpoDetail.id)" style="border-radius: 10px;margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                <button type="button" class="btn btn-danger" style="border-radius: 10px;margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Remove</button>
+                            </td>
                         </tr>
                         
                     </tbody>

@@ -39,7 +39,6 @@ export class LPOComponent implements OnInit {
 	supplierNames : string[] = []
 
 	public lpoDetails = {}
-	public lpoDetailss  = {"itemCode":"1"}
 
 
 	constructor(private httpClient : HttpClient) {
@@ -82,6 +81,7 @@ export class LPOComponent implements OnInit {
 			})
 		}
 		);
+		console.log(this.lpoDetails)
 	}
 	newLpo(){
 		/**Create a new Lpo */
@@ -157,9 +157,21 @@ export class LPOComponent implements OnInit {
 
 		return found
 	}
-	searchLpoDetail(id : any){
+	async searchLpoDetail(id : any){
 		/**Search lpo detail by id,
 		 * display detail in input fields for further processing */
+		await this.httpClient.get(Data.baseUrl+"/lpo_details/"+id)
+			.toPromise()
+			.then(
+				data => {
+					this.showLpoDetail(data)
+				}
+			)
+			.catch(
+				error => {
+					return
+				}
+			)
 
 	}
 	saveLpo(lpoNo : string){
@@ -281,7 +293,7 @@ export class LPOComponent implements OnInit {
 		if(this.lpoDetailId == ''){
 			this.addLpoDetail()
 		}else{
-
+			this.updateLpoDetail()
 		}
 	}
 
@@ -305,6 +317,9 @@ export class LPOComponent implements OnInit {
 					return
 				}
 			)
+			if(this.id == ''){
+				return
+			}
 			await this.httpClient.get(Data.baseUrl+"/lpos/"+this.id)
 			.toPromise()
 			.then(
@@ -317,6 +332,10 @@ export class LPOComponent implements OnInit {
 					return
 				}
 			)
+			if(this.id == ''){
+				return
+			}
+			
 		}
 		/**Add a new LPO detail */
 		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
@@ -326,9 +345,10 @@ export class LPOComponent implements OnInit {
 			.then(
 				data => {
 					added = true
-					MessageService.showMessage('Item added successifully')
 					this.clearItem()
 					this.unlockItem()
+					this.refreshDetails(this.lpoNo)
+					MessageService.showMessage('Item added successifully')
 				}
 			)
 			.catch(
@@ -347,24 +367,26 @@ export class LPOComponent implements OnInit {
 		/**Update an existing LPO detail */
 		var updated : boolean =false
 
+		this.httpClient.put(Data.baseUrl + "/lpo_details/"+this.lpoDetailId , this.getLpoDetailData())
+			.toPromise()
+			.then(
+				data => {
+					updated = true
+					this.clearItem()
+					this.unlockItem()
+					this.refreshDetails(this.lpoNo)
+					MessageService.showMessage('Item updated successifully')
+				}
+			)
+			.catch(
+				error => {
+					updated = false
+					ErrorService.showHttpError(error, 'Could not update item')
+				}
+			)
 		return updated
 	}
-	async refreshLpoDetails(id : any){
-		this.lpoDetails = {}
-		await this.httpClient.get(Data.baseUrl+"/lpos/"+id)
-		.toPromise()
-		.then(
-			data=>{
-				/**return an object with all the details of the specific lpo */
-				this.lpoDetails=data
-			}
-		)
-		.catch(
-			error=>{
-				return
-			}
-		)
-	}
+	
 	deleteLpoDetail(id : any){
 		/**Delete an LPO detail */
 		var deleted : boolean = false
@@ -385,6 +407,11 @@ export class LPOComponent implements OnInit {
 		this.description = lpoDetail['description']
 		this.qtyOrdered  = lpoDetail['qtyOrdered']
 		this.costPrice   = lpoDetail['costPrice']
+		if(this.lpoDetailId != ''){
+			this.unlockAdd()
+		}else{
+			this.lockAdd()
+		}
 	}
 	getLpoDetailData(){
 		/**Gets the lpo details from inputs for further processing */
@@ -443,6 +470,17 @@ export class LPOComponent implements OnInit {
 		}else{
 
 		}
+		
+	}
+	async refreshDetails(id : string){
+		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+id)
+		.toPromise()
+		.then(
+			data => {
+				this.lpoDetails = data['lpoDetail']
+				console.log(data['lpoDetail'])
+			}
+		)
 		
 	}
 	refresh(){
