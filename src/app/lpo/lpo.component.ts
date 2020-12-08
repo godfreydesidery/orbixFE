@@ -515,7 +515,6 @@ export class LPOComponent implements OnInit {
 		
 	}
 	async refreshDetails(id : string){
-		this.spinnerService.show()
 		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+id)
 		.toPromise()
 		.then(
@@ -524,11 +523,10 @@ export class LPOComponent implements OnInit {
 				console.log(data['lpoDetail'])
 			}
 		)
-		this.spinnerService.hide()
 	}
 	refresh(){
 		window.location.reload()
-	}
+	}/**Lock fields */
 	lockedSupplier : boolean = true
 	lockedLpo : boolean = true
 	lockedItem : boolean = false

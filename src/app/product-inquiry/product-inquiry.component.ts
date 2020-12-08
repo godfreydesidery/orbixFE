@@ -15,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 import { CompleterService, CompleterData } from 'ng2-completer';
 
 //import * as $ from 'jquery-ui/external/requirejs/require.js';
-import { LoaderService } from '../loader.service';
 
 
 
@@ -53,7 +52,7 @@ export class ProductInquiryComponent implements OnInit {
   defaultReOrderLevel : number
   reOrderQuantity     : number
 
-  constructor(private httpClient: HttpClient,private loaderService: LoaderService ) {
+  constructor(private httpClient: HttpClient ) {
 
     this.id                  = '';
     this.primaryBarcode      = '';
@@ -83,7 +82,6 @@ export class ProductInquiryComponent implements OnInit {
     /**
      * load items description to enable autocomplete
      */
-    this.loaderService.display(true);
 
     ((new ItemService(this.httpClient)).getItemsLongDescriptions())
     .then(
@@ -93,7 +91,6 @@ export class ProductInquiryComponent implements OnInit {
         })
       }
     );
-    this.loaderService.display(false);
   }
 
   ngAfterContentInit() {
