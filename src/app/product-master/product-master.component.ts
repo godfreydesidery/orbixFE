@@ -18,6 +18,8 @@ import { HttpErrorService } from '../http-error.service';
 import { ErrorService } from '../error.service';
 import { MessageService } from '../message.service';
 
+import { LoaderService } from '../loader.service';
+
 @Component({
   selector: 'app-product-master',
   templateUrl: './product-master.component.html',

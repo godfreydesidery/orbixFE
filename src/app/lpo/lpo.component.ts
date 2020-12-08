@@ -7,6 +7,8 @@ import { HttpErrorService } from '../http-error.service';
 import { ItemService } from '../item.service';
 import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 
 @Component({
   selector: 'app-lpo',
@@ -41,7 +43,7 @@ export class LPOComponent implements OnInit {
 	public lpoDetails = {}
 
 
-	constructor(private httpClient : HttpClient) {
+	constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
 		/**Lpo */
 		this.id             = ''
 		this.barcode        = ''
@@ -155,7 +157,7 @@ export class LPOComponent implements OnInit {
 		var found : boolean = false
 		this.lockLpo()
 		this.lockSupplier()
-
+		this.spinnerService.show()
 		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+lpoNo)
 			.toPromise()
 			.then(
@@ -165,29 +167,30 @@ export class LPOComponent implements OnInit {
 			)
 			.catch(
 				error => {
+					ErrorService.showHttpError(error, 'The requested LPO could not be found')
 					return
 				}
 			)
-
-
+			this.spinnerService.hide()
 		return found
 	}
 	async searchLpoDetail(id : any){
 		/**Search lpo detail by id,
 		 * display detail in input fields for further processing */
+		this.spinnerService.show()
 		await this.httpClient.get(Data.baseUrl+"/lpo_details/"+id)
-			.toPromise()
-			.then(
-				data => {
-					this.showLpoDetail(data)
-				}
-			)
-			.catch(
-				error => {
-					return
-				}
-			)
-
+		.toPromise()
+		.then(
+			data => {
+				this.showLpoDetail(data)
+			}
+		)
+		.catch(
+			error => {
+				return
+			}
+		)
+		this.spinnerService.hide()
 	}
 	saveLpo(lpoNo : string){
 		/**Save a new or update an existing LPO */
@@ -321,10 +324,12 @@ export class LPOComponent implements OnInit {
 		var added : boolean = false
 		this.lockLpo()
 		this.lockSupplier()
+		this.spinnerService.show()
 		if(this.id == ''){
 			/**post lpo and return newly created lpo details and
 			 * assign it to the field variables
 			 */
+			
 			await this.httpClient.post(Data.baseUrl + "/lpos" , this.createLpo())
 			.toPromise()
 			.then(
@@ -381,29 +386,31 @@ export class LPOComponent implements OnInit {
 		}else{
 			MessageService.showMessage('Error: Could not add item\nItem may not be available for this supplier')
 		}
+		this.spinnerService.hide()
 		return added
 	}
 	updateLpoDetail(){
 		/**Update an existing LPO detail */
 		var updated : boolean =false
-
+		this.spinnerService.show()
 		this.httpClient.put(Data.baseUrl + "/lpo_details/"+this.lpoDetailId , this.getLpoDetailData())
-			.toPromise()
-			.then(
-				data => {
-					updated = true
-					this.clearItem()
-					this.unlockItem()
-					this.refreshDetails(this.lpoNo)
-					MessageService.showMessage('Item updated successifully')
-				}
-			)
-			.catch(
-				error => {
-					updated = false
-					ErrorService.showHttpError(error, 'Could not update item')
-				}
-			)
+		.toPromise()
+		.then(
+			data => {
+				updated = true
+				this.clearItem()
+				this.unlockItem()
+				this.refreshDetails(this.lpoNo)
+				MessageService.showMessage('Item updated successifully')
+			}
+		)
+		.catch(
+			error => {
+				updated = false
+				ErrorService.showHttpError(error, 'Could not update item')
+			}
+		)
+		this.spinnerService.hide()
 		return updated
 	}
 	
@@ -414,7 +421,7 @@ export class LPOComponent implements OnInit {
 			MessageService.showMessage('Error: No item selected!\nPlease select an item to delete')
 		}else{
 			/**Delete the selected item */
-
+			this.spinnerService.show()
 			this.httpClient.delete(Data.baseUrl+"/lpo_details/"+id)
 			.toPromise()
 			.then(
@@ -429,8 +436,7 @@ export class LPOComponent implements OnInit {
 					console.log(error)
 				}
 			)
-
-
+			this.spinnerService.hide()
 			deleted = true
 		}
 		return deleted
@@ -509,6 +515,7 @@ export class LPOComponent implements OnInit {
 		
 	}
 	async refreshDetails(id : string){
+		this.spinnerService.show()
 		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+id)
 		.toPromise()
 		.then(
@@ -517,7 +524,7 @@ export class LPOComponent implements OnInit {
 				console.log(data['lpoDetail'])
 			}
 		)
-		
+		this.spinnerService.hide()
 	}
 	refresh(){
 		window.location.reload()

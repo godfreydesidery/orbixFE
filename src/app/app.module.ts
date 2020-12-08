@@ -5,6 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -134,7 +137,9 @@ import { SubClassComponent } from './sub-class/sub-class.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    Angulartics2Module.forRoot(),
+    NgxSpinnerModule 
   ],
   providers: [
     //{

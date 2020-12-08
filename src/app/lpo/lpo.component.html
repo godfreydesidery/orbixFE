@@ -124,7 +124,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let lpoDetail of lpoDetails" [ngValue]="lpoDetail" style="font-size: 12px;">
+                        <tr *ngFor="let lpoDetail of lpoDetails" [ngValue]="lpoDetail">
                             <td>{{lpoDetail.itemCode}}</td>
                             <td>{{lpoDetail.description}}</td>
                             <td>{{lpoDetail.qtyOrdered}}</td>
@@ -151,13 +151,23 @@
                             <td></td>
                             <td></td>
                         </tr>
-                        
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        
-
+    
     </div>
   </div>
+  
