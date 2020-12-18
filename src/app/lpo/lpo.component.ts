@@ -1,14 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { error } from 'protractor';
 import { Data } from '../data';
 import { ErrorService } from '../error.service';
-import { HttpErrorService } from '../http-error.service';
 import { ItemService } from '../item.service';
 import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
 import { NgxSpinnerService } from "ngx-spinner";
-import { Spinner } from 'ngx-spinner/lib/ngx-spinner.enum';
 
 @Component({
   selector: 'app-lpo',
@@ -41,7 +38,6 @@ export class LPOComponent implements OnInit {
 	supplierNames : string[] = []
 
 	public lpoDetails = {}
-
 
 	constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
 		/**Lpo */
@@ -83,7 +79,6 @@ export class LPOComponent implements OnInit {
 			})
 		}
 		);
-		console.log(this.lpoDetails)
 	}
 	newLpo(){
 		/**Create a new Lpo */
@@ -137,7 +132,6 @@ export class LPOComponent implements OnInit {
 	generateLpoNo(){
 		/**Generate a unique LPO No */
 
-
 		var anysize = 5;//the size of string 
 		var charset1 = "123456789"; //from where to create
 		var charset2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -154,6 +148,10 @@ export class LPOComponent implements OnInit {
 		/**Searches specified lpo, displays lpo and return true if found,
 		 * else return false
 		 */
+		if(lpoNo == ''){
+			MessageService.showMessage('Please enter Order No!')
+			return
+		}
 		var found : boolean = false
 		this.lockLpo()
 		this.lockSupplier()
@@ -186,13 +184,13 @@ export class LPOComponent implements OnInit {
 			}
 		)
 		.catch(
-			error => {
+			() => {
 				return
 			}
 		)
 		this.spinnerService.hide()
 	}
-	saveLpo(lpoNo : string){
+	saveLpo(){
 		/**Save a new or update an existing LPO */
 		var saved : boolean = false
 
@@ -217,7 +215,6 @@ export class LPOComponent implements OnInit {
 		}
 		if(lpo['lpoDetail'] != null){
 			this.lpoDetails = lpo['lpoDetail']
-			
 		}else{
 			this.lpoDetails = {}
 		}
@@ -238,40 +235,65 @@ export class LPOComponent implements OnInit {
 			status         : this.status
 		}
 	}
-	approveLpo(lpoNo : string){
+	async approveLpo(lpoNo : string){
 		/**Approve a pending LPO */
-		var approved : boolean = false
 		if(lpoNo == ''){
 			MessageService.showMessage('Error: No LPO selected!\nPlease select an LPO to approve')
 		}else{
 			if(window.confirm('Confirm approval?\nThe LPO will be approved.\nConfirm?')){
 				/**Approve the selected lpo */
-				approved = true
+				await this.httpClient.put(Data.baseUrl + "/lpos/approve/"+this.id, null,{responseType:'text'})
+				.toPromise()
+				.then(
+					data => {
+						MessageService.showMessage(data)
+					},
+					error => {
+						MessageService.showMessage(error['error'])
+					}
+				)
 			}
 		}
-		return approved
 	}
-	printLpo(lpoNo : string){
+	async printLpo(lpoNo : string){
 		/**Print an approved LPO or reprint a printed LPO */
-		var printed : boolean = false
 		if(lpoNo == ''){
 			MessageService.showMessage('Error: No LPO selected!\nPlease select an LPO to print')
 		}else{
 			if(window.confirm('Confirm printing?\nThe LPO will be printed.\nConfirm?')){
 				/**Print the selected lpo */
-				printed = true
+				await this.httpClient.put(Data.baseUrl+"/lpos/print/"+this.id, null, {responseType:'text'})
+				.toPromise()
+				.then(
+					data => {
+						MessageService.showMessage(data)
+						
+					},
+					error => {
+						MessageService.showMessage(error['error'])
+					}
+				)
 			}
 		}
-		return printed
 	}
-	cancelLpo(lpoNo : string){
+	async cancelLpo(lpoNo : string){
 		var canceled :boolean = false
 		if(lpoNo == ''){
 			MessageService.showMessage('Error: No LPO selected!\nPlease select an LPO to cancel')
 		}else{
 			if(window.confirm('Confirm Canceling?\nThe LPO will be canceled.\nConfirm?')){
 				/**Cancel the selected lpo */
-				canceled = true
+				await this.httpClient.put(Data.baseUrl+"/lpos/cancel/"+this.id, null, {responseType:'text'})
+				.toPromise()
+				.then(
+					data => {
+						MessageService.showMessage(data)
+						
+					},
+					error => {
+						MessageService.showMessage(error['error'])
+					}
+				)
 			}
 		}
 		return canceled
@@ -292,8 +314,7 @@ export class LPOComponent implements OnInit {
 			approvedBy     : '',
 			lpoDate        : this.lpoDate,
 			validityPeriod : this.validityPeriod,
-			validUntil     : this.validUntil,
-			status         : 'PENDING'
+			validUntil     : this.validUntil
 		}
 	}
 	saveLpoDetail(){
@@ -338,7 +359,7 @@ export class LPOComponent implements OnInit {
 				}
 			)
 			.catch(
-				error => {
+				() => {
 					return
 				}
 			)
@@ -353,22 +374,21 @@ export class LPOComponent implements OnInit {
 				}
 			)
 			.catch(
-				error => {
+				() => {
 					return
 				}
 			)
 			if(this.id == ''){
 				return
 			}
-			
 		}
 		/**Add a new LPO detail */
-		if(this.validateSupplier(this.itemCode, this.supplierCode, this.supplierName) == true){
+		if(this.validateSupplier() == true){
 			/**Add item */
 			this.httpClient.post(Data.baseUrl + "/lpo_details" , this.getLpoDetailData())
 			.toPromise()
 			.then(
-				data => {
+				() => {
 					added = true
 					this.clearItem()
 					this.unlockItem()
@@ -382,7 +402,6 @@ export class LPOComponent implements OnInit {
 					ErrorService.showHttpError(error, 'Could not add item')
 				}
 			)
-				
 		}else{
 			MessageService.showMessage('Error: Could not add item\nItem may not be available for this supplier')
 		}
@@ -396,7 +415,7 @@ export class LPOComponent implements OnInit {
 		this.httpClient.put(Data.baseUrl + "/lpo_details/"+this.lpoDetailId , this.getLpoDetailData())
 		.toPromise()
 		.then(
-			data => {
+			() => {
 				updated = true
 				this.clearItem()
 				this.unlockItem()
@@ -425,15 +444,14 @@ export class LPOComponent implements OnInit {
 			this.httpClient.delete(Data.baseUrl+"/lpo_details/"+id)
 			.toPromise()
 			.then(
-				data => {
+				() => {
 					this.clearItem()
 					this.refreshDetails(this.lpoNo)
 				}
 			)
 			.catch(
-				error => {
+				() => {
 					MessageService.showMessage('Could not delete')
-					console.log(error)
 				}
 			)
 			this.spinnerService.hide()
@@ -468,12 +486,12 @@ export class LPOComponent implements OnInit {
 						}
 		}
 	}
-	validateSupplier(itemCode : string, supplierCode : string, supplierName : string){
+	validateSupplier(){
 		/**Validate the supplier of a particular item,
 		 * checks if the item is supplied by that particular supplier and
 		 * returns true if supplier is active and supplies that particular item
 		 */
-		var valid : boolean = true
+		var valid : boolean = true  //change to false!
 
 		return valid
 	}
@@ -495,8 +513,6 @@ export class LPOComponent implements OnInit {
 		if(supplier != '' && supplierId != null){
 			found = true
 		}
-		
-		
 		return found
 	}
 	async searchItem(barcode : string, itemCode : string, description : string){
@@ -510,27 +526,26 @@ export class LPOComponent implements OnInit {
 			this.unlockAdd()
 			this.lockSupplier()
 		}else{
-
+			/** */
 		}
-		
 	}
-	async refreshDetails(id : string){
-		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+id)
+	async refreshDetails(lpoNo : string){
+		await this.httpClient.get(Data.baseUrl+"/lpos/lpo_no="+lpoNo)
 		.toPromise()
 		.then(
 			data => {
 				this.lpoDetails = data['lpoDetail']
-				console.log(data['lpoDetail'])
 			}
 		)
 	}
 	refresh(){
 		window.location.reload()
-	}/**Lock fields */
+	}
+	/**Lock variables */
 	lockedSupplier : boolean = true
-	lockedLpo : boolean = true
-	lockedItem : boolean = false
-	lockedAdd : boolean = true
+	lockedLpo      : boolean = true
+	lockedItem     : boolean = false
+	lockedAdd      : boolean = true
 	private lockSupplier(){
 		this.lockedSupplier = true
 	}
@@ -555,5 +570,4 @@ export class LPOComponent implements OnInit {
 	private unlockAdd(){
 		this.lockedAdd = false
 	}
-
 }

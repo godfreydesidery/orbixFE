@@ -283,14 +283,13 @@ export class ProductMasterComponent implements OnInit  {
         )
       } else {
         //update an existing item
-        this.httpClient.put(Data.baseUrl + "/items/" + this.id , item)
+        this.httpClient.put(Data.baseUrl + "/items/" + this.id , item, {responseType : 'text'})
         .subscribe(
           data=>{
-            MessageService.showMessage('Item updated successifully')
-            this.id=data['id']
+            MessageService.showMessage(data)
           },
           error=>{
-            ErrorService.showHttpError(error, 'Could not update item')
+            MessageService.showMessage(error['error'])
           }
         )
       }  

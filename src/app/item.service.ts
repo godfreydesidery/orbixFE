@@ -34,7 +34,7 @@ export class ItemService {
     )
     .catch(
       error=>{
-        alert('Error code: '+error['status'])
+        alert(error['error'])
       }
     )
     return item
@@ -57,7 +57,7 @@ export class ItemService {
       )
       .catch(
         error=>{
-          ErrorService.showHttpError(error, 'Requested resource could not be found')
+          alert(error['error'])
         }
       )
     }else if (itemCode!='' && itemCode!=null){
@@ -70,7 +70,7 @@ export class ItemService {
       )
       .catch(
         error=>{
-          ErrorService.showHttpError(error, 'Requested resource could not be found')
+          alert(error['error'])
         }
       )
     }else{
@@ -83,7 +83,7 @@ export class ItemService {
       )
       .catch(
         error=>{
-          ErrorService.showHttpError(error, 'Requested resource could not be found')
+          alert(error['error'])
         }
       )
     }

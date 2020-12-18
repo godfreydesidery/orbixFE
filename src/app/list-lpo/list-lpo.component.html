@@ -16,45 +16,23 @@
                     <thead>
                         <tr class="info">
                             <td>#</td>
-                            <td>Supplier</td>
+                            <td>SupplierCode</td>
                             <td>Created</td>
                             <td>Approved</td>
                             <td>Printed</td>
                             <td>Amount</td>
-                            <td>Status</td>
                             <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>LPO-001</td>
-                            <td>(1001) ANDE AND SANILI</td>
-                            <td>11-11-2020</td>
-                            <td>12-11-2020</td>
-                            <td>12-11-2020</td>
-                            <td>1,200,000.00</td>
-                            <td>APPROVED</td>
+                        <tr *ngFor="let lpo of lpos" [ngValue]="lpo">
+                            <td>{{lpo.lpoNo}}</td>
+                            <td>{{lpo.lpoDate}}</td>
                             <td></td>
-                        </tr>
-                        <tr>
-                            <td>LPO-001</td>
-                            <td>(1001) ANDE AND SANILI</td>
-                            <td>11-11-2020</td>
-                            <td>12-11-2020</td>
-                            <td>12-11-2020</td>
-                            <td>1,200,000.00</td>
-                            <td>APPROVED</td>
                             <td></td>
-                        </tr>
-                        <tr>
-                            <td>LPO-001</td>
-                            <td>(1001) ANDE AND SANILI</td>
-                            <td>11-11-2020</td>
-                            <td>12-11-2020</td>
-                            <td>12-11-2020</td>
-                            <td>1,200,000.00</td>
-                            <td>APPROVED</td>
                             <td></td>
+                            <td></td>
+                            <td><a class="glyphicon glyphicon-pencil badge">Select</a></td>
                         </tr>
                     </tbody>
                 </table>
