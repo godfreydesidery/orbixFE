@@ -393,7 +393,7 @@ export class LPOComponent implements OnInit {
 					this.clearItem()
 					this.unlockItem()
 					this.refreshDetails(this.lpoNo)
-					MessageService.showMessage('Item added successifully')
+					//MessageService.showMessage('Item added successifully')
 				}
 			)
 			.catch(
@@ -420,7 +420,7 @@ export class LPOComponent implements OnInit {
 				this.clearItem()
 				this.unlockItem()
 				this.refreshDetails(this.lpoNo)
-				MessageService.showMessage('Item updated successifully')
+				//MessageService.showMessage('Item updated successifully')
 			}
 		)
 		.catch(
@@ -540,6 +540,11 @@ export class LPOComponent implements OnInit {
 	}
 	refresh(){
 		window.location.reload()
+	}
+	pasteFromClipboard(){
+		if(this.lockedLpo == false){
+			this.lpoNo = window.getSelection().toString()
+		}
 	}
 	/**Lock variables */
 	lockedSupplier : boolean = true

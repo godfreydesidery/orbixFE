@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <input type="hidden" name="id" [(ngModel)]="id">
-                        <input type="text" name="lpoNo" [(ngModel)]="lpoNo" [readonly]="lockedLpo"  class="form-control" placeholder="Order No" style="margin: 2px;">
+                        <input type="text" name="lpoNo" [(ngModel)]="lpoNo" [readonly]="lockedLpo" (dblclick)="pasteFromClipboard()" class="form-control" placeholder="Order No" style="margin: 2px;">
                     </div>
                     <div class="col-sm-4">
                         <button class="btn btn-warning" (click)="searchLpo(lpoNo)" [disabled]="lockedLpo" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Order</button>

@@ -15,31 +15,30 @@
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
                         <tr class="info">
-                            <td>#</td>
-                            <td>SupplierCode</td>
+                            <td>LPO #</td>
+                            <td>Amount</td>
+                            <td>Status</td>
+                            <td>Supplier</td>
                             <td>Created</td>
                             <td>Approved</td>
                             <td>Printed</td>
-                            <td>Amount</td>
-                            <td>Action</td>
+                            <td>Delete</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let lpo of lpos" [ngValue]="lpo">
-                            <td>{{lpo.lpoNo}}</td>
-                            <td>{{lpo.lpoDate}}</td>
+                            <td>{{lpo.lpoNo}} <button class="btn btn-default" (click)="copyToClipboard(lpo.lpoNo)"><span class="glyphicon glyphicon-copy"></span></button></td>
+                            <td>amount</td>
+                            <td>{{lpo.status}}</td>
+                            <td>({{lpo.supplier.supplierCode}}) {{lpo.supplier.supplierName}}</td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td><a class="glyphicon glyphicon-pencil badge">Select</a></td>
+                            <td><button class="btn btn-default" (click)="deleteLpo(lpo.id)"><span class="glyphicon glyphicon-trash"></span></button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        
-
     </div>
   </div>
