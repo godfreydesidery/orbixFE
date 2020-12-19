@@ -317,6 +317,7 @@ export class LPOComponent implements OnInit {
 			validUntil     : this.validUntil
 		}
 	}
+	dele
 	saveLpoDetail(){
 		if(this.lpoNo == ''){
 			MessageService.showMessage('Order number required.\nSelect new for a new order')
@@ -359,8 +360,8 @@ export class LPOComponent implements OnInit {
 				}
 			)
 			.catch(
-				() => {
-					return
+				error => {
+					alert(error['error']);
 				}
 			)
 			if(this.id == ''){
@@ -393,13 +394,12 @@ export class LPOComponent implements OnInit {
 					this.clearItem()
 					this.unlockItem()
 					this.refreshDetails(this.lpoNo)
-					//MessageService.showMessage('Item added successifully')
 				}
 			)
 			.catch(
 				error => {
 					added = false
-					ErrorService.showHttpError(error, 'Could not add item')
+					ErrorService.showHttpError(error, '')
 				}
 			)
 		}else{
@@ -412,7 +412,7 @@ export class LPOComponent implements OnInit {
 		/**Update an existing LPO detail */
 		var updated : boolean =false
 		this.spinnerService.show()
-		this.httpClient.put(Data.baseUrl + "/lpo_details/"+this.lpoDetailId , this.getLpoDetailData())
+		this.httpClient.put(Data.baseUrl + "/lpo_details/"+this.lpoDetailId , this.getLpoDetailData(),{responseType : 'text'})
 		.toPromise()
 		.then(
 			() => {
@@ -426,7 +426,7 @@ export class LPOComponent implements OnInit {
 		.catch(
 			error => {
 				updated = false
-				ErrorService.showHttpError(error, 'Could not update item')
+				ErrorService.showHttpError(error, '')
 			}
 		)
 		this.spinnerService.hide()
@@ -441,7 +441,7 @@ export class LPOComponent implements OnInit {
 		}else{
 			/**Delete the selected item */
 			this.spinnerService.show()
-			this.httpClient.delete(Data.baseUrl+"/lpo_details/"+id)
+			this.httpClient.delete(Data.baseUrl+"/lpo_details/"+id, {responseType : 'text'})
 			.toPromise()
 			.then(
 				() => {

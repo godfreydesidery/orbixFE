@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Data } from '../data';
 import { NgxSpinnerService } from "ngx-spinner";
+import { ErrorService } from '../error.service';
 
 @Component({
   selector: 'app-list-lpo',
@@ -17,8 +18,7 @@ export class ListLPOComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.lpos = await this.getLpos()
   }
-  async refresh(){
-    //this.lpos = await this.getLpos()
+  refresh(){
     window.location.reload()
   }
 
@@ -41,10 +41,10 @@ export class ListLPOComponent implements OnInit {
     return lpos
   } 
 
-  deleteLpo(id : string){
+  public async deleteLpo(id : any){
     /**Delete an lpo */
     this.spinnerService.show()
-    this.httpClient.delete(Data.baseUrl+"/lpos/"+id)
+    await this.httpClient.delete(Data.baseUrl+"/lpos/"+id, {responseType : 'text'})
     .toPromise()
     .then(
       data => {
@@ -52,8 +52,8 @@ export class ListLPOComponent implements OnInit {
       }
     )
     .catch(
-      () => {
-        
+      (error) => {
+        ErrorService.showHttpError(error, '')
       }
     )
     this.spinnerService.hide()

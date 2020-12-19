@@ -7,6 +7,6 @@ export class ErrorService {
 
   constructor() { }
   public static showHttpError( error : any, message : string){
-    alert(error['status']+' '+message)
+    alert(error['status']+' '+error['error']+' '+message)
   }
 }
