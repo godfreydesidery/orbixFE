@@ -6,17 +6,29 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-sm-3">Order#</div>
-                    <div class="col-sm-4"><input type="text" class="form-control"></div>
-                    <div class="col-sm-4"><button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button></div>
+                    <div class="col-sm-3">Order Type</div>
+                    <div class="col-sm-4">
+                        <select name="orderType" [(ngModel)]="orderType" class="form-control">
+                            <option>LPO</option>
+                        </select>
+                    </div>
                 </div>
-                <br>
+                <div class="row">
+                    <div class="col-sm-3">Order#</div>
+                    <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
+                    <div class="col-sm-4"><input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--"></div>
+                </div>
                 <div class="row">
                     <div class="col-sm-3">Invoice#</div>
-                    <div class="col-sm-4"><input type="text" class="form-control" placeholder="--Enter Invoice#--"></div>
+                    <div class="col-sm-4"><input type="text" name="invoiceNo" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--"></div>
                 </div>
-                <p>GRN#: GRN-0001</p>
-                <p>Order Date: 11-11-2020</p>
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-4"><button class="btn btn-success form-control" (click)="createGrn()"><span class="glyphicon glyphicon-ok"></span> Create</button></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <p>Date: <b>{{grnDate}}</b></p>
                 <p>Supplier: (1001) ANDE AND SANILI</p>
             </div>
         </div>
@@ -29,42 +41,22 @@
                             <td>Descr</td>
                             <td>Qty Ord</td>
                             <td>Qty Rcvd</td>
-                            <td>Supplier CP@</td>
                             <td>Client CP@</td>
+                            <td>Supplier CP@</td>
                             <td>Status</td>
                             <td>Receive</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>264785</td>
-                            <td>KILIMANJARO WATER</td>
-                            <td>200</td>
-                            <td>150</td>
-                            <td>1,000.00</td>
-                            <td>1,000.00</td>
-                            <td>RECEIVED</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>264785</td>
-                            <td>KILIMANJARO WATER</td>
-                            <td>200</td>
-                            <td>150</td>
-                            <td>1,000.00</td>
-                            <td>1,000.00</td>
-                            <td>RECEIVED</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>264785</td>
-                            <td>KILIMANJARO WATER</td>
-                            <td>200</td>
-                            <td>150</td>
-                            <td>1,000.00</td>
-                            <td>1,000.00</td>
-                            <td>RECEIVED</td>
-                            <td></td>
+                        <tr *ngFor="let grnDetail of grnDetails" [ngValue]="grnDetail">
+                            <td>{{grnDetail.itemCode}}</td>
+                            <td>{{grnDetail.description}}</td>
+                            <td>{{grnDetail.qtyOrdered}}</td>
+                            <td><input type="text" style="border-width: 0px; background-color: transparent;" value="{{grnDetail.qtyReceived}}"></td>
+                            <td>{{grnDetail.clientCostPrice}}</td>
+                            <td>{{grnDetail.supplierCostPrice}}</td>
+                            <td>{{grnDetail.Status}}</td>
+                            <td>{{grnDetail.itemCode}}</td>
                         </tr>
                     </tbody>
                 </table>
