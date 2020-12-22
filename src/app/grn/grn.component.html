@@ -55,7 +55,7 @@
                             <td><input type="text" style="border-width: 0px; background-color: transparent;" value="{{grnDetail.qtyReceived}}"></td>
                             <td>{{grnDetail.clientCostPrice}}</td>
                             <td>{{grnDetail.supplierCostPrice}}</td>
-                            <td>{{grnDetail.Status}}</td>
+                            <td>{{grnDetail.status}}</td>
                             <td>{{grnDetail.itemCode}}</td>
                         </tr>
                     </tbody>
@@ -64,7 +64,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Receive Goods</button>
+                <button class="btn btn-success" (click)="receiveGoods(grnDetails)"><span class="glyphicon glyphicon-ok"></span> Receive Goods</button>
             </div>
         </div>
         

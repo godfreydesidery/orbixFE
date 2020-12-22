@@ -23,7 +23,7 @@ export class GRNComponent implements OnInit {
   public status    : string
 
 	/**Collections */
-	public grnDetails = {}
+	public grnDetails = []
   
   constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
     this.id        = ''
@@ -49,6 +49,49 @@ export class GRNComponent implements OnInit {
       status    : this.status
     }
   }
+  async receiveGoods(grnDetails){
+    console.log(grnDetails)
+    if(this.validateGrnDetails(grnDetails) == true) {
+      await this.httpClient.put(Data.baseUrl+"/grn_details/"+this.id,grnDetails)
+      .toPromise()
+      .then(
+        data => {
+          grnDetails = data
+          alert('Received successifully')
+        }
+      )
+      .catch(
+        error => {
+          alert(error['error'])
+        }
+      )
+    }
+  }
+  validateGrnDetails(grnDetails : any){
+    var valid : boolean = false
+    for(var i = 0; i < grnDetails.length; i++ ){
+      var grnDetail = grnDetails[i]
+
+      var itemCode : string = grnDetail['itemCode']
+      var description : string = grnDetail['description']
+      var supplierCostPrice : any = grnDetail['supplierCostPrice']
+      var clientCostPrice : any  = grnDetail['clientCostPrice']
+      var qtyOrdered : any = grnDetail['qtyOrdered']
+      var qtyReceived : any = grnDetail['qtyReceived']
+      var status : any = grnDetail['status']
+      var orderNo : any  = grnDetail['orderNo']
+      if(isNaN(supplierCostPrice) || isNaN(clientCostPrice) || isNaN(qtyOrdered) || isNaN(qtyReceived)){
+        alert('Invalid entries, please check for numerical entries')
+        return valid
+      }
+      if(supplierCostPrice < 0 || clientCostPrice < 0 || qtyOrdered < 0 || qtyReceived < 0){
+        alert('Invalid entries, negative values are not allowed')
+        return valid
+      }
+      valid = true
+    }
+    return valid
+  }
   async createGrn(){
     if(this.orderType == ''){
       alert('Could not create GRN.\nOrder type required. Please select order type')
@@ -71,7 +114,7 @@ export class GRNComponent implements OnInit {
     )
     .catch(
       error => {
-        console.log(error)
+        alert(error['error'])
       }
     )
 
@@ -85,11 +128,10 @@ export class GRNComponent implements OnInit {
 		this.invoiceNo   = grn['invoiceNo']
 		this.grnDate     = grn['grnDate']
 		this.status      = grn['status']
-		
 		if(grn['lpo'] != null){
-			this.grnDetails = grn['lpo'].lpoDetail
+      this.grnDetails = grn['lpo'].lpoDetail
 		}else{
-			this.grnDetails = {}
+			this.grnDetails = []
 		}
   }
   generateGrnNo(){
@@ -108,4 +150,14 @@ export class GRNComponent implements OnInit {
 		return "GRN-"+result1+result2
 	}
 
+}
+export class GrnDetail{
+  itemCode : string 
+  description : string 
+  supplierCostPrice : any 
+  clientCostPrice : any  
+  qtyOrdered : any 
+  qtyReceived : any 
+  status : any 
+  orderNo : any  
 }
