@@ -9,7 +9,8 @@
                     <div class="col-sm-3">Order Type</div>
                     <div class="col-sm-4">
                         <select name="orderType" [(ngModel)]="orderType" class="form-control">
-                            <option>LPO</option>
+                            <option>LOCAL PURCHASE ORDER</option>
+                            <option>TRANSFER ORDER</option>
                         </select>
                     </div>
                 </div>
@@ -28,8 +29,37 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <p>Date: <b>{{grnDate}}</b></p>
-                <p>Supplier: (1001) ANDE AND SANILI</p>
+                <span>Summary</span>
+                <table>
+                    <tr>
+                        <td>Grn no:</td>
+                        <td>{{grnNo}}</td>
+                    </tr>
+                    <tr>
+                        <td>Order type:</td>
+                        <td>{{orderType}}</td>
+                    </tr>
+                    <tr>
+                        <td>Order no:</td>
+                        <td>{{orderNo}}</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice no:</td>
+                        <td>{{invoiceNo}}</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice no:</td>
+                        <td>{{invoiceNo}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date  :</td>
+                        <td>{{grnDate}}</td>
+                    </tr>
+                    <tr>
+                        <td>Vendor:</td>
+                        <td>(1001) ANDE AND SANILI</td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="row">
@@ -60,7 +90,7 @@
                         </tr>
                     </tbody>
                 </table>
-                {{ grnDetails | json }}
+                <!--{{ grnDetails | json }}-->
             </div>
         </div>
         <div class="row">
