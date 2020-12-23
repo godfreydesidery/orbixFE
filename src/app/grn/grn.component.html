@@ -52,14 +52,15 @@
                             <td>{{grnDetail.itemCode}}</td>
                             <td>{{grnDetail.description}}</td>
                             <td>{{grnDetail.qtyOrdered}}</td>
-                            <td><input type="text" style="border-width: 0px; background-color: transparent;" value="{{grnDetail.qtyReceived}}"></td>
+                            <td><input type="text" style="border-width: 0px; background-color: transparent;" [(ngModel)]="grnDetail.qtyReceived"></td>
                             <td>{{grnDetail.clientCostPrice}}</td>
-                            <td>{{grnDetail.supplierCostPrice}}</td>
+                            <td><input type="text" style="border-width: 0px; background-color: transparent;" [(ngModel)]="grnDetail.supplierCostPrice"></td>
                             <td>{{grnDetail.status}}</td>
                             <td>{{grnDetail.itemCode}}</td>
                         </tr>
                     </tbody>
                 </table>
+                {{ grnDetails | json }}
             </div>
         </div>
         <div class="row">

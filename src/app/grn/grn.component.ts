@@ -6,7 +6,7 @@ import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { HttpClient } from '@angular/common/http';
-
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-grn',
@@ -37,7 +37,7 @@ export class GRNComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
   getGrnData(){
     return {
       id        : this.id,
@@ -151,13 +151,4 @@ export class GRNComponent implements OnInit {
 	}
 
 }
-export class GrnDetail{
-  itemCode : string 
-  description : string 
-  supplierCostPrice : any 
-  clientCostPrice : any  
-  qtyOrdered : any 
-  qtyReceived : any 
-  status : any 
-  orderNo : any  
-}
+
