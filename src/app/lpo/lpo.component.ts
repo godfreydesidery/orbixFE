@@ -31,7 +31,8 @@ export class LPOComponent implements OnInit {
 	itemCode    : string
 	description : string
 	qtyOrdered  : number
-	costPrice   : number
+	clientCostPrice   : number
+	sellingPrice: number
 
 	/**Collections */
 	descriptions  : string[] = []
@@ -57,7 +58,8 @@ export class LPOComponent implements OnInit {
 		this.itemCode       = ''
 		this.description    = ''
 		this.qtyOrdered     = null
-		this.costPrice      = null
+		this.clientCostPrice      = null
+		this.sellingPrice = null
 	}
 
 	ngOnInit(): void {
@@ -108,24 +110,28 @@ export class LPOComponent implements OnInit {
 		this.approvedBy     = ''
 		this.lpoDate        = null
 		this.validityPeriod = null
-		this.validUntil 	  = null
+		this.validUntil 	= null
 		this.status         = ''
 		/**Lpo details */
-		this.lpoDetailId    = ''
-		this.itemCode       = ''
-		this.description    = ''
-		this.qtyOrdered     = null
-		this.costPrice      = null
+		this.lpoDetailId       = ''
+		this.itemCode          = ''
+		this.description       = ''
+		this.qtyOrdered        = null
+		this.clientCostPrice   = null
+		this.sellingPrice      = null
 
-		this.lpoDetails     = null
+
+
+		this.lpoDetails        = null
 	}
 	clearItem(){
 		/**Clear item data */
-		this.lpoDetailId    = ''
-		this.itemCode       = ''
-		this.description    = ''
-		this.qtyOrdered     = null
-		this.costPrice      = null
+		this.lpoDetailId      = ''
+		this.itemCode         = ''
+		this.description      = ''
+		this.qtyOrdered       = null
+		this.clientCostPrice  = null
+		this.sellingPrice     = null
 		this.unlockItem()
 		this.lockAdd()
 	}
@@ -317,7 +323,6 @@ export class LPOComponent implements OnInit {
 			validUntil     : this.validUntil
 		}
 	}
-	dele
 	saveLpoDetail(){
 		if(this.lpoNo == ''){
 			MessageService.showMessage('Order number required.\nSelect new for a new order')
@@ -466,7 +471,8 @@ export class LPOComponent implements OnInit {
 		this.itemCode    = lpoDetail['itemCode']
 		this.description = lpoDetail['description']
 		this.qtyOrdered  = lpoDetail['qtyOrdered']
-		this.costPrice   = lpoDetail['costPrice']
+		this.clientCostPrice   = lpoDetail['clientCostPrice']
+		this.sellingPrice   = lpoDetail['sellingPrice']
 		if(this.lpoDetailId != ''){
 			this.unlockAdd()
 		}else{
@@ -476,14 +482,15 @@ export class LPOComponent implements OnInit {
 	getLpoDetailData(){
 		/**Gets the lpo details from inputs for further processing */
 		return {
-			id          : this.lpoDetailId,
-			itemCode    : this.itemCode,
-			description : this.description,
-			qtyOrdered  : this.qtyOrdered,
-			costPrice   : this.costPrice,
-			lpo 		: {
-							lpoNo : this.lpoNo
-						}
+			id                : this.lpoDetailId,
+			itemCode          : this.itemCode,
+			description       : this.description,
+			qtyOrdered        : this.qtyOrdered,
+			clientCostPrice   : this.clientCostPrice,
+			sellingPrice      : this.sellingPrice,
+			lpo 		      : {
+							     lpoNo : this.lpoNo
+						        }
 		}
 	}
 	validateSupplier(){
@@ -522,6 +529,10 @@ export class LPOComponent implements OnInit {
 			var item = await (new ItemService(this.httpClient).getItem(itemId))
 			this.itemCode = item['itemCode']
 			this.description = item['longDescription']
+			this.clientCostPrice = item['unitCostPrice']
+			
+			this.sellingPrice = item['unitRetailPrice']
+			console.log(this.sellingPrice)
 			this.lockItem()
 			this.unlockAdd()
 			this.lockSupplier()
@@ -575,4 +586,11 @@ export class LPOComponent implements OnInit {
 	private unlockAdd(){
 		this.lockedAdd = false
 	}
+}
+class LpoDetail{
+	lpoDetailId : any
+	itemCode    : string
+	description : string
+	qtyOrdered  : number
+	costPrice   : number
 }

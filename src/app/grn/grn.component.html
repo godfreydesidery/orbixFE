@@ -73,8 +73,9 @@
                             <td>Qty Rcvd</td>
                             <td>Client CP@</td>
                             <td>Supplier CP@</td>
+                            <td>Lot No</td>
+                            <td>Expiry Date</td>
                             <td>Status</td>
-                            <td>Receive</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,15 +83,16 @@
                             <td>{{grnDetail.itemCode}}</td>
                             <td>{{grnDetail.description}}</td>
                             <td>{{grnDetail.qtyOrdered}}</td>
-                            <td><input type="text" style="border-width: 0px; background-color: transparent;" [(ngModel)]="grnDetail.qtyReceived"></td>
-                            <td>{{grnDetail.clientCostPrice}}</td>
-                            <td><input type="text" style="border-width: 0px; background-color: transparent;" [(ngModel)]="grnDetail.supplierCostPrice"></td>
+                            <td><input type="text" style="border-width: 1px; background-color: transparent;width: 50px;" [(ngModel)]="grnDetail.qtyReceived"></td>
+                            <td style="text-align: right;">{{grnDetail.clientCostPrice|currency:'TSh':''}}</td>
+                            <td style="text-align: right;"><input type="text" style="border-width: 1px; background-color: transparent;width: 100px; text-align: right;" [(ngModel)]="grnDetail.supplierCostPrice"></td>
+                            <td><input type="text" style="border-width: 1px; background-color: transparent;width: 100px;" [(ngModel)]="grnDetail.lotNo"></td>
+                            <td><input type="date" style="border-width: 1px; background-color: transparent;width: 120px;" [(ngModel)]="grnDetail.expiryDate"></td>
                             <td>{{grnDetail.status}}</td>
-                            <td>{{grnDetail.itemCode}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <!--{{ grnDetails | json }}-->
+                {{ grnDetails | json }}
             </div>
         </div>
         <div class="row">

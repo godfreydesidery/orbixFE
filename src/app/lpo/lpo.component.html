@@ -114,9 +114,7 @@
                             <td>Code</td>
                             <td>Descr</td>
                             <td>Qty</td>
-                            <td>CP@</td>
                             <td>Total CP</td>
-                            <td>SP@</td>
                             <td>Total SP</td>
                             <td>Profit</td>
                             <td>Curr Stk</td>
@@ -128,12 +126,10 @@
                             <td>{{lpoDetail.itemCode}}</td>
                             <td>{{lpoDetail.description}}</td>
                             <td>{{lpoDetail.qtyOrdered}}</td>
-                            <td>{{lpoDetail.costPrice}}</td>
-                            <td>{{lpoDetail.qtyReceived}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
-                            <td>{{lpoDetail.itemCode}}</td>
+                            <td style="text-align: right;">{{lpoDetail.qtyOrdered}}*@{{lpoDetail.clientCostPrice|currency:'TSh':''}}={{lpoDetail.qtyOrdered*lpoDetail.clientCostPrice|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{lpoDetail.qtyOrdered}}*@{{lpoDetail.sellingPrice|currency:'TSh':''}}={{lpoDetail.qtyOrdered*lpoDetail.sellingPrice|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{lpoDetail.qtyOrdered*(lpoDetail.sellingPrice-lpoDetail.clientCostPrice)|currency:'TSh':''}}</td>
+                            <td></td>
                             <td>
                                 <button type="button" class="btn btn-default btn-small" (click)="searchLpoDetail(lpoDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                                 <button type="button" class="btn btn-danger" (click)="deleteLpoDetail(lpoDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-trash"></span> Remove</button>

@@ -22,8 +22,9 @@ export class GRNComponent implements OnInit {
   public grnDate   : Date
   public status    : string
 
-	/**Collections */
-	public grnDetails = []
+  /**Collections */
+  grnDetails = []
+	
   
   constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
     this.id        = ''
@@ -52,7 +53,7 @@ export class GRNComponent implements OnInit {
   async receiveGoods(grnDetails){
     console.log(grnDetails)
     if(this.validateGrnDetails(grnDetails) == true) {
-      await this.httpClient.put(Data.baseUrl+"/grn_details/"+this.id,grnDetails)
+      await this.httpClient.put(Data.baseUrl+"/grn_details/"+this.id,grnDetails) //id grn
       .toPromise()
       .then(
         data => {
@@ -71,7 +72,6 @@ export class GRNComponent implements OnInit {
     var valid : boolean = false
     for(var i = 0; i < grnDetails.length; i++ ){
       var grnDetail = grnDetails[i]
-
       var itemCode : string = grnDetail['itemCode']
       var description : string = grnDetail['description']
       var supplierCostPrice : any = grnDetail['supplierCostPrice']
@@ -86,6 +86,10 @@ export class GRNComponent implements OnInit {
       }
       if(supplierCostPrice < 0 || clientCostPrice < 0 || qtyOrdered < 0 || qtyReceived < 0){
         alert('Invalid entries, negative values are not allowed')
+        return valid
+      }
+      if(qtyOrdered % 1 > 0 || qtyReceived % 1 > 0){
+        alert('Invalid entries, fractional values are not allowed in Quantity')
         return valid
       }
       valid = true
@@ -129,10 +133,27 @@ export class GRNComponent implements OnInit {
 		this.grnDate     = grn['grnDate']
 		this.status      = grn['status']
 		if(grn['lpo'] != null){
-      this.grnDetails = grn['lpo'].lpoDetail
+          
+      let _grnDetails: GrnDetail[] = new Array<GrnDetail>()
+      for(var i = 0; i < grn['lpo'].lpoDetail.length; i++ ){
+        _grnDetails.push({
+          itemCode : grn['lpo'].lpoDetail[i].itemCode,
+          description : grn['lpo'].lpoDetail[i].description,
+          supplierCostPrice : grn['lpo'].lpoDetail[i].supplierCostPrice,
+          clientCostPrice : grn['lpo'].lpoDetail[i].clientCostPrice,
+          qtyOrdered : grn['lpo'].lpoDetail[i].qtyOrdered,
+          qtyReceived : grn['lpo'].lpoDetail[i].qtyReceived,
+          expiryDate : null,
+          status : "",
+          lotNo : "",
+          orderNo : ""
+        }) 
+      }
+      this.grnDetails = _grnDetails
 		}else{
 			this.grnDetails = []
-		}
+    }
+    
   }
   generateGrnNo(){
 		/**Generate a unique GRN No */
@@ -151,4 +172,17 @@ export class GRNComponent implements OnInit {
 	}
 
 }
+export class GrnDetail{
+  itemCode : string
+  description : string
+  supplierCostPrice : number
+  clientCostPrice : number
+  qtyOrdered : number
+  qtyReceived : number
+  expiryDate : Date
+  status : string
+  lotNo : string
+  orderNo : string
+}
+
 
