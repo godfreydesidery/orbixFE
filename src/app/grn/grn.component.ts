@@ -23,7 +23,7 @@ export class GRNComponent implements OnInit {
   public status    : string
 
   /**Collections */
-  grnDetails = []
+  grnDetails = null
 	
   
   constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
@@ -114,6 +114,7 @@ export class GRNComponent implements OnInit {
     .then(
       data => {
         this.showGrn(data)
+
       }
     )
     .catch(
@@ -132,28 +133,22 @@ export class GRNComponent implements OnInit {
 		this.invoiceNo   = grn['invoiceNo']
 		this.grnDate     = grn['grnDate']
 		this.status      = grn['status']
-		if(grn['lpo'] != null){
-          
-      let _grnDetails: GrnDetail[] = new Array<GrnDetail>()
-      for(var i = 0; i < grn['lpo'].lpoDetail.length; i++ ){
-        _grnDetails.push({
-          itemCode : grn['lpo'].lpoDetail[i].itemCode,
-          description : grn['lpo'].lpoDetail[i].description,
-          supplierCostPrice : grn['lpo'].lpoDetail[i].supplierCostPrice,
-          clientCostPrice : grn['lpo'].lpoDetail[i].clientCostPrice,
-          qtyOrdered : grn['lpo'].lpoDetail[i].qtyOrdered,
-          qtyReceived : grn['lpo'].lpoDetail[i].qtyReceived,
-          expiryDate : null,
-          status : "",
-          lotNo : "",
-          orderNo : ""
-        }) 
+    this.getGrnDetails(grn['id']) 
+  }
+  async getGrnDetails(grnId : any){
+    var _grnDetails = null
+    await this.httpClient.get(Data.baseUrl+"/grn_details/grn_id="+grnId)
+    .toPromise()
+    .then(
+        data => {
+          this.grnDetails = data
       }
-      this.grnDetails = _grnDetails
-		}else{
-			this.grnDetails = []
-    }
-    
+    )
+    .catch(
+      error => {
+        alert(error['error'])
+      }
+    )
   }
   generateGrnNo(){
 		/**Generate a unique GRN No */

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-sm-3">Order Type</div>
+                    <div class="col-sm-2">Order Type</div>
                     <div class="col-sm-4">
                         <select name="orderType" [(ngModel)]="orderType" class="form-control">
                             <option>LOCAL PURCHASE ORDER</option>
@@ -15,22 +15,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">Order#</div>
+                    <div class="col-sm-2">Order#</div>
                     <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
                     <div class="col-sm-4"><input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--"></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">Invoice#</div>
+                    <div class="col-sm-2">Invoice#</div>
                     <div class="col-sm-4"><input type="text" name="invoiceNo" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--"></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-4"><button class="btn btn-success form-control" (click)="createGrn()"><span class="glyphicon glyphicon-ok"></span> Create</button></div>
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4"><span class="btn btn-success form-control" (click)="createGrn()"><span class="glyphicon glyphicon-ok"></span> Create</span></div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <span>Summary</span>
-                <table>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <span><b>Summary</b></span>
+                <table style="font-size: 11px; background-color: rgb(177, 238, 238);">
                     <tr>
                         <td>Grn no:</td>
                         <td>{{grnNo}}</td>
@@ -92,7 +93,7 @@
                         </tr>
                     </tbody>
                 </table>
-                {{ grnDetails | json }}
+                <!--{{ grnDetails | json }}-->
             </div>
         </div>
         <div class="row">
