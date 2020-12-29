@@ -1,28 +1,104 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Goods Returned to Supplier/ Vendor</h3>
+      <h3 class="panel-title">Goods Returned to Supplier/ Vendor(RTV)</h3>
     </div>
-    <div class="panel-body well">
+    <div class="panel-body well" style="padding-top: 0px;">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-sm-3">RTV#</div>
-                    <div class="col-sm-4"><input type="text" class="form-control"></div>
-                    <div class="col-sm-4"><button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button></div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="row">
+                                    <div class="col-sm-7"><input type="text" class="form-control" placeholder="RTV#"></div>
+                                    <div class="col-sm-4"><button class="btn btn-warning" style="border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <span>Select supplier</span><br> 
+                                        <select class="form-control">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <span>Enter date</span><br> 
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-7">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-folder-open"></span> New</button></div>
+                                            <div class="col-sm-6"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-pencil"></span> Edit</button></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-6"><button class="btn btn-danger form-control"><span class="glyphicon glyphicon-trash"></span> Delete</button></div>
+                                            <div class="col-sm-6"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button></div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <span>RTV List</span><br>
+                        <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
+                            <thead>
+                                <tr class="info">
+                                    <td>RTV#</td>
+                                    <td>Date</td>
+                                    <td>Supplier</td>
+                                    <td>Status</td>
+                                    <td>Select</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">Supplier Code</div>
-                    <div class="col-sm-4"><input type="text" class="form-control"></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">Supplier Name</div>
-                    <div class="col-sm-7"><input type="text" class="form-control"></div>
-                </div>
-                <br>
-                <p>Return Date: 11-11-2020</p>
             </div>
+            
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="row">
+                    <div class="col-xs-1"><button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Approve</button></div>
+                    <div class="col-xs-1"><button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirm return</button></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-1"><input type="text" class="form-control" placeholder="Barcode"></div>
+            <div class="col-sm-2"><input type="text" class="form-control" placeholder="Item Code"></div>
+            <div class="col-sm-3"><input type="text" class="form-control" placeholder="Description"></div>
+            <div class="col-sm-1"><button class="btn btn-warning" style="border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button></div>
+            <div class="col-sm-1"><input type="text" class="form-control" placeholder="Qty"></div>
+            <div class="col-sm-2"><input type="text" class="form-control" placeholder="Reason for return"></div>
+            <div class="col-sm-1"><button class="btn btn-success" style="border-radius: 20px;"><span class="glyphicon glyphicon-ok"></span>Add</button></div>
+            <div class="col-sm-1"><button class="btn btn-danger" style="border-radius: 20px;"><span class="glyphicon glyphicon-remove"></span>Clear</button></div>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -36,6 +112,7 @@
                             <td>Price @</td>
                             <td>Amount</td>
                             <td>Reason</td>
+                            <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,35 +124,16 @@
                             <td>1,000.00</td>
                             <td>100,000.00</td>
                             <td>Expiry</td>
+                            <td>
+                                <a class="badge badge-default"><span class="glyphicon glyphicon-edit"> Edit</span></a>..
+                                <a class="badge badge-danger"><span class="glyphicon glyphicon-trash">Remove</span></a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>8674869674</td>
-                            <td>10023</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                            <td>100</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>Expiry</td>
-                        </tr>
-                        <tr>
-                            <td>8674869674</td>
-                            <td>10023</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                            <td>100</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>Expiry</td>
-                        </tr>
+                        
+                        
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirm Return</button>
-            </div>
-        </div>
-        
-        
     </div>
   </div>

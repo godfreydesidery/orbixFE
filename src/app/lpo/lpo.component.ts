@@ -38,6 +38,7 @@ export class LPOComponent implements OnInit {
 	descriptions  : string[] = []
 	supplierNames : string[] = []
 
+	public lpos = {}
 	public lpoDetails = {}
 
 	constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
@@ -62,7 +63,9 @@ export class LPOComponent implements OnInit {
 		this.sellingPrice = null
 	}
 
-	ngOnInit(): void {
+	async ngOnInit(): Promise<void> {
+		/**Load lpos */
+		this.lpos = await this.getLpos();
 		/**Load all supplier names */
 		((new SupplierService(this.httpClient)).getSuppliersNames())
 		.then(
@@ -82,6 +85,23 @@ export class LPOComponent implements OnInit {
 		}
 		);
 	}
+	public async  getLpos (){
+		/**
+		 * List all lpos
+		 */
+		var lpos = {}
+		await this.httpClient.get(Data.baseUrl+"/lpos")
+		.toPromise()
+		.then(
+		  data=>{
+			lpos = data
+		  }
+		)
+		.catch(
+		  error=>{}
+		)
+		return lpos
+	  } 
 	newLpo(){
 		/**Create a new Lpo */
 		var created : boolean =false
@@ -586,6 +606,7 @@ export class LPOComponent implements OnInit {
 	private unlockAdd(){
 		this.lockedAdd = false
 	}
+	
 }
 class LpoDetail{
 	lpoDetailId : any
