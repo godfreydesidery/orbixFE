@@ -26,6 +26,11 @@
                             <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
                         </select>
                     </div>
+                    <div class="col-sm-12">
+                        <span>Date</span>
+                        <input type="date" name="lpoDate" [(ngModel)]="lpoDate"  class="form-control" placeholder="Date" style="margin: 2px;">
+                    </div>
+                    
                 </div>
             </div>
             <div class="col-sm-2">
