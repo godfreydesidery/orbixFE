@@ -10,13 +10,19 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div class="row">
-                                    <div class="col-sm-7"><input type="text" class="form-control" placeholder="RTV#"></div>
-                                    <div class="col-sm-4"><button class="btn btn-warning" style="border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button></div>
+                                    <div class="col-sm-7">
+                                        <input type="hidden" name="id" [(ngModel)]="id">
+                                        <input type="text" name="rtvNo" [(ngModel)]="rtvNo" [readonly]="lockedRtv" class="form-control" placeholder="RTV#">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-warning" (click)="searchRtv(rtvNo)" [disabled]="lockedRtv" style="border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
+                                        <input type="hidden" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
                                         <span>Select supplier</span><br> 
-                                        <select [(ngModel)]="supplierName" name="supplierName" class="form-control" placeholder="--Supplier Name--">
+                                        <select [(ngModel)]="supplierName" name="supplierName" (change)="searchBySupplierName()" class="form-control" placeholder="--Supplier Name--">
                                             <option></option>
                                             <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
                                         </select>
@@ -25,7 +31,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <span>Enter date</span><br> 
-                                        <input type="date" class="form-control">
+                                        <input type="date" name="rtvDate" [(ngModel)]="rtvDate" placeholder="--Date--" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -34,14 +40,22 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-sm-6"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-folder-open"></span> New</button></div>
-                                            <div class="col-sm-6"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-pencil"></span> Edit</button></div>
+                                            <div class="col-sm-6">
+                                                <button class="btn btn-success form-control" (click)="newRtv()"><span class="glyphicon glyphicon-folder-open"></span> New</button>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button class="btn btn-success form-control" (click)="editRtv()"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-sm-6"><button class="btn btn-danger form-control"><span class="glyphicon glyphicon-trash"></span> Delete</button></div>
-                                            <div class="col-sm-6"><button class="btn btn-success form-control"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button></div>
+                                            <div class="col-sm-6">
+                                                <button class="btn btn-danger form-control"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button class="btn btn-success form-control"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                                            </div>
                                         </div>
                                         
                                     </div>
@@ -52,26 +66,24 @@
                     </div>
                     <div class="col-sm-6">
                         <span>RTV List</span><br>
-                        <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
+                        <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;" class="table table-bordered table-condensed data-table table-hover table-responsive">
                             <thead>
                                 <tr class="info">
-                                    <td>RTV#</td>
-                                    <td>Date</td>
-                                    <td>Supplier</td>
-                                    <td>Status</td>
-                                    <td>Select</td>
+                                    <td style="position: sticky; top: 0;">RTV#</td>
+                                    <td style="position: sticky; top: 0;">Date</td>
+                                    <td style="position: sticky; top: 0;">Supplier</td>
+                                    <td style="position: sticky; top: 0;">Status</td>
+                                    <td style="position: sticky; top: 0;">Select</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr *ngFor="let rtv of rtvs" [ngValue]="rtv" style="font-size: 12px;">
+                                    <td>{{rtv.rtvNo}}</td>
+                                    <td>{{rtv.rtvDate}}</td>
+                                    <td>{{rtv.supplier.supplierName}}</td>
+                                    <td>{{rtv.status}}</td>
+                                    <td><a class="badge badge-default" (click)="searchRtv(rtv.rtvNo)">Select</a></td>
                                 </tr>
-                                
-                                
                             </tbody>
                         </table>
                     </div>
@@ -81,23 +93,56 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-sm-12 text-center">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 text-center">
                 <div class="row">
-                    <div class="col-xs-1"><button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Approve</button></div>
-                    <div class="col-xs-1"><button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirm return</button></div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-default form-control" (click)="approveRtv(rtvNo)" style="margin: 3px;"><span class="glyphicon glyphicon-ok"></span> Approve</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-default form-control" (click)="confirmRtv(rtvNo)" style="margin: 3px;"><span class="glyphicon glyphicon-print"></span> Confirm Return</button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-default form-control" (click)="printRtv(rtvNo)" style="margin: 3px;"><span class="glyphicon glyphicon-print"></span>Print</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-danger form-control" (click)="cancelRtv(rtvNo)"style="margin: 3px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
         <hr>
         <div class="row">
-            <div class="col-sm-1"><input type="text" class="form-control" placeholder="Barcode"></div>
-            <div class="col-sm-2"><input type="text" class="form-control" placeholder="Item Code"></div>
-            <div class="col-sm-3"><input type="text" class="form-control" placeholder="Description"></div>
-            <div class="col-sm-1"><button class="btn btn-warning" style="border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button></div>
-            <div class="col-sm-1"><input type="text" class="form-control" placeholder="Qty"></div>
-            <div class="col-sm-2"><input type="text" class="form-control" placeholder="Reason for return"></div>
-            <div class="col-sm-1"><button class="btn btn-success" style="border-radius: 20px;"><span class="glyphicon glyphicon-ok"></span>Add</button></div>
-            <div class="col-sm-1"><button class="btn btn-danger" style="border-radius: 20px;"><span class="glyphicon glyphicon-remove"></span>Clear</button></div>
+            <div class="col-sm-1">
+                <input type="hidden" name="rtvDetailId" [(ngModel)]="rtvDetailId">
+                <input type="text" name="barcode" [(ngModel)]="barcode" [readonly]="lockedItem"  class="form-control" placeholder="Barcode" style="margin: 2px;border-radius: 10px; font-size: 12px;">
+            </div>
+            <div class="col-sm-1">
+                <input type="text" name="itemCode" [(ngModel)]="itemCode" [readonly]="lockedItem"  class="form-control" placeholder="Item Code" style="margin: 2px;border-radius: 10px; font-size: 12px;">
+            </div>
+            <div class="col-sm-3">
+                <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [disabled]="lockedItem" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="1" placeholder="--Description--"></ng2-completer>
+            </div>
+            <div class="col-sm-1">
+                <input type="hidden" name="price" [(ngModel)]="price">
+                <span>{{price|currency:'TSh':''}}</span>
+                
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-warning" (click)="searchItem(barcode,itemCode,description)" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Item</button>
+            </div>
+            <div class="col-sm-1">
+                <input type="number" name="qty" [(ngModel)]="qty" class="form-control" placeholder="Qty" style="margin: 2px; border-radius: 8px;">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" name="reason" [(ngModel)]="reason" class="form-control" placeholder="Reason for return" style="margin: 2px; font-size: 12px;">
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-primary form-control" (click)="saveRtvDetail()" [disabled]="lockedAdd" style="margin: 2px;border-radius: 20px; font-size: 12px;">Add/Update</button>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-danger form-control" (click)="clearItem()" style="margin: 2px;border-radius: 20px; font-size: 12px;"><span class="glyphicon glyphicon-remove"></span></button>
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
@@ -115,23 +160,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>8674869674</td>
-                            <td>10023</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                            <td>100</td>
-                            <td>1,000.00</td>
-                            <td>100,000.00</td>
-                            <td>Expiry</td>
+                        <tr *ngFor="let rtvDetail of rtvDetails" [ngValue]="rtvDetail">
+                            <td>{{rtvDetail.itemCode}}</td>
+                            <td>{{rtvDetail.itemCode}}</td>
+                            <td>{{rtvDetail.description}}</td>
+                            <td>{{rtvDetail.qty}}</td>
+                            <td style="text-align: right;">{{rtvDetail.price|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{rtvDetail.qty*rtvDetail.price|currency:'TSh':''}}</td>
+                            <td>{{rtvDetail.reason}}</td>
                             <td>
-                                <a class="badge badge-default"><span class="glyphicon glyphicon-edit"> Edit</span></a>..
-                                <a class="badge badge-danger"><span class="glyphicon glyphicon-trash">Remove</span></a>
+                                <button type="button" class="btn btn-default btn-small" (click)="searchRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button type="button" class="btn btn-danger" (click)="deleteRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-trash"></span> Remove</button>
                             </td>
                         </tr>
                         
                         
                     </tbody>
                 </table>
+                <!--{{ rtvDetails | json }}-->
             </div>
         </div>
     </div>
