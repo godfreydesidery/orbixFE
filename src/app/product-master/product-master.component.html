@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-sm-3">Department</div>
                         <div class="col-sm-9">
-                            <select [(ngModel)]="departmentName" name="departmentName" class="form-control" placeholder="--Class--">
+                            <select [(ngModel)]="departmentName" name="departmentName"(change)="getClasses(departmentName)" class="form-control" placeholder="--Department--">
                                 <option></option>
                                 <option *ngFor="let department of departmentNames" [ngValue]="department">{{department}}</option>
                             </select>
@@ -74,11 +74,23 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3">Class</div>
-                        <div class="col-sm-9"><input type="text" name="_className" [(ngModel)]="_className" class="form-control" placeholder="--Class--"></div>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="clasName" name="clasName"(change)="getSubClasses(clasName)" class="form-control" placeholder="--Department--">
+                                <option></option>
+                                <option *ngFor="let clasName of clasNames" [ngValue]="clasName">{{clasName}}</option>
+                            </select>
+                            <!--<input type="text" name="datartment" [(ngModel)]="department" class="form-control" placeholder="--Department--">-->
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">Sub Class</div>
-                        <div class="col-sm-9"><input type="text" name="subClassName" [(ngModel)]="subClassName" class="form-control" placeholder="--Sub Class--"></div>
+                        <div class="col-sm-9">
+                            <select [(ngModel)]="subClassName" name="subClassName" class="form-control" placeholder="--Sub Class--">
+                                <option></option>
+                                <option *ngFor="let subClassName of subClassNames" [ngValue]="subClassName">{{subClassName}}</option>
+                            </select>
+                            <!--<input type="text" name="datartment" [(ngModel)]="department" class="form-control" placeholder="--Department--">-->
+                        </div>
                     </div>
                     <hr>
 

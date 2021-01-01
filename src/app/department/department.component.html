@@ -4,49 +4,52 @@
     </div>
     <div class="panel-body well">
         <div class="row">
-            <div class="col-sm-2">Department Code</div>
-            <input type="hidden" name="id" [(ngModel)]="id">
-            <div class="col-sm-5"><input type="text" name="departmentCode" [(ngModel)]="departmentCode" class="form-control" placeholder="--Department Code--"></div>
-            <div class="col-sm 7 text-center" style="padding-top: 3px;">
-                <button type="button" (click)="clear()" name="newDepartment"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>
-                <button type="button" (click)="searchDepartment()" name="searchDepartment" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-2">Code</div>
+                    <input type="hidden" name="id" [(ngModel)]="id">
+                    <div class="col-sm-5"><input type="text" name="departmentCode" [(ngModel)]="departmentCode" class="form-control" placeholder="--Department Code--"></div>
+                    <div class="col-sm 7">
+                        <button type="button" (click)="clear()" name="newDepartment"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>
+                        <button type="button" (click)="searchDepartment()" name="searchDepartment" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Name</div>
+                    <div class="col-sm-10">
+                        <ng2-completer style="width: 100%;" name="departmentName" [(ngModel)]="departmentName" [inputClass]="'form-control form-control-inline'" [datasource]="departmentNames" [minSearchLength]="1" placeholder="--Department Name--"></ng2-completer>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" name="saveDepartment" (click)="saveDepartment()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                        <button type="button" name="deleteDepartment" (click)="deleteDepartment()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-condensed data-table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <td>Department Code</td>
+                                    <td>Department Name</td>
+                                    <td>Actions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let department of departments" [ngValue]="department">
+                                    <td>{{department.departmentCode}}</td>
+                                    <td>{{department.departmentName}}</td>
+                                    <td><a class="glyphicon glyphicon-pencil badge" (click)="search(department.id)">Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-2">Department Name</div>
-            <div class="col-sm-10">
-                <ng2-completer style="width: 100%;" name="departmentName" [(ngModel)]="departmentName" [inputClass]="'form-control form-control-inline'" [datasource]="departmentNames" [minSearchLength]="1" placeholder="--Department Name--"></ng2-completer>
-            </div>
-        </div>
-
-        <hr>
         
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <button type="button" name="saveDepartment" (click)="saveDepartment()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-                <button type="button" name="deleteDepartment" (click)="deleteDepartment()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-bordered table-condensed data-table table-hover">
-                    <thead>
-                        <tr class="info">
-                            <td>Department Code</td>
-                            <td>Department Name</td>
-                            <td>Actions</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let department of departments" [ngValue]="department">
-                            <td>{{department.departmentCode}}</td>
-                            <td>{{department.departmentName}}</td>
-                            <td><a class="glyphicon glyphicon-pencil badge" (click)="search(department.id)">Edit</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
   </div>

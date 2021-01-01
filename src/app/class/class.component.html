@@ -4,59 +4,61 @@
     </div>
     <div class="panel-body well">
         <div class="row">
-            <div class="col-sm-2">Class Code</div>
-            <input type="hidden" name="id" [(ngModel)]="id">
-            <div class="col-sm-5"><input type="text" name="classCode" [(ngModel)]="classCode" class="form-control" placeholder="--Class Code--"></div>
-            <div class="col-sm 7">
-                <button type="button" (click)="clear()" name="newClass"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>  
-                <button type="button" (click)="searchClass()" name="searchClass" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+            <div class="col-sm-5">
+                <div class="row">
+                    <div class="col-sm-2">Code</div>
+                    <input type="hidden" name="id" [(ngModel)]="id">
+                    <div class="col-sm-5"><input type="text" name="clasCode" [(ngModel)]="clasCode" class="form-control" placeholder="--Class Code--"></div>
+                    <div class="col-sm 7">
+                        <button type="button" (click)="clear()" name="newClass"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>  
+                        <button type="button" (click)="searchClass()" name="searchClass" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Name</div>
+                    <div class="col-sm-10">
+                        <ng2-completer style="width: 100%;" name="clasName" [(ngModel)]="clasName" [inputClass]="'form-control form-control-inline'" [datasource]="clasNames" [minSearchLength]="1" placeholder="--Class Name--"></ng2-completer>
+                        <!--<input type="text" name="className" [(ngModel)]="className" class="form-control" placeholder="--Class Name--">-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">Department</div>
+                    <div class="col-sm-10">
+                        <select [(ngModel)]="departmentName" name="departmentName" class="form-control" placeholder="--Class--">
+                            <option *ngFor="let department of departmentNames" [ngValue]="department">{{department}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <button type="button" name="saveClass" (click)="saveClass()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save </button>
+                        <button type="button" name="deleteClass" (click)="deleteClass()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">Class Name</div>
-            <div class="col-sm-10">
-                <ng2-completer style="width: 100%;" name="className" [(ngModel)]="className" [inputClass]="'form-control form-control-inline'" [datasource]="classNames" [minSearchLength]="1" placeholder="--Class Name--"></ng2-completer>
-                <!--<input type="text" name="className" [(ngModel)]="className" class="form-control" placeholder="--Class Name--">-->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">Select Department</div>
-            <div class="col-sm-10">
-                <select [(ngModel)]="departmentName" name="departmentName" class="form-control" placeholder="--Class--">
-                    <option *ngFor="let department of departmentNames" [ngValue]="department">{{department}}</option>
-                </select>
-            </div>
-        </div>
-        
-        <hr>
-        
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <button type="button" name="saveClass" (click)="saveClass()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save </button>
-                <button type="button" name="deleteClass" (click)="deleteClass()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-bordered table-condensed data-table table-hover">
-                    <thead>
-                        <tr class="info">
-                            <td>Class Code</td>
-                            <td>Class Name</td>
-                            <td>Department</td>
-                            <td>Actions</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let _class of classes" [ngValue]="classes">
-                            <td>{{_class.classCode}}</td>
-                            <td>{{_class.className}}</td>
-                            <td>{{_class['department'].departmentName}}</td>
-                            <td><a class="glyphicon glyphicon-pencil badge" (click)="search(_class.id)">Edit</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-condensed data-table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <td>Class Code</td>
+                                    <td>Class Name</td>
+                                    <td>Department</td>
+                                    <td>Actions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let clas of classes" [ngValue]="classes">
+                                    <td>{{clas.clasCode}}</td>
+                                    <td>{{clas.clasName}}</td>
+                                    <td>{{clas['department'].departmentName}}</td>
+                                    <td><a class="glyphicon glyphicon-pencil badge" (click)="search(clas.id)">Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

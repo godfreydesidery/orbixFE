@@ -42,7 +42,7 @@ export class ProductMasterComponent implements OnInit  {
   packSize            : number
   supplierName        : string
   departmentName      : string
-  _className          : string
+  clasName            : string
   subClassName        : string
   unitCostPrice       : number
   unitRetailPrice     : number
@@ -58,8 +58,9 @@ export class ProductMasterComponent implements OnInit  {
 
   public items           : string [] = []
   public suppliers       : string [] = []
-  public classNames      : string [] = []
   public departmentNames : string [] = []
+  public clasNames      : string [] = []
+  public subClassNames   : string [] = []
 
   constructor(private httpClient: HttpClient ) {
     this.id                  = '';
@@ -71,7 +72,7 @@ export class ProductMasterComponent implements OnInit  {
     this.packSize            = null;
     this.supplierName        = '';
     this.departmentName      = '';
-    this._className          = '';
+    this.clasName          = '';
     this.subClassName        = '';
     this.unitCostPrice       = null;
     this.unitRetailPrice     = null;
@@ -129,7 +130,7 @@ export class ProductMasterComponent implements OnInit  {
       packSize            : this.packSize,
       supplier            : {supplierName : this.supplierName},
       department          : {departmentName : this.departmentName},
-      _class              : this._className,
+      clas                : this.clasName,
       subClass            : this.subClassName,
       unitCostPrice       : this.unitCostPrice,
       unitRetailPrice     : this.unitRetailPrice,
@@ -142,7 +143,6 @@ export class ProductMasterComponent implements OnInit  {
       minimumInventory    : this.minimumInventory,
       defaultReOrderLevel : this.defaultReOrderLevel,
       reOrderQuantity     : this.reOrderQuantity
-
     }
     return itemData;
   }
@@ -160,7 +160,7 @@ export class ProductMasterComponent implements OnInit  {
     this.packSize            = null;
     this.supplierName        = '';
     this.departmentName      = '';
-    this._className          = '';
+    this.clasName          = '';
     this.subClassName        = '';
     this.unitCostPrice       = null;
     this.unitRetailPrice     = null;
@@ -200,7 +200,7 @@ export class ProductMasterComponent implements OnInit  {
     this.reOrderQuantity      = item['reOrderQuantity']
     this.supplierName         = item['supplier'].supplierName
     this.departmentName       = item['department'].departmentName
-    this._className           = item['_class']
+    this.clasName           = item['clas']
     this.subClassName         = item['subClass']
   }
 
@@ -340,5 +340,44 @@ export class ProductMasterComponent implements OnInit  {
         }
       )
     }
+  }
+  getDepartments(){
+    ((new UnitService(this.httpClient)).geDepartments())
+    .then(
+      res=>{
+        Object.values(res).map((departmentName:string)=>{
+          this.departmentNames.push(departmentName)
+        })
+      }
+    );
+  }
+  getClasses(departmentName){
+    for( var i = 0; i <= this.clasNames.length; i++ ){
+      this.clasNames.pop()
+    }
+    for( var i = 0; i <= this.subClassNames.length; i++ ){
+      this.subClassNames.pop()
+    }
+    ((new UnitService(this.httpClient)).getClasses(departmentName))
+    .then(
+      res=>{
+        Object.values(res).map((clas)=>{
+          this.clasNames.push(clas['clasName'])
+        })
+      }
+    );
+  }
+  getSubClasses(clasName){
+    for( var i = 0; i <= this.subClassNames.length; i++ ){
+      this.subClassNames.pop()
+    }
+    ((new UnitService(this.httpClient)).getSubClasses(clasName))
+    .then(
+      res=>{
+        Object.values(res).map((subClass)=>{
+          this.subClassNames.push(subClass['subClassName'])
+        })
+      }
+    );
   }
 }

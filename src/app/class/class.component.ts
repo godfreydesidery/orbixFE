@@ -21,20 +21,20 @@ import { UnitService} from '../unit.service'
 })
 export class ClassComponent implements OnInit {
 
-  public classNames: string [] = []
+  public clasNames: string [] = []
   public departmentNames: string [] = []
   public classes : object = {}
   //public classes: string [] = []
 
   id : any
-  classCode : string
-  className :string
+  clasCode : string
+  clasName :string
   departmentName : string
 
   constructor(private httpClient : HttpClient) {
     this.id = ''
-    this.classCode = ''
-    this.className = ''
+    this.clasCode = ''
+    this.clasName = ''
     this.departmentName = ''
    }
 
@@ -66,8 +66,8 @@ export class ClassComponent implements OnInit {
      */
     var classData = {
       id        : this.id,
-      classCode : this.classCode,
-      className : this.className,
+      clasCode : this.clasCode,
+      clasName : this.clasName,
       department:{
                   departmentName:this.departmentName
                   }
@@ -98,22 +98,22 @@ export class ClassComponent implements OnInit {
      * clear the fields
      */
     this.id             = '';
-    this.classCode      = '';
-    this.className      = '';
+    this.clasCode      = '';
+    this.clasName      = '';
     this.departmentName = '';
     
   }
 
-  showClass(_class : any){
+  showClass(clas : any){
     
     /**
      * render information for display, these are displayed 
      * automatically using two way data binding
      */
-    this.id             = _class['id']
-    this.classCode      = _class['classCode']
-    this.className      = _class['className']
-    this.departmentName = _class['department'].departmentName
+    this.id             = clas['id']
+    this.clasCode      = clas['clasCode']
+    this.clasName      = clas['clasName']
+    this.departmentName = clas['department'].departmentName
     
   }
 
@@ -123,12 +123,12 @@ export class ClassComponent implements OnInit {
      * return false if validation fails
      */
     var valid : boolean = true
-    if(this.classCode == ''){
+    if(this.clasCode == ''){
       valid = false
       window.alert('Error: Class Code required!')
       return valid
     } 
-    if(this.className == ''){
+    if(this.clasName == ''){
       valid = false
       window.alert('Error: Class Name required!')
       return valid
@@ -183,18 +183,18 @@ export class ClassComponent implements OnInit {
      * gets id from getClassId
      */
     var classId = null
-    classId = await (new UnitService(this.httpClient)).getClassId(this.classCode,this.className)
+    classId = await (new UnitService(this.httpClient)).getClassId(this.clasCode,this.clasName)
     if(classId == null){
-      if(this.classCode == '' && this.className == ''){
+      if(this.clasCode == '' && this.clasName == ''){
         alert('Please enter a search key!')
       }else{
         alert('The requested record could not be found')
       }
     }else{
-      var _class : any
-      _class =await (new UnitService(this.httpClient)).getClass(classId)
-      console.log(_class)
-      this.showClass(_class)
+      var clas : any
+      clas =await (new UnitService(this.httpClient)).getClass(classId)
+      console.log(clas)
+      this.showClass(clas)
     }
   }
 
@@ -205,8 +205,8 @@ export class ClassComponent implements OnInit {
    */
   async search(id : any){
     this.clear()
-    var _class =await (new UnitService(this.httpClient)).getClass(id)
-    this.showClass(_class)
+    var clas =await (new UnitService(this.httpClient)).getClass(id)
+    this.showClass(clas)
   }
 
   deleteClass() { 

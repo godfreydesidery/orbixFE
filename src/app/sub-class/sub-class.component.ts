@@ -21,11 +21,17 @@ import { UnitService } from '../unit.service';
 })
 export class SubClassComponent implements OnInit {
 
-  public subClasses: string [] = []
+  public subClassNames: string [] = []
+  public clasNames: string [] = []
+  public departmentNames: string [] = []
 
-  id
-  subClassCode
-  subClassName
+  public id
+  public subClassCode
+  public subClassName 
+  public clasName :string
+  public departmentName :string
+
+  public subClasses : object = {}
 
   constructor(private httpClient : HttpClient) {
     this.id = ''
@@ -33,7 +39,7 @@ export class SubClassComponent implements OnInit {
     this.subClassName = ''
    }
 
-   ngOnInit(): void { 
+   async ngOnInit(): Promise<void> { 
     /**
      * load items description to enable autocomplete
      */
@@ -45,20 +51,24 @@ export class SubClassComponent implements OnInit {
         })
       }
     );*/
+    this.subClasses= await this.getSubClasses()
+    this.departmentNames = await (new UnitService(this.httpClient)).getDepartmentNames()
 
    }
   
 
   getSubClassData(){
     /**
-     * gets department data from inputs
+     * 
      */
     var subClassData = {
       id           : this.id,
       subClassCode : this.subClassCode,
       subClassName : this.subClassName,
+      clas         : {clasName : this.clasName},
+      department   : {departmentName : this.departmentName}
     }
-    return subClassData;
+    return subClassData
   }
 
   clear(){
@@ -68,7 +78,8 @@ export class SubClassComponent implements OnInit {
     this.id        = '';
     this.subClassCode = '';
     this.subClassName = '';
-    
+    this.clasName='';
+    this.departmentName='';
   }
 
   showSubClass(subClass){
@@ -80,6 +91,8 @@ export class SubClassComponent implements OnInit {
     this.id            = subClass['id']
     this.subClassCode  = subClass['subClassCode']
     this.subClassName  = subClass['subClassName']
+    this.clasName  = subClass['clas'].clasName
+    this.departmentName  = subClass['department'].departmentName
     
   }
 
@@ -103,10 +116,11 @@ export class SubClassComponent implements OnInit {
      * first, check validation
      */
     if(this.validateData()==true){
+
       var subClass = this.getSubClassData()
       if( this.id == '' || this.id == null || this.id == 0 ) {
         //save a new department
-        this.httpClient.post(Data.baseUrl + "/sub_classes" , subClass)
+        this.httpClient.post(Data.baseUrl + "/sub_classes", subClass)
         .subscribe(
           data=>{
             window.alert('Subclass created successifully')
@@ -119,7 +133,7 @@ export class SubClassComponent implements OnInit {
         )
       } else {
         //update an existing item
-        this.httpClient.put(Data.baseUrl + "/sub_classes/" + this.id , subClass)
+        this.httpClient.put(Data.baseUrl + "/sub_classes/" + this.id, subClass)
         .subscribe(
           data=>{
             window.alert('Subclass updated successifully')
@@ -145,7 +159,7 @@ export class SubClassComponent implements OnInit {
       alert('No matching record')
     }else{
       var subClass
-      subClass =await (new UnitService(this.httpClient)).getClass(subClassId)
+      subClass =await (new UnitService(this.httpClient)).getSubClass(subClassId)
       console.log(subClass)
       this.showSubClass(subClass)
     }
@@ -168,5 +182,42 @@ export class SubClassComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  public async  getSubClasses (){
+    /**
+     * Return a list of all the classes
+     */
+    var subClasses = {}
+    await this.httpClient.get(Data.baseUrl+"/sub_classes")
+    .toPromise()
+    .then(
+      data=>{
+        subClasses = data
+      }
+    )
+    .catch(
+      error=>{}
+    )
+    return subClasses
+  } 
+  
+  getClasses(departmentName){
+    for( var i = 0; i <= this.clasNames.length; i++ ){
+      this.clasNames.pop()
+    }
+    ((new UnitService(this.httpClient)).getClasses(departmentName))
+    .then(
+      res=>{
+        Object.values(res).map((clas:string)=>{
+          this.clasNames.push(clas['clasName'])
+        })
+      }
+    );
+  }
+  async search(id){
+    var subClass
+      subClass = await (new UnitService(this.httpClient)).getSubClass(id)
+      this.showSubClass(subClass)
   }
 }

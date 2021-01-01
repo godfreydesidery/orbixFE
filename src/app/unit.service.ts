@@ -239,5 +239,81 @@ export class UnitService {
     )
     return subClass
   }
+  async geDepartments(){
+    var departments = null
+    await this.httpClient.get(Data.baseUrl+"/departments")
+    .toPromise()
+    .then(
+      data=>{
+        departments=data
+      },
+      error=>{
+        if(error['status']==404){
+
+        }else if (error['status']==400){
+          window.alert('Bad request, undefined operation!')
+        }
+        console.log(error)
+      }
+    )
+    .catch(
+      error=>{
+        alert('Error code: '+error['status'])
+      }
+    )
+
+    return departments
+  }
+  async getClasses(department : string){
+    var classes = null
+    await this.httpClient.get(Data.baseUrl+"/classes/department_name="+department)
+    .toPromise()
+    .then(
+      data=>{
+        classes=data
+      },
+      error=>{
+        if(error['status']==404){
+
+        }else if (error['status']==400){
+          window.alert('Bad request, undefined operation!')
+        }
+        console.log(error)
+      }
+    )
+    .catch(
+      error=>{
+        alert('Error code: '+error['status'])
+      }
+    )
+
+
+    return classes
+  }
+  async getSubClasses(class_){
+    var subClasses
+    await this.httpClient.get(Data.baseUrl+"/sub_classes/class_name="+class_)
+    .toPromise()
+    .then(
+      data=>{
+        subClasses=data
+      },
+      error=>{
+        if(error['status']==404){
+
+        }else if (error['status']==400){
+          window.alert('Bad request, undefined operation!')
+        }
+        console.log(error)
+      }
+    )
+    .catch(
+      error=>{
+        alert('Error code: '+error['status'])
+      }
+    )
+
+    return subClasses
+  }
   
 }
