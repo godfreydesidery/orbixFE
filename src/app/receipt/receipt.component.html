@@ -1,43 +1,30 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Receipt</h3>
+      <h3 class="panel-title">Receipt</h3><br>
+      <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-filter"></span>Filter</a>
+      <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-print"></span>Print Receipt</a>
     </div>
-    <div class="panel-body well">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
             <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-6">
-                        Receipt#:
+                        <input type="text" class="form-control"  placeholder="Receipt No">
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-6">
-                        Till#:
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" placeholder="Till No">
                     </div>
                 </div>
-                Select Date Range
                 <div class="row">
                     <div class="col-sm-6">
+                        <span>From</span>
                         <input type="date" class="form-control">
                     </div>
                     <div class="col-sm-6">
+                        <span>To</span>
                         <input type="date" class="form-control">
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-info"><span class="glyphicon glyphicon-filter"></span>Filter</button>
-                    </div>
-                </div>
-                <br>
             </div>
             <div class="col-sm-8">
                 Bill List
@@ -49,6 +36,7 @@
                             <td>Receipt#</td>
                             <td>Date</td>
                             <td>Amount</td>
+                            <td>Select</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +46,7 @@
                             <td>0020</td>
                             <td>12-11-2020</td>
                             <td>100,000.00</td>
+                            <td>select</td>
                         </tr>
                         <tr>
                             <td>BL-00032</td>
@@ -65,6 +54,7 @@
                             <td>0020</td>
                             <td>12-11-2020</td>
                             <td>100,000.00</td>
+                            <td>select</td>
                         </tr>
                         <tr>
                             <td>BL-00032</td>
@@ -72,13 +62,14 @@
                             <td>0020</td>
                             <td>12-11-2020</td>
                             <td>100,000.00</td>
+                            <td>select</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <p>Bill Particulars</p>
-        <p>Bill#: BL0011, Till#: 001, Receipt#: 1001 <button class="btn btn-success"><span class="glyphicon glyphicon-print"></span> Print</button></p>
+        <p>Bill#: BL0011, Till#: 001, Receipt#: 1001 </p>
         <div class="row">
             <div class="col-sm-12">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">

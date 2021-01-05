@@ -374,6 +374,10 @@ export class ReturnToVendorComponent implements OnInit {
       var added : boolean = false
       this.lockRtv()
       this.lockSupplier()
+      if(this.rtvDate == null){
+        MessageService.showMessage('Please enter RTV date')
+        return
+      }
       this.spinnerService.show()
       if(this.id == ''){
         /**post rtv and return newly created rtv details and

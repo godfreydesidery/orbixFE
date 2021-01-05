@@ -1,0 +1,15 @@
+input{
+    font-size: 12px;
+    padding: 3px;
+    height: 25px;
+  }
+button{
+    font-size: 12px;
+    padding: 3px;
+    height: 25px;
+}
+select{
+    font-size: 12px;
+    padding: 3px;
+    height: 25px;
+}

@@ -1,32 +1,49 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Goods Received Note (GRN)</h3>
+      <h3 class="panel-title">Goods Received Note (GRN)</h3><br>
+      <a class="" style="cursor: pointer; margin-right: 30px;" (click)="createGrn()"><span class="glyphicon glyphicon-search"></span> Search/Create</a>
+    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+    <a class="" style="cursor: pointer; margin-right: 30px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+    <a class="" style="cursor: pointer; margin-right: 30px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a> |
+
+    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="receiveGoods(grnDetails)"><span class="glyphicon glyphicon-ok"></span> Receive goods</a>
+    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-print"></span> Print</a>
+    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-remove"></span> Cancel</a>
     </div>
-    <div class="panel-body well" style="padding-top: 0px;">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <span>Select Order Type</span>
+                    <div class="col-sm-2">
+                        <span style="color: rgb(120, 136, 136);">Order No</span>
+                        <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
+                        <input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--">
+                    </div>
+                    <div class="col-sm-2">
+                        <span style="color: rgb(120, 136, 136);">Order Type</span>
                         <select name="orderType" [(ngModel)]="orderType" class="form-control" style="font-size: 12px;">
                             <option></option>
                             <option>LOCAL PURCHASE ORDER</option>
                             <option>TRANSFER ORDER</option>
                         </select>
                     </div>
-                    
-                    <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
-                    <div class="col-sm-3"><input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--"></div>
-                    <div class="col-sm-3"><input type="text" name="invoiceNo" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--"></div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <span>Select Receiving Date</span>
+                    <div class="col-sm-2">
+                        <span style="color: rgb(120, 136, 136);">Invoice No</span>
+                        <input type="text" name="invoiceNo" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--">
+                    </div>
+                    <div class="col-sm-2">
+                        <span style="color: rgb(120, 136, 136);">Receiving Date</span>
                         <input type="date" name="grnDate" [(ngModel)]="grnDate" class="form-control">
                     </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-sm-4">
+                        
+                        
+                    </div>
                     <div class="col-sm-6">
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-sm-6">
                                 <span class="btn btn-warning form-control" (click)="createGrn()" style="border-radius: 20px;"> Search/Create</span>
                             </div>
@@ -41,42 +58,13 @@
                             <div class="col-sm-6">
                                 <span class="btn btn-success form-control"> Save</span>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <span><b>Summary</b></span>
-                <table style="font-size: 11px; background-color: rgb(177, 238, 238);">
-                    <tr>
-                        <td>Grn no:</td>
-                        <td>{{grnNo}}</td>
-                    </tr>
-                    <tr>
-                        <td>Order type:</td>
-                        <td>{{orderType}}</td>
-                    </tr>
-                    <tr>
-                        <td>Order no:</td>
-                        <td>{{orderNo}}</td>
-                    </tr>
-                    <tr>
-                        <td>Invoice no:</td>
-                        <td>{{invoiceNo}}</td>
-                    </tr>
-                    <tr>
-                        <td>Invoice no:</td>
-                        <td>{{invoiceNo}}</td>
-                    </tr>
-                    <tr>
-                        <td>Date  :</td>
-                        <td>{{grnDate}}</td>
-                    </tr>
-                    <tr>
-                        <td>Vendor:</td>
-                        <td>(1001) ANDE AND SANILI</td>
-                    </tr>
-                </table>
+            <div class="col-sm-4">
+                
+                
             </div>
             
             
@@ -129,12 +117,26 @@
                 <!--{{ grnDetails | json }}-->
             </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-sm-12">
                 <button class="btn btn-success" (click)="receiveGoods(grnDetails)"><span class="glyphicon glyphicon-ok"></span> Receive Goods</button>
             </div>
+        </div>-->
+        
+        
+        
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span style="font-size: 12px;color: rgb(120, 136, 136);"><b>Summary</b>
+            Grn no:{{grnNo}}
+            Order type:{{orderType}}
+            Order no:{{orderNo}}
+            Invoice no:{{invoiceNo}}
+            Invoice no:{{invoiceNo}}
+            Date  :{{grnDate}}
+            Vendor:(1001) ANDE AND SANILI
+            </span>
         </div>
-        
-        
     </div>
   </div>

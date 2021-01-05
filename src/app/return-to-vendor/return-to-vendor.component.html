@@ -1,8 +1,17 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Goods Returned to Supplier/ Vendor(RTV)</h3>
+        <h3 class="panel-title">Return to Vendor-RTV</h3><br>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="newRtv()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="editRtv()"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a> |
+
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="approveRtv(rtvNo)"><span class="glyphicon glyphicon-ok"></span> Approve</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="confirmRtv(rtvNo)"><span class="glyphicon glyphicon-ok"></span> Confirm</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="printRtv(rtvNo)"><span class="glyphicon glyphicon-print"></span> Print</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="cancelRtv(rtvNo)"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
     </div>
-    <div class="panel-body well" style="padding-top: 0px;">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
@@ -12,16 +21,21 @@
                                 <div class="row">
                                     <div class="col-sm-7">
                                         <input type="hidden" name="id" [(ngModel)]="id">
-                                        <input type="text" name="rtvNo" [(ngModel)]="rtvNo" [readonly]="lockedRtv" class="form-control" placeholder="RTV#">
+                                        <input type="text" name="rtvNo" [(ngModel)]="rtvNo" [readonly]="lockedRtv" class="form-control" placeholder="RTV No">
                                     </div>
                                     <div class="col-sm-4">
                                         <button class="btn btn-warning" (click)="searchRtv(rtvNo)" [disabled]="lockedRtv" style="border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
                                     </div>
                                 </div>
+                                
+                            </div>
+                            <div class="col-sm-7">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-4">
+                                        <span>Select supplier</span> 
+                                    </div>
+                                    <div class="col-sm-8">
                                         <input type="hidden" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
-                                        <span>Select supplier</span><br> 
                                         <select [(ngModel)]="supplierName" name="supplierName" (change)="searchBySupplierName()" class="form-control" placeholder="--Supplier Name--">
                                             <option></option>
                                             <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
@@ -29,14 +43,16 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
-                                        <span>Enter date</span><br> 
+                                    <div class="col-sm-4">
+                                        <span>Enter RTV date</span> 
+                                    </div>
+                                    <div class="col-sm-8">
                                         <input type="date" name="rtvDate" [(ngModel)]="rtvDate" placeholder="--Date--" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             
-                            <div class="col-sm-7">
+                            <!--<div class="col-sm-7">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="row">
@@ -60,7 +76,7 @@
                                         
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             
                         </div>
                     </div>
@@ -91,8 +107,7 @@
             </div>
             
         </div>
-        <hr>
-        <div class="row">
+        <!--<div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6 text-center">
                 <div class="row">
@@ -110,15 +125,14 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
+        </div>-->
         <div class="row">
             <div class="col-sm-1">
                 <input type="hidden" name="rtvDetailId" [(ngModel)]="rtvDetailId">
-                <input type="text" name="barcode" [(ngModel)]="barcode" [readonly]="lockedItem"  class="form-control" placeholder="Barcode" style="margin: 2px;border-radius: 10px; font-size: 12px;">
+                <input type="text" name="barcode" [(ngModel)]="barcode" [readonly]="lockedItem"  class="form-control" placeholder="Barcode" style="margin: 2px;font-size: 12px;">
             </div>
             <div class="col-sm-1">
-                <input type="text" name="itemCode" [(ngModel)]="itemCode" [readonly]="lockedItem"  class="form-control" placeholder="Item Code" style="margin: 2px;border-radius: 10px; font-size: 12px;">
+                <input type="text" name="itemCode" [(ngModel)]="itemCode" [readonly]="lockedItem"  class="form-control" placeholder="Item Code" style="margin: 2px;font-size: 12px;">
             </div>
             <div class="col-sm-3">
                 <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [disabled]="lockedItem" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="1" placeholder="--Description--"></ng2-completer>
@@ -141,7 +155,7 @@
                 <button class="btn btn-primary form-control" (click)="saveRtvDetail()" [disabled]="lockedAdd" style="margin: 2px;border-radius: 20px; font-size: 12px;">Add/Update</button>
             </div>
             <div class="col-sm-1">
-                <button class="btn btn-danger form-control" (click)="clearItem()" style="margin: 2px;border-radius: 20px; font-size: 12px;"><span class="glyphicon glyphicon-remove"></span></button>
+                <button class="btn btn-danger form-control" (click)="clearItem()" style="margin: 2px;border-radius: 20px; font-size: 12px;">Clear</button>
             </div>
         </div>
         <div class="row">
@@ -179,6 +193,18 @@
                 </table>
                 <!--{{ rtvDetails | json }}-->
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span style="font-size: 12px;">
+                <b>Summary</b>
+                Supplier: ({{supplierCode}}) {{supplierName}}
+                Created by: 
+                Approved by: 
+                RTV Date: 
+                Status: 
+            </span>
         </div>
     </div>
   </div>
