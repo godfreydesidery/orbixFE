@@ -3,31 +3,42 @@
       <h3 class="panel-title">Mass Management</h3>
     </div>
     <div class="panel-body well">
-       <table class="table table-striped">
-           <tr>
-               <td>Product Management</td>
-           </tr>
-           <tr>
-               <td>
-                   <button class="btn btn-info"><span class="glyphicon glyphicon-upload"></span> Upload Product Master</button>
-                   <button class="btn btn-info"><span class="glyphicon glyphicon-download"></span> Download Product Master</button>
-                   <button class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Update Product Master</button>
-                   <button class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Update Prices</button>
-                   <button class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Update Inventory</button>
-               </td>
-           </tr>
-           <hr>
-           <tr>
-            <td>Supplier Management</td>
-        </tr>
-        <tr>
-            <td>
-                <button class="btn btn-info"><span class="glyphicon glyphicon-upload"></span> Upload Supplier Master</button>
-                <button class="btn btn-info"><span class="glyphicon glyphicon-download"></span> Download Supplier Master</button>
-                <button class="btn btn-info"><span class="glyphicon glyphicon-pencil"></span> Update Supplier Master</button>
-            </td>
-        </tr>
-        <hr>
-       </table>
+        <div class="row">
+            <!--<input type="file" (change)="onFileChange($event)" multiple="false">-->
+            <div class="col-sm-4">
+                <h3>Product Management</h3>
+                <div class="alert alert-info" role="alert">Upload Product Master
+                    <input type="file" multiple="false">
+                </div>
+                <div class="alert alert-info" role="alert">Download Product Master
+                    <input type="file" multiple="false">
+                </div>
+                <div class="alert alert-info" role="alert">Update Product Master
+                    <input type="file" multiple="false">
+                </div>
+                <div class="alert alert-info" role="alert">Update prices
+                    <input type="file" multiple="false">
+                </div>
+                <div class="alert alert-info" role="alert">Update inventory
+                    <input type="file" multiple="false">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h3>Supplier Management</h3>
+                <div class="alert alert-info" role="alert">Upload Supplier Master
+                    <input type="file" multiple="false">
+                </div>
+                <div class="alert alert-info" role="alert">Download Supplier Master
+                    <input type="file" multiple="false">
+                </div>
+                <div class="alert alert-info" role="alert">Update Supplier Master
+                    <input type="file" multiple="false">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h3>Units Management</h3>
+                
+            </div>
+        </div>
     </div>
   </div>

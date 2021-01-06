@@ -1,14 +1,17 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Suppliers</h3>
+        <h3 class="panel-title">Suppliers</h3>
+        <hr>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> Reset/New</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteSupplier()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveSupplier()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
     </div>
     <div class="panel-body well">
         <div class="row">
             <div class="col-sm-2"> Code</div>
             <input type="hidden" name="id" [(ngModel)]="id">
-            <div class="col-sm-5"><input type="text" name="supplierCode" [(ngModel)]="supplierCode" class="form-control form-control-sm" placeholder="--Supplier Code--"></div>
-            <div class="col-sm 7 text-center" style="padding-top: 3px;">
-                <button type="button" (click)="clear()" name="newSupplier" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>
+            <div class="col-sm-4"><input type="text" name="supplierCode" [(ngModel)]="supplierCode" class="form-control form-control-sm" placeholder="--Supplier Code--"></div>
+            <div class="col-sm 8" style="padding-top: 3px;">
                 <button type="button" (click)="searchSupplier()" name="searchSupplier" class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
             </div>
         </div>
@@ -87,12 +90,6 @@
                     <div class="col-sm-4">Bank Acc No</div>
                     <div class="col-sm-8"><input type="text" name="bankAccountNo" [(ngModel)]="bankAccountNo"  class="form-control" placeholder="--Bank Account Number--"></div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <button type="button" name="saveSupplier" (click)="saveSupplier()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save / Update</button>
-                <button type="button" name="deleteSupplier" (click)="deleteSupplier()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
             </div>
         </div>
         <hr>

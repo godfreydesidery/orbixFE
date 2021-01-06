@@ -1,32 +1,30 @@
 <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">Product Inquiry</h3>
+      <hr>
+        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-remove"></span> Clear</a>
     </div>
-    <div class="panel-body well">
-        <form class="">
-            <div class="row">
-                <div class="col-sm-2">
-                    Item Code 
-                    <input type="hidden" name="id" [(ngModel)]="id">
-                    <input type="text" id="tags" name="itemCode" [(ngModel)]="itemCode" class="form-control" placeholder="--Item Code--">
-                </div>
-                <div class="col-sm-2">
-                    Barcode
-                    <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Barcode--">
-                </div>
-                <div class="col-sm-5">
-                    Description
-                    <!--<input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control">-->
-                    <ng2-completer style="width: 100%;" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="1" placeholder="--Long Description--"></ng2-completer>
-                </div>
-                <div class="col-sm-3">
-                    <br>
-                    <button type="button" (click)="searchItem()" class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Search</button>
-                    <button type="button" (click)="clear()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-book"></span> Clear</button>
-                </div>
+    <div class="panel-body well" style="padding: 5px;">
+        <div class="row">
+            <div class="col-sm-2">
+                Item Code 
+                <input type="hidden" name="id" [(ngModel)]="id">
+                <input type="text" id="tags" name="itemCode" [(ngModel)]="itemCode" class="form-control" placeholder="--Item Code--">
             </div>
-        </form>
-        <hr>
+            <div class="col-sm-2">
+                Barcode
+                <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Barcode--">
+            </div>
+            <div class="col-sm-5">
+                Description
+                <!--<input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control">-->
+                <ng2-completer style="width: 100%;" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="1" placeholder="--Long Description--"></ng2-completer>
+            </div>
+            <div class="col-sm-3">
+                <br>
+                <button type="button" (click)="searchItem()" class="btn btn-warning" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Search</button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-2">
                 <b>Item Code:</b>
