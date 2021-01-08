@@ -208,6 +208,9 @@ export class ProductMasterComponent implements OnInit  {
     this.clear()
     this.itemCode = "12345"
   }
+  newItem(){
+    this.clear()
+  }
 
   validateData(){
     /**
@@ -274,7 +277,7 @@ export class ProductMasterComponent implements OnInit  {
         this.httpClient.post(Data.baseUrl + "/items" , item)
         .subscribe(
           data=>{
-            MessageService.showMessage('Item created successifully')
+            MessageService.showMessage('New item created')
             this.id=data['id']
           },
           error=>{
@@ -331,7 +334,7 @@ export class ProductMasterComponent implements OnInit  {
           console.log(data)
           if(data==null){
             this.clear()
-            MessageService.showMessage('Item Successiful deleted')
+            MessageService.showMessage('Item deleted')
             alert()
           }
         },

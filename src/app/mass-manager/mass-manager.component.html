@@ -5,10 +5,15 @@
     <div class="panel-body well">
         <div class="row">
             <!--<input type="file" (change)="onFileChange($event)" multiple="false">-->
+            <div class=" col-sm-12">
+                <div class="alert alert-info" role="alert">
+                    <span>{{progressStatus}} {{currentRecord}} of {{totalRecords}}</span>
+                </div>
+            </div>
             <div class="col-sm-4">
                 <h3>Product Management</h3>
                 <div class="alert alert-info" role="alert">Upload Product Master
-                    <input type="file" multiple="false">
+                    <input type="file" (change)="uploadItemFile($event)" multiple="false">
                 </div>
                 <div class="alert alert-info" role="alert">Download Product Master
                     <input type="file" multiple="false">
@@ -26,13 +31,13 @@
             <div class="col-sm-4">
                 <h3>Supplier Management</h3>
                 <div class="alert alert-info" role="alert">Upload Supplier Master
-                    <input type="file" multiple="false">
+                    <input type="file" (change)="uploadSupplierFile($event)" multiple="false">
                 </div>
                 <div class="alert alert-info" role="alert">Download Supplier Master
                     <input type="file" multiple="false">
                 </div>
                 <div class="alert alert-info" role="alert">Update Supplier Master
-                    <input type="file" multiple="false">
+                    <input type="file" (change)="updateSupplierFile($event)" multiple="false">
                 </div>
             </div>
             <div class="col-sm-4">

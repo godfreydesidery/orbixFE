@@ -120,7 +120,7 @@
                 <input type="text" name="itemCode" [(ngModel)]="itemCode" [readonly]="lockedItem"  class="form-control" placeholder="Item Code" style="margin: 2px;">
             </div>
             <div class="col-sm-4">
-                <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [disabled]="lockedItem" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="1" placeholder="--Description--"></ng2-completer>
+                <ng2-completer style="width: 100%;" name="description" [(ngModel)]="description" [disabled]="lockedItem" [inputClass]="'form-control form-control-inline'" [datasource]="descriptions" [minSearchLength]="3" placeholder="--Description--"></ng2-completer>
             </div>
             <div class="col-sm-1">
                 <button class="btn btn-warning" (click)="searchItem(barcode,itemCode,description)" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Item</button>
