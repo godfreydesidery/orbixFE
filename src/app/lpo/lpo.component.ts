@@ -7,6 +7,7 @@ import { MessageService } from '../message.service';
 import { SupplierService } from '../supplier.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
+
 @Component({
   selector: 'app-lpo',
   templateUrl: './lpo.component.html',
@@ -41,6 +42,8 @@ export class LPOComponent implements OnInit {
 	public lpos = {}
 	public lpoDetails = {}
 
+	
+
 	constructor(private httpClient : HttpClient, private spinnerService : NgxSpinnerService) {
 		/**Lpo */
 		this.id             = ''
@@ -63,7 +66,12 @@ export class LPOComponent implements OnInit {
 		this.sellingPrice = null
 	}
 
+	
+
 	async ngOnInit(): Promise<void> {
+		
+		
+		
 		/**Load lpos */
 		this.lpos = await this.getLpos();
 		/**Load all supplier names */

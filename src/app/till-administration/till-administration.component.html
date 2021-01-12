@@ -22,9 +22,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">Computer Name</div>
+                    <div class="col-sm-3">Till Name</div>
                     <div class="col-sm-8">
-                        <input type="text" name="computerName" [(ngModel)]="computerName" class="form-control" placeholder="--Computer Name--">
+                        <input type="text" name="tillName" [(ngModel)]="tillName" class="form-control" placeholder="--Till Name--">
                     </div>
                 </div>
                 <div class="row">
@@ -59,7 +59,7 @@
                     <tbody>
                         <tr *ngFor="let till of tills" [ngValue]="till">
                             <td>{{till.tillNo}}</td>
-                            <td>{{till.computerName}}</td>
+                            <td>{{till.tillName}}</td>
                             <td>{{till.status}}</td>
                             <td><a class="glyphicon glyphicon-pencil badge" (click)="search(till.id)">Edit</a></td>
                         </tr>

@@ -15,7 +15,7 @@ export class TillAdministrationComponent implements OnInit {
 
   public id           : any
   public tillNo       : string
-  public computerName : string
+  public tillName : string
   public status       : string
   
 
@@ -23,7 +23,7 @@ export class TillAdministrationComponent implements OnInit {
   constructor(private httpClient: HttpClient) {
     this.id           = ''
     this.tillNo       = ''
-    this.computerName = ''
+    this.tillName = ''
     this.status       = ''
     
    }
@@ -116,13 +116,13 @@ export class TillAdministrationComponent implements OnInit {
     /**
      * gets user data from inputs
      */
-    var userData = {
+    var tillData = {
       id           : this.id,
       tillNo       : this.tillNo,
-      computerName : this.computerName,
+      tillName : this.tillName,
       status       : this.status
     }
-    return userData;
+    return tillData;
   }
 
   clear(){
@@ -131,7 +131,7 @@ export class TillAdministrationComponent implements OnInit {
      */
     this.id           = ''
     this.tillNo       = ''
-    this.computerName = ''
+    this.tillName = ''
     this.status       = ''
    
   }
@@ -144,7 +144,7 @@ export class TillAdministrationComponent implements OnInit {
      */
     this.id           = till['id']
     this.tillNo       = till['tillNo']
-    this.computerName = till['computerName']
+    this.tillName = till['tillName']
     this.status       = till['status']
   }
 
@@ -183,7 +183,7 @@ export class TillAdministrationComponent implements OnInit {
             this.id=data['id']
           },
           error=>{
-            alert('Error: Could not create user')
+            alert('Error: Could not create till')
           }
         )
       } else {
