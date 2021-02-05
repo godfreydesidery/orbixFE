@@ -1,10 +1,15 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Suppliers</h3>
-        <hr>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> Reset/New</a>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteSupplier()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveSupplier()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+        <table>
+            <tr>
+                <td style="width:70mm"><h3 class="panel-title">Suppliers</h3></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> Reset/New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteSupplier()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveSupplier()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="panel-body well">
         <div class="row">

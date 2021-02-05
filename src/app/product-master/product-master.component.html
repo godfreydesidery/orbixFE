@@ -1,14 +1,17 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Product Master</h3>
-        <hr>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="newItem()"><span class="glyphicon glyphicon-folder-open"></span> New Item</a>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteItem()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-        <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveItem()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
-
-    
-    </div>
+        <table>
+            <tr>
+                <td style="width:70mm"><h3 class="panel-title">Product Master</h3></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="newItem()"><span class="glyphicon glyphicon-folder-open"></span> New Item</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteItem()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveItem()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>
+        
     <div class="panel-body well" style="padding: 5px;">
         <form class="form form-horizontal">
             <div class="row">

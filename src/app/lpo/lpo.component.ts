@@ -31,12 +31,17 @@ export class LPOComponent implements OnInit {
 	barcode     : any
 	itemCode    : string
 	description : string
-	qtyOrdered  : number
-	clientCostPrice   : number
-	sellingPrice: number
+	qtyOrdered  : number =0
+	clientCostPrice   : number =0
+	sellingPrice: number=0
+	totalClientCostPrice   : number =this.clientCostPrice*this.qtyOrdered
+	totalSellingPrice: number=this.sellingPrice*this.qtyOrdered
+	profit: number=this.totalSellingPrice-this.totalClientCostPrice
+
+
 
 	/**Collections */
-	descriptions  : string[] = []
+	descriptions  : any = []
 	supplierNames : string[] = []
 
 	public lpos = {}
@@ -553,6 +558,60 @@ export class LPOComponent implements OnInit {
 	async searchItem(barcode : string, itemCode : string, description : string){
 		/**Search and display an item */
 		var itemId = await (new ItemService(this.httpClient).getItemId(barcode , itemCode, description))
+		if(itemId != '' && itemId !=null){
+			var item = await (new ItemService(this.httpClient).getItem(itemId))
+			this.itemCode = item['itemCode']
+			this.description = item['longDescription']
+			this.clientCostPrice = item['unitCostPrice']
+			
+			this.sellingPrice = item['unitRetailPrice']
+			console.log(this.sellingPrice)
+			this.lockItem()
+			this.unlockAdd()
+			this.lockSupplier()
+		}else{
+			/** */
+		}
+	}
+	async searchItemByBarcode(barcode : string){
+		/**Search and display an item */
+		var itemId = await (new ItemService(this.httpClient).getItemId(barcode , "", ""))
+		if(itemId != '' && itemId !=null){
+			var item = await (new ItemService(this.httpClient).getItem(itemId))
+			this.itemCode = item['itemCode']
+			this.description = item['longDescription']
+			this.clientCostPrice = item['unitCostPrice']
+			
+			this.sellingPrice = item['unitRetailPrice']
+			console.log(this.sellingPrice)
+			this.lockItem()
+			this.unlockAdd()
+			this.lockSupplier()
+		}else{
+			/** */
+		}
+	}
+	async searchItemByItemCode(itemCode : string){
+		/**Search and display an item */
+		var itemId = await (new ItemService(this.httpClient).getItemId("" , itemCode, ""))
+		if(itemId != '' && itemId !=null){
+			var item = await (new ItemService(this.httpClient).getItem(itemId))
+			this.itemCode = item['itemCode']
+			this.description = item['longDescription']
+			this.clientCostPrice = item['unitCostPrice']
+			
+			this.sellingPrice = item['unitRetailPrice']
+			console.log(this.sellingPrice)
+			this.lockItem()
+			this.unlockAdd()
+			this.lockSupplier()
+		}else{
+			/** */
+		}
+	}
+	async searchItemByDescription(description : string){
+		/**Search and display an item */
+		var itemId = await (new ItemService(this.httpClient).getItemId("" , "", description))
 		if(itemId != '' && itemId !=null){
 			var item = await (new ItemService(this.httpClient).getItem(itemId))
 			this.itemCode = item['itemCode']
