@@ -1,25 +1,28 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h3 class="panel-title">User Enrolment</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">User Enrolment</h5></td>
+                <td style="width:200mm">
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteUser()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveUser()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="panel-body well">
         <div class="row">
             <div class="col-sm-5">
                 <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-8 text-center">
-                        <button class="btn btn-success" (click)="clear()" style="margin: 2px;"><span class="glyphicon glyphicon-new"></span> New</button>
-                        <button class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                        <button class="btn btn-warning" (click)="searchUser()" style="margin: 2px;border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Search</button>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">Payroll No</div>
                     <input type="hidden" name="id" [(ngModel)]="id">
-                    <div class="col-sm-8">
+                    <div class="col-sm-5">
                         <input type="text" name="payRollNo" [(ngModel)]="payRollNo" class="form-control" placeholder="--Pay Roll No--">
                     </div>
+                    <div class="col-sm-4"><button (click)="searchUser()" style="margin: 2px;"><span class="glyphicon glyphicon-search"></span> Search</button></div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">Username</div>
@@ -66,13 +69,6 @@
                     <div class="col-sm-3">Confirm Password</div>
                     <div class="col-sm-8">
                         <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control" placeholder="--Confirm Password--">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-8 text-center">
-                        <button class="btn btn-danger" (click)="deleteUser()" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                        <button class="btn btn-success" (click)="saveUser()" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
                     </div>
                 </div>
             </div>

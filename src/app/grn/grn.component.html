@@ -4,7 +4,6 @@
             <tr>
                 <td style="width:70mm"><h3 class="panel-title">Goods Received Note (GRN)</h3></td>
                 <td>
-                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="createGrn()"><span class="glyphicon glyphicon-search"></span> Search/Create</a>
                     <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
                     <a class="" style="cursor: pointer; margin-right: 30px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                     <a class="" style="cursor: pointer; margin-right: 30px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a> |
@@ -18,83 +17,41 @@
     </div>
     <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-8">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <span style="color: rgb(120, 136, 136);">Order No</span>
+            <div class="col-sm-12">
+                <table>
+                    <tr style="font-size: 12px;">
                         <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
-                        <input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--">
-                    </div>
-                    <div class="col-sm-2">
-                        <span style="color: rgb(120, 136, 136);">Order Type</span>
-                        <select name="orderType" [(ngModel)]="orderType" class="form-control" style="font-size: 12px;">
-                            <option></option>
-                            <option>LOCAL PURCHASE ORDER</option>
-                            <option>TRANSFER ORDER</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <span style="color: rgb(120, 136, 136);">Invoice No</span>
-                        <input type="text" name="invoiceNo" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--">
-                    </div>
-                    <div class="col-sm-2">
-                        <span style="color: rgb(120, 136, 136);">Receiving Date</span>
-                        <input type="date" name="grnDate" [(ngModel)]="grnDate" class="form-control">
-                    </div>
-                </div>
-               
-                <div class="row">
-                    <div class="col-sm-4">
-                        
-                        
-                    </div>
-                    <div class="col-sm-6">
-                        <!--<div class="row">
-                            <div class="col-sm-6">
-                                <span class="btn btn-warning form-control" (click)="createGrn()" style="border-radius: 20px;"> Search/Create</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <span class="btn btn-success form-control"> Edit</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <span class="btn btn-danger form-control" > Delete</span>
-                            </div>
-                            <div class="col-sm-6">
-                                <span class="btn btn-success form-control"> Save</span>
-                            </div>
-                        </div>-->
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                
-                
-            </div>
-            
-            
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                
-                
-                
-                <div class="row">
-                    <div class="col-sm-2"></div>
+                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Order No</td>
+                        <td style="width: 30mm;"><input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="createGrn()" >Search/ Create GRN</button></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Order Type</td>
+                        <td style="width: 60mm;">
+                            <select name="orderType" [(ngModel)]="orderType" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm;">
+                                <option></option>
+                                <option>LOCAL PURCHASE ORDER</option>
+                                <option>TRANSFER ORDER</option>
+                            </select>
+                        </td>
+                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Invoice No</td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
                     
-                </div>
+                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Receiving Date</td>
+                        <td style="width: 30mm;"><input type="date" name="grnDate" [(ngModel)]="grnDate" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3">
-                
-            </div>
+            
         </div>
+        
         <div class="row">
             <div class="col-sm-12">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>Code</td>
                             <td>Descr</td>
                             <td>Qty Ord</td>

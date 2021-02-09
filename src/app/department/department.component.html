@@ -1,6 +1,16 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Departments</h3>
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Departments</h5></td>
+                <td style="width:200mm">
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteDepartment()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveDepartment()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="panel-body well">
         <div class="row">
@@ -8,22 +18,15 @@
                 <div class="row">
                     <div class="col-sm-2">Code</div>
                     <input type="hidden" name="id" [(ngModel)]="id">
-                    <div class="col-sm-5"><input type="text" name="departmentCode" [(ngModel)]="departmentCode" class="form-control" placeholder="--Department Code--"></div>
-                    <div class="col-sm 7">
-                        <button type="button" (click)="clear()" name="newDepartment"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>
-                        <button type="button" (click)="searchDepartment()" name="searchDepartment" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                    <div class="col-sm-7"><input type="text" name="departmentCode" [(ngModel)]="departmentCode" class="form-control" placeholder="--Department Code--"></div>
+                    <div class="col-sm 5">
+                        <button type="button" (click)="searchDepartment()" name="searchDepartment" style="margin: 2px;"><span class="glyphicon glyphicon-search"></span>Search</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">Name</div>
                     <div class="col-sm-10">
                         <ng2-completer style="width: 100%;" name="departmentName" [(ngModel)]="departmentName" [inputClass]="'form-control form-control-inline'" [datasource]="departmentNames" [minSearchLength]="1" placeholder="--Department Name--"></ng2-completer>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" name="saveDepartment" (click)="saveDepartment()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-                        <button type="button" name="deleteDepartment" (click)="deleteDepartment()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                     </div>
                 </div>
             </div>

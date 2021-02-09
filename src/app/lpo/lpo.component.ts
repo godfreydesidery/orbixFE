@@ -160,6 +160,7 @@ export class LPOComponent implements OnInit {
 	clearItem(){
 		/**Clear item data */
 		this.lpoDetailId      = ''
+		this.barcode          = ''
 		this.itemCode         = ''
 		this.description      = ''
 		this.qtyOrdered       = null

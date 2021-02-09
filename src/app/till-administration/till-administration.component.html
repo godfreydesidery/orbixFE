@@ -1,24 +1,29 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Till Administration</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Till Administration</h5></td>
+                <td style="width:200mm">
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteTill()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveTill()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="panel-body well">
         <div class="row">
             <div class="col-sm-5">
                 <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-9 text-center">
-                        <button type="button" class="btn btn-success" (click)="clear()" style="margin: 2px;"><span class="glyphicon glyphicon-new"></span> New</button>
-                        <button type="button" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
-                        <button type="button" class="btn btn-warning" (click)="searchTill()" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span> Search</button>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">Till #</div>
                     <input type="hidden" name="id" [(ngModel)]="id">
-                    <div class="col-sm-8">
+                    <div class="col-sm-5">
                         <input type="text" name="tillNo" [(ngModel)]="tillNo" class="form-control" placeholder="--Till No--">
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" (click)="searchTill()" style="margin: 2px;"><span class="glyphicon glyphicon-search"></span> Search</button>
                     </div>
                 </div>
                 <div class="row">
@@ -36,13 +41,6 @@
                             <option>CLOSED</option>
                             <option>SUSPENDED</option>
                         </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3"></div>
-                    <div class="col-sm-9 text-center">
-                        <button type="button" (click)="saveTill()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-                        <button type="button" (click)="deleteTill()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                     </div>
                 </div>
             </div>

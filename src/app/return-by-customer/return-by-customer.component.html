@@ -1,60 +1,110 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Goods Returned by Customer</h3>
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Goods Return by Customer (RBC)</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-ok"></span> Confirm Return</a>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="panel-body well">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
             <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-3">Bill#</div>
-                    <div class="col-sm-4"><input type="text" class="form-control"></div>
-                    <div class="col-sm-4"><button class="btn btn-success"><span class="glyphicon glyphicon-search"></span>Search</button></div>
-                </div>
-                <p>Till#: 0001</p>
-                <p>Bill Date: 11-11-2020</p>
-                <p>Amount: 100,000.00</p>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" name="id">
+                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Bill No</td>
+                        <td style="width: 30mm;"><input type="text" name="billNo" class="form-control" placeholder="Bill No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" ><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12">
-                <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
-                    <thead>
-                        <tr class="info">
-                            <td>Item Code</td>
-                            <td>Qty</td>
-                            <td>Price @</td>
-                            <td>Description</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>264785</td>
-                            <td>10</td>
-                            <td>1,000.00</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                        </tr>
-                        <tr>
-                            <td>264785</td>
-                            <td>10</td>
-                            <td>1,000.00</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                        </tr>
-                        <tr>
-                            <td>264785</td>
-                            <td>10</td>
-                            <td>1,000.00</td>
-                            <td>KILIMANJARO DRINKING WATER</td>
-                        </tr>
-                    </tbody>
+            <div class="col-sm-6">
+                <span style="font-size: 12px;"><b>Bill Summary </b>Bill No:billno Date:date TillNo:till TotalBillAmount:total</span>
+                <table class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                    <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
+                        <td>Barcode</td>
+                        <td>Item Code</td>
+                        <td>Description</td>
+                        <td>Qty</td>
+                        <td>Price@</td>
+                        <td>Qty Returned</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <span style="font-size: 12px;"><b>RBC List</b></span>
+                <table class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                    <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
+                        <td>RBC No</td>
+                        <td>Date</td>
+                        <td>Amount</td>
+                        <td>CR Note No</td>
+                        <td>Status</td>
+                    </tr>
                 </table>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Confirm Return</button>
+                <span style="font-size: 12px;"><b>Returned goods</b></span>
+                <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
+                    <thead>
+                        <tr class="info"  style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
+                            <td>Barcode</td>
+                            <td>Item Code</td>
+                            <td>Descr</td>
+                            <td>Qty</td>
+                            <td>Price @</td>
+                            <td>Amount</td>
+                            <td>Reason</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--<tr *ngFor="let rtvDetail of rtvDetails" [ngValue]="rtvDetail">
+                            <td>{{rtvDetail.itemCode}}</td>
+                            <td>{{rtvDetail.itemCode}}</td>
+                            <td>{{rtvDetail.description}}</td>
+                            <td>{{rtvDetail.qty}}</td>
+                            <td style="text-align: right;">{{rtvDetail.price|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{rtvDetail.qty*rtvDetail.price|currency:'TSh':''}}</td>
+                            <td>{{rtvDetail.reason}}</td>
+                            <td>
+                                <button type="button" class="btn btn-default btn-small" (click)="searchRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                <button type="button" class="btn btn-danger" (click)="deleteRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-trash"></span> Remove</button>
+                            </td>
+                        </tr>-->
+
+                        <tr>
+                            <input type="hidden" name="rtvDetailId" >
+                            <td><input style="max-width: 25mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" ></td>
+                            <td><input style="max-width: 25mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" ></td>
+                            <td><input type="text" #des  style="width: 120mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
+                            <td><input style="max-width: 20mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" name="qty" ></td>
+                            <td style="text-align: right;"></td>
+                            <td style="text-align: right;"></td>
+                            <td><input type="text" name="reason"  class="form-control" placeholder="Reason for return" style="margin: 2px; font-size: 12px;"></td>
+                            <td>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" >Add</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" >Clear</a>
+                            </td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>
+                <!--<datalist id="description" style="padding: 0px;">
+                    <option *ngFor="let d of descriptions" [ngValue]="d">{{d}}</option>
+                </datalist>-->
+                <!--{{ cartDetails | json }}-->
             </div>
         </div>
-        
         
     </div>
   </div>

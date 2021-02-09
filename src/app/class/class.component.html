@@ -1,6 +1,17 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Classes</h3>
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Classes</h5></td>
+                <td style="width:200mm">
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="deleteClass()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveClass()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>
+      <h3 class="panel-title"></h3>
     </div>
     <div class="panel-body well">
         <div class="row">
@@ -8,10 +19,9 @@
                 <div class="row">
                     <div class="col-sm-2">Code</div>
                     <input type="hidden" name="id" [(ngModel)]="id">
-                    <div class="col-sm-5"><input type="text" name="clasCode" [(ngModel)]="clasCode" class="form-control" placeholder="--Class Code--"></div>
-                    <div class="col-sm 7">
-                        <button type="button" (click)="clear()" name="newClass"  class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-pencil"></span> Reset/New</button>  
-                        <button type="button" (click)="searchClass()" name="searchClass" class="btn btn-warning" style="margin: 2px; border-radius: 20px;"><span class="glyphicon glyphicon-search"></span>Search</button>
+                    <div class="col-sm-7"><input type="text" name="clasCode" [(ngModel)]="clasCode" class="form-control" placeholder="--Class Code--"></div>
+                    <div class="col-sm 5">
+                        <button type="button" (click)="searchClass()" name="searchClass" style="margin: 2px;"><span class="glyphicon glyphicon-search"></span>Search</button>
                     </div>
                 </div>
                 <div class="row">
@@ -27,12 +37,6 @@
                         <select [(ngModel)]="departmentName" name="departmentName" class="form-control" placeholder="--Class--">
                             <option *ngFor="let department of departmentNames" [ngValue]="department">{{department}}</option>
                         </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <button type="button" name="saveClass" (click)="saveClass()" class="btn btn-success" style="margin: 2px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save </button>
-                        <button type="button" name="deleteClass" (click)="deleteClass()" class="btn btn-danger" style="margin: 2px;"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                     </div>
                 </div>
             </div>

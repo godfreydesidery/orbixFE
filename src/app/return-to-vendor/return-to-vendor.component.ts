@@ -567,6 +567,54 @@ export class ReturnToVendorComponent implements OnInit {
         /** */
       }
     }
+    async searchItemByBarcode(barcode : string){
+      /**Search and display an item */
+      var itemId = await (new ItemService(this.httpClient).getItemId(barcode , "", ""))
+      if(itemId != '' && itemId !=null){
+        var item = await (new ItemService(this.httpClient).getItem(itemId))
+        this.itemCode = item['itemCode']
+        this.description = item['longDescription']
+        this.price = item['unitCostPrice']
+        
+        this.lockItem()
+        this.unlockAdd()
+        this.lockSupplier()
+      }else{
+        /** */
+      }
+    }
+    async searchItemByItemCode(itemCode : string){
+      /**Search and display an item */
+      var itemId = await (new ItemService(this.httpClient).getItemId("" , itemCode, ""))
+      if(itemId != '' && itemId !=null){
+        var item = await (new ItemService(this.httpClient).getItem(itemId))
+        this.itemCode = item['itemCode']
+        this.description = item['longDescription']
+        this.price = item['unitCostPrice']
+        
+        this.lockItem()
+        this.unlockAdd()
+        this.lockSupplier()
+      }else{
+        /** */
+      }
+    }
+    async searchItemByDescription(description : string){
+      /**Search and display an item */
+      var itemId = await (new ItemService(this.httpClient).getItemId("" , "", description))
+      if(itemId != '' && itemId !=null){
+        var item = await (new ItemService(this.httpClient).getItem(itemId))
+        this.itemCode = item['itemCode']
+        this.description = item['longDescription']
+        this.price = item['unitCostPrice']
+        
+        this.lockItem()
+        this.unlockAdd()
+        this.lockSupplier()
+      }else{
+        /** */
+      }
+    }
     async refreshDetails(id : string){
       await this.httpClient.get(Data.baseUrl+"/rtvs/"+id)
       .toPromise()
