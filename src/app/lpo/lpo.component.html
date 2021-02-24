@@ -170,8 +170,9 @@
                                 <a style="cursor: pointer;" (click)="deleteLpoDetail(lpoDetail.id)"><span class="glyphicon glyphicon-trash"></span> Remove</a>
                             </td>
                         </tr>
+                        <hr>
 
-                        <tr style="margin-top: 2px;margin-bottom: 2px; background-color: white; font-size: 11px;">
+                        <tr style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">
                             <input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">
                             <td><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" (keydown.enter)="searchItemByBarcode(barcode)" [(ngModel)]="barcode" [readonly]="lockedItem"></td>
                             <td><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" (keydown.enter)="searchItemByItemCode(itemCode)" [(ngModel)]="itemCode" [readonly]="lockedItem"></td>

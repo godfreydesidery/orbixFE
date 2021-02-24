@@ -19,6 +19,7 @@ export class CorporateCustomersComponent implements OnInit {
   id           : any
   customerNo   : string
   customerName : string
+  contactName  : string
   address      : string
   telephone    : string
   vatNo        : string
@@ -31,6 +32,7 @@ export class CorporateCustomersComponent implements OnInit {
     this.id           = '';
     this.customerNo   = '';
     this.customerName = '';
+    this.contactName = '';
     this.address      = '';
     this.telephone    = '';
     this.vatNo        = '';
@@ -66,6 +68,7 @@ export class CorporateCustomersComponent implements OnInit {
     this.id           = '';
     this.customerNo   = '';
     this.customerName = '';
+    this.contactName = '';
     this.address      = '';
     this.telephone    = '';
     this.vatNo        = '';
@@ -83,6 +86,7 @@ export class CorporateCustomersComponent implements OnInit {
       id           :this.id,
       customerNo   :this.customerNo,
       customerName :this.customerName,
+      contactName  :this.contactName,
       address      :this.address,
       telephone    :this.telephone,
       vatNo        :this.vatNo,
@@ -101,6 +105,7 @@ export class CorporateCustomersComponent implements OnInit {
     this.id           =customer['id']
     this.customerNo   =customer['customerNo']
     this.customerName =customer['customerName']
+    this.contactName  =customer['contactName']
     this.address      =customer['address']
     this.telephone    =customer['telephone']
     this.vatNo        =customer['vatNo']

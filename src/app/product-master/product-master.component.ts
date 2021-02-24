@@ -130,8 +130,8 @@ export class ProductMasterComponent implements OnInit  {
       packSize            : this.packSize,
       supplier            : {supplierName : this.supplierName},
       department          : {departmentName : this.departmentName},
-      clas                : this.clasName,
-      subClass            : this.subClassName,
+      clas                : {clasName : this.clasName},
+      subClass            : {subClassName : this.subClassName},
       unitCostPrice       : this.unitCostPrice,
       unitRetailPrice     : this.unitRetailPrice,
       profitMargin        : this.profitMargin,
@@ -200,8 +200,8 @@ export class ProductMasterComponent implements OnInit  {
     this.reOrderQuantity      = item['reOrderQuantity']
     this.supplierName         = item['supplier'].supplierName
     this.departmentName       = item['department'].departmentName
-    this.clasName           = item['clas']
-    this.subClassName         = item['subClass']
+    this.clasName             = item['clas'].clasName
+    this.subClassName         = item['subClass'].subClassName
   }
 
   generateItemCode(){

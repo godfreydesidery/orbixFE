@@ -74,7 +74,7 @@ export class ItemService {
         }
       )
     }else{
-      await this.httpClient.get(Data.baseUrl+"/items/long_description="+description)
+      await this.httpClient.get(Data.baseUrl+"/items/"+description+"/long_description")
       .toPromise()
       .then(
         data=>{

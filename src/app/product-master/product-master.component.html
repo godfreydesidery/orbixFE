@@ -46,9 +46,13 @@
                     <div class="row">
                         <div class="col-sm-3">Long Description</div>
                         <div class="col-sm-9">
-                            <ng2-completer style="width: 100%; overflow-y: visible;" [autofocus]="true" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="3" placeholder="--Long Description--"></ng2-completer>
+                            <input type="text" class="form-control" #des [(ngModel)]="longDescription" name="longDescription" list="description" style=" font-size: 11px; padding: 0px; border-top:white; border-left:white; border-right:white;">
+                            <!--<ng2-completer style="width: 100%; overflow-y: visible;" [autofocus]="true" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="3" placeholder="--Long Description--"></ng2-completer>-->
                         </div>
                     </div>
+                    <datalist id="description" style="padding: 0px;">
+                        <option *ngFor="let d of items" [ngValue]="d">{{d}}</option>
+                    </datalist>
                     <div class="row">
                         <div class="col-sm-3">Short Description</div>
                         <div class="col-sm-9"><input type="text" name="shortDescription" [(ngModel)]="shortDescription" class="form-control" placeholder="--Short Description--"></div>
@@ -81,7 +85,7 @@
                     <div class="row">
                         <div class="col-sm-3">Department</div>
                         <div class="col-sm-9">
-                            <select [(ngModel)]="departmentName" name="departmentName"(change)="getClasses(departmentName)" class="form-control" placeholder="--Department--">
+                            <select [(ngModel)]="departmentName" name="departmentName"(change)="getClasses(departmentName)" class="form-control">
                                 <option></option>
                                 <option *ngFor="let department of departmentNames" [ngValue]="department">{{department}}</option>
                             </select>
@@ -91,17 +95,16 @@
                     <div class="row">
                         <div class="col-sm-3">Class</div>
                         <div class="col-sm-9">
-                            <select [(ngModel)]="clasName" name="clasName"(change)="getSubClasses(clasName)" class="form-control" placeholder="--Department--">
+                            <select [(ngModel)]="clasName" name="clasName"(change)="getSubClasses(clasName)" class="form-control">
                                 <option></option>
                                 <option *ngFor="let clasName of clasNames" [ngValue]="clasName">{{clasName}}</option>
                             </select>
-                            <!--<input type="text" name="datartment" [(ngModel)]="department" class="form-control" placeholder="--Department--">-->
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">Sub Class</div>
                         <div class="col-sm-9">
-                            <select [(ngModel)]="subClassName" name="subClassName" class="form-control" placeholder="--Sub Class--">
+                            <select [(ngModel)]="subClassName" name="subClassName" class="form-control">
                                 <option></option>
                                 <option *ngFor="let subClassName of subClassNames" [ngValue]="subClassName">{{subClassName}}</option>
                             </select>

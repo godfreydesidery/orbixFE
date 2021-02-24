@@ -38,7 +38,7 @@ export class ProductInquiryComponent implements OnInit {
   packSize            : number
   supplierName        : string
   departmentName      : string
-  _className          : string
+  clasName          : string
   subClassName        : string
   unitCostPrice       : number
   unitRetailPrice     : number
@@ -63,7 +63,7 @@ export class ProductInquiryComponent implements OnInit {
     this.packSize            = null;
     this.supplierName        = '';
     this.departmentName      = '';
-    this._className          = '';
+    this.clasName          = '';
     this.subClassName        = '';
     this.unitCostPrice       = null;
     this.unitRetailPrice     = null;
@@ -170,8 +170,8 @@ export class ProductInquiryComponent implements OnInit {
     this.reOrderQuantity      = item['reOrderQuantity']
     this.supplierName         = item['supplier'].supplierName
     this.departmentName       = item['department'].departmentName
-    this._className           = item['_class']
-    this.subClassName         = item['subClass']
+    this.clasName           = item['clas'].clasName
+    this.subClassName         = item['subClass'].subClassName
   }
   clear(){
     //clear the fields
@@ -184,7 +184,7 @@ export class ProductInquiryComponent implements OnInit {
     this.packSize            = null;
     this.supplierName        = '';
     this.departmentName      = '';
-    this._className          = '';
+    this.clasName          = '';
     this.subClassName        = '';
     this.unitCostPrice       = null;
     this.unitRetailPrice     = null;

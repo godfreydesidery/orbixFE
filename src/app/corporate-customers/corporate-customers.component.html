@@ -29,6 +29,12 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-sm-3">Contact Name</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="contactName" [(ngModel)]="contactName" class="form-control form-control-sm" placeholder="--Contact Name--">
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-3">Address</div>
                     <div class="col-sm-9">
                         <input type="text" name="address" [(ngModel)]="address" class="form-control form-control-sm" placeholder="--Address--">
@@ -71,6 +77,7 @@
                                 <tr class="info">
                                     <td>Cust No</td>
                                     <td>Name</td>
+                                    <td>Contact Name</td>
                                     <td>Contact</td>
                                     <td>Credit Inf</td>
                                     <td>Actions</td>
@@ -80,6 +87,7 @@
                                 <tr *ngFor="let customer of customers" [ngValue]="customer">
                                     <td>{{customer.customerNo}}</td>
                                     <td>{{customer.customerName}}</td>
+                                    <td>{{customer.contactName}}</td>
                                     <td>{{customer.address}}</td>
                                     <td>{{customer.creditDays}} days</td>
                                     <td><a class="glyphicon glyphicon-pencil badge" (click)="search(customer.id)">Select</a></td>

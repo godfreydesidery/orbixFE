@@ -22,9 +22,13 @@
             </div>
             <div class="col-sm-5">
                 Description
-                <!--<input type="text" name="longDescription" [(ngModel)]="longDescription" class="form-control">-->
-                <ng2-completer style="width: 100%;" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="1" placeholder="--Long Description--"></ng2-completer>
+                <input type="text" class="form-control" #des [(ngModel)]="longDescription" name="longDescription" list="description" style=" font-size: 11px; padding: 0px; border-top:white; border-left:white; border-right:white;">
+
+                <!--<ng2-completer style="width: 100%;" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="1" placeholder="--Long Description--"></ng2-completer>-->
             </div>
+            <datalist id="description" style="padding: 0px;">
+                <option *ngFor="let d of items" [ngValue]="d">{{d}}</option>
+            </datalist>
             <div class="col-sm-3">
                 <br>
                 <button type="button" (click)="searchItem()" style="margin: 2px; border-radius: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button>
@@ -82,19 +86,23 @@
             <div class="col-sm-2">
                 <b>Dept:</b>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-6">
                 {{departmentName}}
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <b>Class:</b>
             </div>
-            <div class="col-sm-2">
-                {{_className}}
+            <div class="col-sm-6">
+                {{clasName}}
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <b>Sub Class:</b>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-6">
                 {{subClassName}}
             </div>
         </div>
