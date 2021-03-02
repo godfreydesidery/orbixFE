@@ -15,7 +15,7 @@ export class CompanyProfileService {
      * List all suppliers
      */
     var company = {}
-    await this.httpClient.get(Data.baseUrl+"/company")
+    await this.httpClient.get(Data.baseUrl+"/company_profile")
     .toPromise()
     .then(
       data=>{
@@ -23,7 +23,9 @@ export class CompanyProfileService {
       }
     )
     .catch(
-      error=>{}
+      error=>{
+        alert(error['error'])
+      }
     )
     return company
   } 

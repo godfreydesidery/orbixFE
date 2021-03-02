@@ -1,33 +1,38 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Vendor Credit Notes</h3>
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Vendor Credit Notes</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 13px;" ><span class="glyphicon glyphicon-filter"></span> Filter</a>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="panel-body well">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-3">Order#</div>
-                    <div class="col-sm-6"><input type="text" class="form-control"></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">Credit Note#</div>
-                    <div class="col-sm-6"><input type="text" class="form-control"></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <button class="btn btn-success"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                    </div>
-                </div>
-                <br>
+            <div class=" col-sm-6">
+                <table>
+                    <tr style="font-size: 13px;">
+                        <td>Order#</td>
+                        <td>
+                            <input type="text" name="primaryBarcode" style="height: 7mm;" class="form-control" placeholder="--Primary Barcode--">
+                        </td>
+                    </tr>
+                    <tr style="font-size: 13px;">
+                        <td>Credit Note#</td>
+                        <td>
+                            <input type="text" name="itemCode" style="height: 7mm;" class="form-control" placeholder="--Item Code--">
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>CR Note#</td>
                             <td>Order#</td>
                             <td>Date</td>
@@ -37,7 +42,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>CCR-00032</td>
                             <td>BL-001</td>
                             <td>12-11-2020</td>
@@ -45,7 +50,7 @@
                             <td>PAID</td>
                             <td> refund, history, cancel</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>CCR-00032</td>
                             <td>BL-001</td>
                             <td>12-11-2020</td>
@@ -53,7 +58,7 @@
                             <td>PAID</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>CCR-00032</td>
                             <td>BL-001</td>
                             <td>12-11-2020</td>

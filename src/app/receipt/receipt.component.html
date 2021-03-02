@@ -1,36 +1,49 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-      <h3 class="panel-title">Receipt</h3><br>
-      <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-filter"></span>Filter</a>
-      <a class="" style="cursor: pointer; margin-right: 30px;" ><span class="glyphicon glyphicon-print"></span>Print Receipt</a>
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Receipt</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 13px;" ><span class="glyphicon glyphicon-filter"></span> Filter</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 13px;" ><span class="glyphicon glyphicon-print"></span> Print Receipt</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="panel-body well" style="padding: 5px;">
         <div class="row">
             <div class="col-sm-4">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control"  placeholder="Receipt No">
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" placeholder="Till No">
+                    <div  class="col-sm-12">
+                        <table>
+                            <tr style="font-size: 12px;">
+                                <td style="width: 15mm;color: rgba(45, 42, 48, 0.658);">From</td>
+                                <td><input type="date"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                                <td style="width: 15mm;color: rgba(45, 42, 48, 0.658);">To</td>
+                                <td><input type="date"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <span>From</span>
-                        <input type="date" class="form-control">
-                    </div>
-                    <div class="col-sm-6">
-                        <span>To</span>
-                        <input type="date" class="form-control">
+                    <div  class="col-sm-12">
+                        <table>
+                            <tr style="font-size: 12px;">
+                                <td style="width: 15mm;color: rgba(45, 42, 48, 0.658);"></td>
+                                <td><input type="text" class="form-control"  placeholder="Receipt No"></td>
+                                <td style="width: 15mm;color: rgba(45, 42, 48, 0.658);"></td>
+                                <td><input type="text" class="form-control" placeholder="Till No"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
+                
             </div>
             <div class="col-sm-8">
                 Bill List
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>Bill#</td>
                             <td>Till#</td>
                             <td>Receipt#</td>
@@ -40,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>BL-00032</td>
                             <td>001</td>
                             <td>0020</td>
@@ -48,7 +61,7 @@
                             <td>100,000.00</td>
                             <td>select</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>BL-00032</td>
                             <td>001</td>
                             <td>0020</td>
@@ -56,7 +69,7 @@
                             <td>100,000.00</td>
                             <td>select</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>BL-00032</td>
                             <td>001</td>
                             <td>0020</td>
@@ -68,13 +81,12 @@
                 </table>
             </div>
         </div>
-        <p>Bill Particulars</p>
-        <p>Bill#: BL0011, Till#: 001, Receipt#: 1001 </p>
+        <p style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">Bill Particulars : Bill#: BL0011, Till#: 001, Receipt#: 1001 </p>
         <div class="row">
             <div class="col-sm-12">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>Item Code</td>
                             <td>Descr</td>
                             <td>Qty</td>
@@ -85,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>15687</td>
                             <td>KILIMANJARO DRINKING WATER</td>
                             <td>5</td>
@@ -94,7 +106,7 @@
                             <td>0.00</td>
                             <td>180.00</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>15687</td>
                             <td>KILIMANJARO DRINKING WATER</td>
                             <td>5</td>
@@ -103,7 +115,7 @@
                             <td>0.00</td>
                             <td>180.00</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>15687</td>
                             <td>KILIMANJARO DRINKING WATER</td>
                             <td>5</td>

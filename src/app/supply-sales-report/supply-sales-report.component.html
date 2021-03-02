@@ -1,55 +1,78 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Supply Sales Report</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Supply Sales Report</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-refresh"></span> Run Report</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-print"></span> Print</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-print"></span> Print With Profit</a>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="panel-body well">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
+            <div class=" col-sm-6">
+                <table>
+                    <tr style="font-size: 13px;">
+                        <td style="width: 30mm;">Select Supplier</td>
+                        <td style="width: 60mm;">
+                            <select  name="supplierName" style="height: 7mm;" class="form-control" placeholder="--Supplier--">
+                                <option></option>
+                                <!--<option *ngFor="let supplier of suppliers" [ngValue]="supplier">{{supplier}}</option>-->
+                            </select>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-size: 13px;">
+                        <td>Barcode</td>
+                        <td>
+                            <input type="text" name="primaryBarcode" style="height: 7mm;" class="form-control" placeholder="--Primary Barcode--">
+                        </td>
+                        <td>
+                            <button type="button"  name="searchItem" style="margin: 2px; border-radius: 0px;"><span class="glyphicon glyphicon-search"></span>Search</button> 
+                        </td>
+                        <td>
+                            <button type="button"  name="searchItem" style="margin: 2px; border-radius: 0px;"><span class="glyphicon glyphicon-search"></span>Add</button> 
+                        </td>
+                    </tr>
+                    <tr style="font-size: 13px;">
+                        <td>Item Code</td>
+                        <td>
+                            <input type="text" name="itemCode" style="height: 7mm;" class="form-control" placeholder="--Item Code--">
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                </table>
+                <table>
+                    <tr style="font-size: 13px;">
+                        <td style="width: 30mm;">Description</td>
+                        <td style="width: 100mm;">
+                            <input type="text" class="form-control"  name="longDescription" style=" font-size: 11px; padding: 0px; border-top:white; border-left:white; border-right:white;">
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
             <div class="col-sm-6">
-                <div class="row">
-                    <div class="col-sm-3">Barcode</div>
-                    <div class="col-sm-9"><input type="text" class="form-control"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">Item Code</div>
-                    <div class="col-sm-9"><input type="text" class="form-control"></div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">Description</div>
-                    <div class="col-sm-9"><input type="text" class="form-control"></div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-search"></span> Find</button>..
-                <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Add</button>
-            </div>
-            <div class="col-sm-3">
+                 
                 <textarea class="form-control" placeholder="--Add items here to list by specific items--"></textarea>
             </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-8"><input type="text" class="form-control" placeholder="--Enter Supplier to filter by supplier--"></div>
-        </div>
-        <hr>
+        <!--<datalist id="description" style="padding: 0px;">
+                    <option *ngFor="let d of items" [ngValue]="d">{{d}}</option>
+                </datalist>-->
         <div class="row">
             <div class="col-sm-12">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Run</button>..
-                <button class="btn btn-success"><span class="glyphicon glyphicon-print"></span> Print with profit</button>..
-                <button class="btn btn-success"><span class="glyphicon glyphicon-print"></span> Print without profit</button>..
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <p>Summary</p>
-                <p>Discount</p>
-                <p>Tax</p>
-                <p>Total Amount</p>
-                <p>Total Profit</p>
-
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>Barcode</td>
                             <td>Item Code</td>
                             <td>Descr</td>
@@ -60,7 +83,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>8674869674</td>
                             <td>10023</td>
                             <td>KILIMANJARO DRINKING WATER</td>
@@ -69,7 +92,7 @@
                             <td>100,000.00</td>
                             <td>Expiry</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>8674869674</td>
                             <td>10023</td>
                             <td>KILIMANJARO DRINKING WATER</td>
@@ -78,7 +101,7 @@
                             <td>100,000.00</td>
                             <td>Expiry</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>8674869674</td>
                             <td>10023</td>
                             <td>KILIMANJARO DRINKING WATER</td>
@@ -90,6 +113,17 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span style="font-size: 12px;">
+                <b>Summary</b>
+                Discount: 
+                Tax : 
+                Total Amount: 
+                Total profit: 
+            </span>
         </div>
     </div>
 </div>

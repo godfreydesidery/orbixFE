@@ -16,7 +16,8 @@ export class CompanyProfileComponent implements OnInit {
 
   id                 : any
   companyName        : string
-  companyLogo        : string
+  companyLogo        : File
+  companyLogoData    : any
   tin                : string
   vrn                : string
   postAddress        : string
@@ -35,7 +36,7 @@ export class CompanyProfileComponent implements OnInit {
   constructor(private httpClient : HttpClient) { 
     this.id                 = ''
     this.companyName        = ''
-    this.companyLogo        = ''
+    this.companyLogo        = null
     this.tin                = ''
     this.vrn                = ''
     this.postAddress        = ''
@@ -52,7 +53,9 @@ export class CompanyProfileComponent implements OnInit {
     this.bankAccountNo      = ''
   }
 
+
   async ngOnInit(): Promise<void> {
+    
     try{
       this.company = await (new CompanyProfileService(this.httpClient)).getCompany()
       
@@ -64,6 +67,10 @@ export class CompanyProfileComponent implements OnInit {
     
   }
 
+  public onFileChanged(event) {
+    this.companyLogo = event.target.files[0];
+  }
+
   clear(){
     /**
      * clear the fields
@@ -72,7 +79,7 @@ export class CompanyProfileComponent implements OnInit {
      */
     this.id                 = ''
     this.companyName        = ''
-    this.companyLogo        = ''
+    this.companyLogo        = null
     this.tin                = ''
     this.vrn                = ''
     this.postAddress        = ''
@@ -94,7 +101,7 @@ export class CompanyProfileComponent implements OnInit {
      * gets item data from inputs
      * RETURN supplier object
      */
-    var supplierData = {
+    var companyData = {
       id                 : this.id,
       companyName        : this.companyName,
       companyLogo        : this.companyLogo,
@@ -113,7 +120,7 @@ export class CompanyProfileComponent implements OnInit {
       bankName           : this.bankName,
       bankAccountNo      : this.bankAccountNo
     }
-    return supplierData;
+    return companyData;
   }
   showCompany(company : any){
     
@@ -163,7 +170,7 @@ export class CompanyProfileComponent implements OnInit {
      * Save the company profile
      */
     if(this.validateData()==true){
-      this.httpClient.post(Data.baseUrl + "/company" , this.getCompanyData())
+      this.httpClient.post(Data.baseUrl + "/company_profile" , this.getCompanyData())
       .subscribe(
         data=>{
           window.alert('Saved successifully')

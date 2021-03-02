@@ -1,31 +1,35 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Printed LPO</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Printed LPO</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 13px;" ><span class="glyphicon glyphicon-refresh"></span> Run Report</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 13px;" ><span class="glyphicon glyphicon-print"></span> Print</a>
+                </td>
+            </tr>
+        </table>
     </div>
-    <div class="panel-body well">
+    <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-3">
-                From
-                <input type="date" class="form-control">
-            </div>
-            <div class="col-sm-3">
-                To
-                <input type="date" class="form-control">
+            <div  class="col-sm-12">
+                <table>
+                    <tr style="font-size: 12px;">
+                        <td style="width: 15mm;color: rgba(45, 42, 48, 0.658);">From</td>
+                        <td><input type="date"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                        <td style="width: 15mm;color: rgba(45, 42, 48, 0.658);">To</td>
+                        <td><input type="date"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                    </tr>
+                </table>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-sm-6">
-                <button class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Run Report</button>..
-                <button class="btn btn-success"><span class="glyphicon glyphicon-print"></span> Print</button>
-            </div>
-        </div>
+        
         <div class="row">
             <div class="col-sm-12">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>LPO#</td>
                             <td>Supplier</td>
                             <td>Created</td>
@@ -36,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>65666</td>
                             <td>(1001) ANDE AND SANILI LTD</td>
                             <td>12-11-2020 by Ali Abdallah</td>
@@ -45,7 +49,7 @@
                             <td>12-12-2020</td>
                             <td>30</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>65666</td>
                             <td>(1001) ANDE AND SANILI LTD</td>
                             <td>12-11-2020 by Ali Abdallah</td>
@@ -54,7 +58,7 @@
                             <td>12-12-2020</td>
                             <td>30</td>
                         </tr>
-                        <tr>
+                        <tr style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>65666</td>
                             <td>(1001) ANDE AND SANILI LTD</td>
                             <td>12-11-2020 by Ali Abdallah</td>
