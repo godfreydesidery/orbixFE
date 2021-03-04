@@ -75,7 +75,7 @@
             <div class="col-sm-7">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>Pay Roll#</td>
                             <td>Name</td>
                             <td>Role</td>
@@ -84,7 +84,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users" [ngValue]="user">
+                        <tr *ngFor="let user of users" [ngValue]="user" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>{{user.payRollNo}}</td>
                             <td>{{user.username}}</td>
                             <td>{{user.role.roleName}}</td>

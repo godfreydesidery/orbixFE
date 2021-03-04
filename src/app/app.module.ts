@@ -71,6 +71,9 @@ import { LoginComponent } from './login/login.component';
 import { DepartmentComponent } from './department/department.component';
 import { ClassComponent } from './class/class.component';
 import { SubClassComponent } from './sub-class/sub-class.component';
+import { CustomerInvoiceComponent } from './customer-invoice/customer-invoice.component';
+import { SalesReceiptComponent } from './sales-receipt/sales-receipt.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,6 +133,8 @@ import { SubClassComponent } from './sub-class/sub-class.component';
     DepartmentComponent,
     ClassComponent,
     SubClassComponent,
+    CustomerInvoiceComponent,
+    SalesReceiptComponent,
   ],
   imports: [
     BrowserModule,

@@ -46,6 +46,8 @@ import { BiometricEnrolmentComponent } from './biometric-enrolment/biometric-enr
 import { PersonaEnrolmentComponent } from './persona-enrolment/persona-enrolment.component';
 import { TillAdministrationComponent } from './till-administration/till-administration.component';
 import { TillPositionComponent } from './till-position/till-position.component';
+import { CustomerInvoiceComponent } from './customer-invoice/customer-invoice.component';
+import { SalesReceiptComponent } from './sales-receipt/sales-receipt.component';
 
 import { DepartmentComponent } from './department/department.component';
 import { ClassComponent } from './class/class.component';
@@ -101,6 +103,9 @@ const routes: Routes = [
   { path :'department',component : DepartmentComponent },
   { path :'class',component : ClassComponent },
   { path :'sub-class',component : SubClassComponent },
+  { path :'customer-invoice',component : CustomerInvoiceComponent},
+  { path :'sales-receipt',component : SalesReceiptComponent}
+
 ];
 
 

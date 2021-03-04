@@ -47,7 +47,7 @@
             <div class="col-sm-7">
                 <table id="data-table" class="table table-bordered table-condensed data-table table-hover table-responsive">
                     <thead>
-                        <tr class="info">
+                        <tr class="info" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>Till #</td>
                             <td>Computer Name</td>
                             <td>Status</td>
@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let till of tills" [ngValue]="till">
+                        <tr *ngFor="let till of tills" [ngValue]="till" style="font-size: 12px;color: rgba(45, 42, 48, 0.658);">
                             <td>{{till.tillNo}}</td>
                             <td>{{till.tillName}}</td>
                             <td>{{till.status}}</td>
