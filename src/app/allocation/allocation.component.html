@@ -1,9 +1,141 @@
 <div class="panel panel-default">
-
     <div class="panel-heading">
-        <h3 class="panel-title">Allocations</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Allocations</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                </td>
+            </tr>
+        </table>
+      
     </div>
-    <div class="panel-body">
+    <div class="panel-body well" style="padding: 5px;">
+        <div class="row">
+            <div class="col-sm-6">
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Code</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Name</td>
+                        <td style="width: 80mm;">
+                            <select class="form-control" placeholder="--Customer Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
+                                <option></option>
+                                <option  ></option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <!--<table>
+                    <tr style="font-size: 12px;">
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Receipt date</td>
+                        <td><input type="date"   class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                    </tr>
+                </table>-->
+                <hr>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice No</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="--Invoice No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice Date</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Inv Total</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Payed</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Due</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"></td>
+                    </tr>
+                </table>
+                <hr>
+                <table>
+                    <tr style="font-size: 12px;">
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Allocate Amt</td>
+                        <td style="width: 30mm;"><input type="text"  class="form-control" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-ok"></span> Allocate</button></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div class="panel panel-default" style="border-radius: 0px;">
+                    <div class="panel-heading" style="height: 5mm; padding: 0px;" >
+                        <span class="panel-title" style="font-size: 12px;">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#invoice_list"><span class="glyphicon glyphicon-list-alt"></span>Receipt History for Akili Co Ltd</a>
+                        </span>
+                    </div>
+                    <div id="invoice_list" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                                <thead>
+                                    <tr class="info">
+                                        <td style="position: sticky; top: 0;">Invoice#</td>
+                                        <td style="position: sticky; top: 0;">Invoice Date</td>
+                                        <td style="position: sticky; top: 0;">Amount</td>
+                                        <td style="position: sticky; top: 0;">Status</td>
+                                        <td style="position: sticky; top: 0;">Select</td>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <!--<tr *ngFor="let lpo of lpos" [ngValue]="lpo" style="font-size: 12px;">
+                                        <td>{{lpo.lpoNo}}</td>
+                                        <td>{{lpo.lpoDate}}</td>
+                                        <td>{{lpo.status}}</td>
+                                        <td><a class="badge badge-default" (click)="searchLpo(lpo.lpoNo)">Select</a></td>
+                                    </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>  
+        <hr>   
         
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span style="font-size: 12px;">
+                <b>Summary</b>
+                
+            </span>
+        </div>
+    </div>
 </div>
+
+  

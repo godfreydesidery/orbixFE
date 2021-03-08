@@ -14,7 +14,7 @@ export class CorporateCustomerService {
      * gets customer details with a specified id from datastore
      */
     var customer = {}
-    await this.httpClient.get(Data.baseUrl+"/corporate_customers/"+id)
+    await this.httpClient.get(Data.baseUrl+"/customers/"+id)
     .toPromise()
     .then(
       data=>{
@@ -37,7 +37,7 @@ export class CorporateCustomerService {
      */
     var id : null 
     if(customerNo !=''){
-      await this.httpClient.get(Data.baseUrl+"/corporate_customers/customer_no="+customerNo)
+      await this.httpClient.get(Data.baseUrl+"/customers/customer_no="+customerNo)
       .toPromise()
       .then(
         data=>{
@@ -50,7 +50,7 @@ export class CorporateCustomerService {
         }
       )
     }else {
-      await this.httpClient.get(Data.baseUrl+"/corporate_customers/customer_name="+customerName)
+      await this.httpClient.get(Data.baseUrl+"/customers/customer_name="+customerName)
       .toPromise()
       .then(
         data=>{
@@ -72,7 +72,7 @@ export class CorporateCustomerService {
      */
     var values: any= new Array()
     var customers: any=[]
-    await this.httpClient.get(Data.baseUrl+"/corporate_customers/customer_names")
+    await this.httpClient.get(Data.baseUrl+"/customers/customer_names")
     .toPromise()
     .then(
       data=>{
@@ -94,7 +94,7 @@ export class CorporateCustomerService {
      * List all customers
      */
     var customers = {}
-    await this.httpClient.get(Data.baseUrl+"/corporate_customers")
+    await this.httpClient.get(Data.baseUrl+"/customers")
     .toPromise()
     .then(
       data=>{

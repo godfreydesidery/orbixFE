@@ -4,10 +4,10 @@
             <tr>
                 <td style="width:70mm"><h5 class="panel-title">Customer Invoice</h5></td>
                 <td>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="createInvoice()" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="saveInvoice()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
 
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-print"></span> Print Invoice</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-remove"></span> Cancel Invoice</a>
@@ -18,74 +18,51 @@
     </div>
     <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <table>
                     <tr style="font-size: 12px;">
-                        <input type="hidden" >
+                        <input type="hidden" name="id" [(ngModel)]="id">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice No</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Invoice No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search Invoice</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceNo" [disabled]="lockedInvoice" class="form-control" placeholder="Invoice No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                        <td style="width: 25mm; padding-left: 3mm; color: rgba(45, 42, 48, 0.658);">Invoice date</td>
+                        <td><input type="date" [(ngModel)]="invoiceDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
                     </tr>
                 </table>
+                <br>
                 <table>
                     <tr style="font-size: 12px;">
-                        <input type="hidden" >
+                        <input type="hidden" name="custId" [(ngModel)]="custId">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Code</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search Customer</button></td>
-                    </tr>
-                </table>
-                <table>
-                    <tr style="font-size: 12px;">
-                        <input type="hidden"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="customerNo" [disabled]="lockedCustomer" class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="searchCustomerByNo()"><span class="glyphicon glyphicon-search"></span> Search</button></td>
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Name</td>
                         <td style="width: 80mm;">
-                            <select class="form-control" placeholder="--Customer Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
+                            
+                            <select [(ngModel)]="customerName" (change)="searchCustomerByName()" [disabled]="lockedCustomer" name="customerName" class="form-control" style="font-size: 11px; height: 8mm;">
                                 <option></option>
-                                <option  ></option>
+                                <option *ngFor="let customer of customersNames" [ngValue]="customer">{{customer}}</option>
                             </select>
                         </td>
+                        <td style="width: 30mm; padding-left: 3mm;"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Invoice List</button></td>
                     </tr>
                 </table>
+                
                 <table>
                     <tr style="font-size: 12px;">
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice date</td>
-                        <td><input type="date"   class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                        <input type="hidden" >
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);"></td>
+                        <td style="padding-left: 5px;"></td>
                     </tr>
                 </table>
+                <br>
+                
+                
+                
             </div>
 
             <div class="col-sm-6">
-                <div class="panel panel-default" style="border-radius: 0px;">
-                    <div class="panel-heading" style="height: 5mm; padding: 0px;" >
-                        <span class="panel-title" style="font-size: 12px;">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#invoice_list"><span class="glyphicon glyphicon-list-alt"></span>Invoice List for Akili Co Ltd</a>
-                        </span>
-                    </div>
-                    <div id="invoice_list" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
-                                <thead>
-                                    <tr class="info">
-                                        <td style="position: sticky; top: 0;">Invoice#</td>
-                                        <td style="position: sticky; top: 0;">Invoice Date</td>
-                                        <td style="position: sticky; top: 0;">Amount</td>
-                                        <td style="position: sticky; top: 0;">Status</td>
-                                        <td style="position: sticky; top: 0;">Select</td>
-                                    </tr>
-                                </thead>
-                                <tbody >
-                                    <!--<tr *ngFor="let lpo of lpos" [ngValue]="lpo" style="font-size: 12px;">
-                                        <td>{{lpo.lpoNo}}</td>
-                                        <td>{{lpo.lpoDate}}</td>
-                                        <td>{{lpo.status}}</td>
-                                        <td><a class="badge badge-default" (click)="searchLpo(lpo.lpoNo)">Select</a></td>
-                                    </tr>-->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                
             </div>   
         </div>     
         <div class="row">
@@ -93,32 +70,45 @@
                 <table datatable="" id="data-table" style="font-size: 13px;" class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
                     <thead>
                         <tr class="info">
-                            <td >Barcode</td>
-                            <td>Code</td>
-                            <td>Descr</td>
-                            <td>Qty</td>
+                            <td style="width: 30mm;">Barcode</td>
+                            <td style="width: 30mm;">Code</td>
+                            <td style="width: 100mm;">Descr</td>
+                            <td style="width: 20mm;">Qty</td>
                             <td>Price</td>
                             <td>Amount</td>
                             <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">
-                            <!--<input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">-->
-                            <td><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" ></td>
-                            <td><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" ></td>
-                            <td><input type="text"  style="width: 120mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
-                            <td style="text-align: center;"><input style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" ></td>
-                            <td style=" text-align: right;"></td>
-                            <td style=" text-align: right;"></td>
+                        
+
+
+                         <tr *ngFor="let invoiceDetail of invoiceDetails" [ngValue]="invoiceDetail" style="margin-top: 2px;margin-bottom: 2px;font-size: 11px;">
+                            <td>{{invoiceDetail.barcode}}</td>
+                            <td>{{invoiceDetail.itemCode}}</td>
+                            <td>{{invoiceDetail.description}}</td>
+                            <td style="text-align: center;">{{invoiceDetail.qty}}</td>
+                            <td style="text-align: right;">{{invoiceDetail.price|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{invoiceDetail.qty*invoiceDetail.price|currency:'TSh':''}}</td>
                             <td>
-                                <a class="" style="cursor: pointer; margin-right: 30px;" >Add</a>
-                                <a class="" style="cursor: pointer; margin-right: 30px;" >Clear</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" >Edit</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" >Remove</a>
                             </td>
                         </tr>
 
-
-                        
+                        <tr *ngIf="_new" style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">
+                            <!--<input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">-->
+                            <td><input [(ngModel)]="barcode" [disabled]="lockedBarcode" (keydown.enter)="searchItemByBarcode(barcode)" style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" ></td>
+                            <td><input [(ngModel)]="itemCode" [disabled]="lockedItemCode" (keydown.enter)="searchItemByItemCode(itemCode)" style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" ></td>
+                            <td><input [(ngModel)]="description" [disabled]="lockedDescription" #des list="description" type="text" (keydown.enter)="searchItemByDescription(description)"  style="width: 120mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
+                            <td style="text-align: center;"><input [(ngModel)]="qty" style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" ></td>
+                            <td style=" text-align: center;"><button><span class="glyphicon glyphicon-pencil"></span></button>..<input [(ngModel)]="price" style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white; text-align: right;" type="text" ></td>
+                            <td style=" text-align: right;">{{qty*price|currency:'TSh':''}}</td>
+                            <td>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()">Add</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearDetail()">Clear</a>
+                            </td>
+                        </tr>
 
                         <!--<tr *ngFor="let lpoDetail of lpoDetails" [ngValue]="lpoDetail" style="margin-top: 2px;margin-bottom: 2px;font-size: 11px;">
                             <td>{{lpoDetail.barcode}}</td>
@@ -153,10 +143,13 @@
                         
                     </tbody>
                 </table>
+                <datalist id="description" style="padding: 0px;">
+                    <option *ngFor="let d of descriptions" [ngValue]="d">{{d}}</option>
+                </datalist>
                 <!--<datalist id="description" style="padding: 0px;">
                     <option *ngFor="let d of descriptions" [ngValue]="d">{{d}}</option>
                 </datalist>-->
-                <!--{{ cartDetails | json }}-->
+                <!--{{ invoice | json }}-->
             </div>
         </div>
     </div>
@@ -168,6 +161,48 @@
             </span>
         </div>
     </div>
+
+
+    <!-- Modal -->
+<div id="receiptModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title">Invoices for <b>(10001) Akili Ltd</b></h5>
+        </div>
+        <div class="modal-body">
+          <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+              <thead>
+                  <tr class="info">
+                      <td style="position: sticky; top: 0;">Date#</td>
+                      <td style="position: sticky; top: 0;">Invoice No</td>
+                      <td style="position: sticky; top: 0;">Invoice Amount</td>
+                      <td style="position: sticky; top: 0;">Status</td>
+                  </tr>
+              </thead>
+              <tbody >
+                  <!--<tr *ngFor="let lpo of lpos" [ngValue]="lpo" style="font-size: 12px;">
+                      <td>{{lpo.lpoNo}}</td>
+                      <td>{{lpo.lpoDate}}</td>
+                      <td>{{lpo.status}}</td>
+                      <td><a class="badge badge-default" (click)="searchLpo(lpo.lpoNo)">Select</a></td>
+                  </tr>-->
+              </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  
+
 </div>
 
   

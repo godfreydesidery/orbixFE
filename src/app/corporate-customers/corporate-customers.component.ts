@@ -152,7 +152,7 @@ export class CorporateCustomersComponent implements OnInit {
     if(this.validateData()==true){
       if( this.id == '' || this.id == null || this.id == 0 ) {
         //save a new customer
-        this.httpClient.post(Data.baseUrl + "/corporate_customers" , this.getCustomerData())
+        this.httpClient.post(Data.baseUrl + "/customers" , this.getCustomerData())
         .subscribe(
           data=>{
             window.alert('Customer created successifully')
@@ -165,7 +165,7 @@ export class CorporateCustomersComponent implements OnInit {
         )
       } else {
         //update an existing customer
-        this.httpClient.put(Data.baseUrl + "/corporate_customers/" + this.id , this.getCustomerData())
+        this.httpClient.put(Data.baseUrl + "/customers/" + this.id , this.getCustomerData())
         .subscribe(
           data=>{
             window.alert('Customer updated successifully')
@@ -191,7 +191,7 @@ export class CorporateCustomersComponent implements OnInit {
       if(this.customerNo == '' && this.customerName == ''){
         alert('Please enter a search key!')
       }else{
-        alert('The requested record could not be found')
+        alert('The requested record could not be found!')
       }
       
     }else{
@@ -220,7 +220,7 @@ export class CorporateCustomersComponent implements OnInit {
       return
     }
     if(window.confirm('Delete the selected customer?\nThe customer will be removed and this action can not be undone.\nConfirm?')){
-      this.httpClient.delete(Data.baseUrl+"/corporate_customers/"+id)
+      this.httpClient.delete(Data.baseUrl+"/customers/"+id)
       .subscribe(
         data=>{
           console.log(data)
