@@ -65,8 +65,50 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-sm-3">Invoice Limit</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="invoiceLimit" [(ngModel)]="invoiceLimit" class="form-control form-control-sm" placeholder="--Invoice Limit--">
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-3">Amount Due</div>
                     <div class="col-sm-9">{{amountDue}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Disc Rate%</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="discountRate" [(ngModel)]="discountRate" class="form-control form-control-sm" placeholder="--Discount Rate(0-100)%--">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Disc From</div>
+                    <div class="col-sm-9">
+                        <input type="date" name="discountStartDate" [(ngModel)]="discountStartDate" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Disc To</div>
+                    <div class="col-sm-9">
+                        <input type="date" name="discountEndDate" [(ngModel)]="discountEndDate" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Price Margin%</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="priceMargin" [(ngModel)]="priceMargin" class="form-control form-control-sm" placeholder="--Price Margin%--">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Disc From</div>
+                    <div class="col-sm-9">
+                        <input type="date" name="priceMarginStartDate" [(ngModel)]="priceMarginStartDate" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Disc To</div>
+                    <div class="col-sm-9">
+                        <input type="date" name="priceMarginEndDate" [(ngModel)]="priceMarginEndDate" class="form-control form-control-sm">
+                    </div>
                 </div>
             </div>
             <div class="col-sm-7">
@@ -74,22 +116,26 @@
                     <div class="col-sm-12">
                         <table class="table table-bordered table-condensed data-table">
                             <thead>
-                                <tr class="info">
+                                <tr class="info" style="font-size: 11px;">
                                     <td>Cust No</td>
                                     <td>Name</td>
                                     <td>Contact Name</td>
                                     <td>Contact</td>
                                     <td>Credit Inf</td>
+                                    <td>Discount%</td>
+                                    <td>Price Margin%</td>
                                     <td>Actions</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let customer of customers" [ngValue]="customer">
+                                <tr *ngFor="let customer of customers" [ngValue]="customer" style="font-size: 11px;">
                                     <td>{{customer.customerNo}}</td>
                                     <td>{{customer.customerName}}</td>
                                     <td>{{customer.contactName}}</td>
                                     <td>{{customer.address}}</td>
                                     <td>{{customer.creditDays}} days</td>
+                                    <td>{{customer.discountRate}}%  [{{customer.discountStartDate}} {{customer.discountEndDate}}]</td>
+                                    <td>{{customer.priceMargin}}%  [{{customer.priceMarginStartDate}} {{customer.priceMarginEndDate}}]</td>
                                     <td><a class="glyphicon glyphicon-pencil badge" (click)="search(customer.id)">Select</a></td>
                                 </tr>
                             </tbody>

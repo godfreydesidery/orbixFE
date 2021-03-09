@@ -26,6 +26,14 @@ export class CorporateCustomersComponent implements OnInit {
   creditLimit  : number
   creditDays   : number
   amountDue    : number
+  invoiceLimit :number
+  discountRate :number
+  discountStartDate : Date
+  discountEndDate : Date
+  priceMargin :number
+  priceMarginStartDate : Date
+  priceMarginEndDate : Date
+  
   
 
   constructor(private httpClient: HttpClient ) {
@@ -39,6 +47,13 @@ export class CorporateCustomersComponent implements OnInit {
     this.creditLimit  = null;
     this.creditDays   = null;
     this.amountDue    = null;
+    this.invoiceLimit = null
+    this.discountRate = null
+    this.discountStartDate = null
+    this.discountEndDate = null
+    this.priceMargin = null
+    this.priceMarginStartDate = null
+    this.priceMarginEndDate = null
     
   }
 
@@ -75,6 +90,14 @@ export class CorporateCustomersComponent implements OnInit {
     this.creditLimit  = null;
     this.creditDays   = null;
     this.amountDue    = null;
+    this.invoiceLimit = null
+    this.discountRate = null
+    this.discountStartDate = null
+    this.discountEndDate = null
+    this.priceMargin = null
+    this.priceMarginStartDate = null
+    this.priceMarginEndDate = null
+
   }
 
   getCustomerData(){
@@ -83,16 +106,23 @@ export class CorporateCustomersComponent implements OnInit {
      * RETURN customer object
      */
     var customerData = {
-      id           :this.id,
-      customerNo   :this.customerNo,
-      customerName :this.customerName,
-      contactName  :this.contactName,
-      address      :this.address,
-      telephone    :this.telephone,
-      vatNo        :this.vatNo,
-      creditLimit  :this.creditLimit,
-      creditDays   :this.creditDays,
-      amountDue    :this.amountDue
+      id                :this.id,
+      customerNo        :this.customerNo,
+      customerName      :this.customerName,
+      contactName       :this.contactName,
+      address           :this.address,
+      telephone         :this.telephone,
+      vatNo             :this.vatNo,
+      creditLimit       :this.creditLimit,
+      creditDays        :this.creditDays,
+      amountDue         :this.amountDue,
+      invoiceLimit      :this.invoiceLimit, 
+      discountRate      :this.discountRate, 
+      discountStartDate :this.discountStartDate,
+      discountEndDate   :this.discountEndDate, 
+      priceMargin      :this.priceMargin, 
+      priceMarginStartDate :this.priceMarginStartDate,
+      priceMarginEndDate   :this.priceMarginEndDate 
     }
     return customerData;
   }
@@ -112,6 +142,13 @@ export class CorporateCustomersComponent implements OnInit {
     this.creditLimit  =customer['creditLimit']
     this.creditDays   =customer['creditDays']
     this.amountDue    =customer['amountDue']
+    this.invoiceLimit = customer['invoiceLimit']
+    this.discountRate = customer['discountRate']
+    this.discountStartDate = customer['discountStartDate']
+    this.discountEndDate = customer['discountEndDate']
+    this.priceMargin = customer['priceMargin']
+    this.priceMarginStartDate = customer['priceMarginStartDate']
+    this.priceMarginEndDate = customer['priceMarginEndDate']
   }
   validateData(){
     /**

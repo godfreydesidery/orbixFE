@@ -4,7 +4,7 @@
             <tr>
                 <td style="width:70mm"><h5 class="panel-title">Sales Receipt</h5></td>
                 <td>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" (click)="createReceipt()" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
@@ -18,42 +18,51 @@
     </div>
     <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <table>
                     <tr style="font-size: 12px;">
-                        <input type="hidden" >
+                        <input type="hidden" name="custId" [(ngModel)]="custId">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Code</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search Customer</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="customerNo" [disabled]="lockedCustomer"  class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button (click)="searchCustomerByNo()" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search Customer</button></td>
                     </tr>
                 </table>
                 <table>
                     <tr style="font-size: 12px;">
-                        <input type="hidden"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Name</td>
                         <td style="width: 80mm;">
-                            <select class="form-control" placeholder="--Customer Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
+                            <select [(ngModel)]="customerName" (change)="searchCustomerByName()" [disabled]="lockedCustomer" class="form-control" placeholder="--Customer Name--" style="margin: 2px;font-size: 11px; height: 5mm; padding-top: 1px;">
                                 <option></option>
-                                <option  ></option>
+                                <option *ngFor="let customer of customersNames" [ngValue]="customer">{{customer}}</option>
                             </select>
                         </td>
                     </tr>
+                </table>
+                <table class="table-bordered">
+                    <tr style="font-size: 12px;">
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Amt Due</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{amountDue|currency:'TSh':''}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Cr Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditLimit-amountDue|currency:'TSh':''}}</td>
+                       
+                    </tr>
+                    
                 </table>
                 <br>
                 <table>
                     <tr style="font-size: 12px;">
                         
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Receipt date</td>
-                        <td><input type="date"   class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;  padding: 3mm;"></td>
+                        <td><input type="date" [(ngModel)]="receiptDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;  padding: 3mm;"></td>
                         <td style="width: 25mm; padding-left: 3mm; color: rgba(45, 42, 48, 0.658);">Receipt No</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Receipt No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 2mm;">  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Receipt List</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="receiptNo" [disabled]="true" class="form-control" placeholder="Receipt No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 2mm;">  <button type="button" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Receipt List</button></td>
                     </tr>
                 </table>
                 
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 
             </div>   
         </div>  
@@ -66,6 +75,8 @@
                 <label for="cheque" style="color: rgba(45, 42, 48, 0.658);"> Cheque</label><br>
                 <input type="radio" id="cash" name="payment_method" value="cash" (click)="showCashPayment()">
                 <label for="cash" style="color: rgba(45, 42, 48, 0.658);"> Cash</label><br>
+                <input type="radio" id="creditNote" name="payment_method" value="creditNote" (click)="showCreditNotePayment()">
+                <label for="creditNote" style="color: rgba(45, 42, 48, 0.658);"> Credit Note</label><br>
                 <input type="radio" id="other" name="payment_method" value="other" (click)="showOtherPayment()">
                 <label for="other" style="color: rgba(45, 42, 48, 0.658);"> Other</label>
             </div>
@@ -85,7 +96,7 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Bank</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Cheque No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Bank" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
                                 <td style="padding-left: 5px;"></td>
                             </tr>
                         </table>
@@ -102,7 +113,7 @@
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Cheque Amount</td>
                                 <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
-                                <td style="padding-left: 5px;"><button>Receive</button></td>
+                                <td style="padding-left: 5px;"><button (click)="saveChequeReceipt()">Receive</button></td>
                             </tr>
                         </table>
                     </div>
@@ -113,7 +124,26 @@
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Cash Amount</td>
                                 <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
-                                <td style="padding-left: 5px;"><button>Receive</button></td>
+                                <td style="padding-left: 5px;"><button (click)="saveCashReceipt()">Receive</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-12" *ngIf="creditNoteVisible">
+                        <span style="color: rgba(45, 42, 48, 0.658);">Credit Note Payment</span><br>
+                        <table>
+                            <tr style="font-size: 12px;">
+                                <input type="hidden" >
+                                <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Credit Note No</td>
+                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Credit Note No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                <td style="padding-left: 5px;"><button>Load Cr Note</button></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr style="font-size: 12px;">
+                                <input type="hidden" >
+                                <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Credit Note Amount</td>
+                                <td style="width: 30mm;"><input type="text" [disabled]="true"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="padding-left: 5px;"><button (click)="saveCreditNoteReceipt()">Receive</button></td>
                             </tr>
                         </table>
                     </div>
@@ -124,7 +154,7 @@
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Amount</td>
                                 <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
-                                <td style="padding-left: 5px;"><button>Receive</button></td>
+                                <td style="padding-left: 5px;"><button (click)="saveOtherReceipt()">Receive</button></td>
                             </tr>
                         </table>
                     </div>

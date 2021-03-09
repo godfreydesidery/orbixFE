@@ -5,7 +5,7 @@
                 <td style="width:70mm"><h5 class="panel-title">Customer Invoice</h5></td>
                 <td>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="createInvoice()" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="viewInvoice()"><span class="glyphicon glyphicon-zoom-out"></span> View</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="saveInvoice()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
 
@@ -18,19 +18,26 @@
     </div>
     <div class="panel-body well" style="padding: 5px;">
         <div class="row">
-            <div class="col-sm-8">
-                <table>
+            <div class="col-sm-12">
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" name="id" [(ngModel)]="id">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice No</td>
                         <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceNo" [disabled]="lockedInvoice" class="form-control" placeholder="Invoice No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                        <td style="padding-left: 5px;"><button (click)="searchInvoice(invoiceNo)"  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
                         <td style="width: 25mm; padding-left: 3mm; color: rgba(45, 42, 48, 0.658);">Invoice date</td>
                         <td><input type="date" [(ngModel)]="invoiceDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                        <td style="width: 28mm; padding-left: 3mm;">Invoice Amount:</td>
+                        <td style="width: 25mm; text-align: right;">{{invoiceAmount|currency:'TSh':''}}</td>
+                        <td style="width: 25mm; padding-left: 3mm;">Amount Payed:</td>
+                        <td style="width: 25mm; text-align: right;">{{invoiceAmountPayed|currency:'TSh':''}}</td>
+                        <td style="width: 25mm; padding-left: 3mm;">Amount Due:</td>
+                        <td style="width: 25mm; text-align: right;">{{invoiceAmountDue|currency:'TSh':''}}</td>
                     </tr>
                 </table>
                 <br>
-                <table>
+                
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" name="custId" [(ngModel)]="custId">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Code</td>
@@ -39,12 +46,54 @@
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Name</td>
                         <td style="width: 80mm;">
                             
-                            <select [(ngModel)]="customerName" (change)="searchCustomerByName()" [disabled]="lockedCustomer" name="customerName" class="form-control" style="font-size: 11px; height: 8mm;">
+                            <select [(ngModel)]="customerName" (change)="searchCustomerByName()" [disabled]="lockedCustomer" name="customerName" class="form-control" style="font-size: 11px; height: 6mm; padding-top: 1mm;">
                                 <option></option>
                                 <option *ngFor="let customer of customersNames" [ngValue]="customer">{{customer}}</option>
                             </select>
                         </td>
-                        <td style="width: 30mm; padding-left: 3mm;"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Invoice List</button></td>
+                        <td style="width: 30mm; padding-left: 3mm;"><button type="button" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Invoice List</button></td>
+                    </tr>
+                </table>
+                <table class="table-bordered">
+                    <tr style="font-size: 12px;">
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Cr Limit</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditLimit|currency:'TSh':''}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Inv Limit</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{invoiceLimit|currency:'TSh':''}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Cr Days</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditDays}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Amt Due</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{amountDue|currency:'TSh':''}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Cr Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditLimit-amountDue|currency:'TSh':''}}</td>
+                       
+                    </tr>
+                    
+                </table>
+                <table class="table-bordered">
+                    <tr style="font-size: 12px;">
+                        
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Disc%</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{discountRate|currency:'TSh':''}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Fro</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{discountStartDate}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">To</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{discountEndDate}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;"></td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);"></td>
+                    </tr>
+                </table>
+                <table class="table-bordered">
+                    <tr style="font-size: 12px;">
+                        
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Price Margin%</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{priceMargin|currency:'TSh':''}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Fro</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{priceMarginStartDate}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">To</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{priceMarginEndDate}}</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;"></td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);"></td>
                     </tr>
                 </table>
                 
@@ -61,9 +110,6 @@
                 
             </div>
 
-            <div class="col-sm-6">
-                
-            </div>   
         </div>     
         <div class="row">
             <div class="col-sm-12">
@@ -94,6 +140,15 @@
                                 <a class="" style="cursor: pointer; margin-right: 30px;" >Edit</a>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" >Remove</a>
                             </td>
+                        </tr>
+                        <tr style="margin-top: 2px;margin-bottom: 2px;font-size: 11px;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: center;"></td>
+                            <td style="text-align: right;"><b>Total Amount</b></td>
+                            <td style="text-align: right;"><b>{{totalAmount|currency:'TSh':''}}</b></td>
+                            <td></td>
                         </tr>
 
                         <tr *ngIf="_new" style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">

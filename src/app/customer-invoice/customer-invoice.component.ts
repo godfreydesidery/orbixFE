@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CorporateCustomerService } from '../corporate-customer.service';
+import { CustomerInvoiceService } from '../customer-invoice.service';
 import { Data } from '../data';
 import { ItemService } from '../item.service';
 
@@ -24,6 +25,11 @@ export class CustomerInvoiceComponent implements OnInit {
   invoiceNo : any
   invoiceDetails: InvoiceDetail[] = []
   invoiceDate : Date
+  invoiceAmount : number
+  invoiceAmountPayed : number
+  invoiceAmountDue : number
+
+  totalAmount : number = 0
 
 
   //invoice detail
@@ -43,13 +49,23 @@ export class CustomerInvoiceComponent implements OnInit {
   telephone    : string
   vatNo        : string
   creditLimit  : number
+  invoiceLimit :number
   creditDays   : number
   amountDue    : number
+  discountRate :number
+  discountStartDate : Date
+  discountEndDate : Date
+  priceMargin :number
+  priceMarginStartDate : Date
+  priceMarginEndDate : Date
 
   constructor(private httpClient: HttpClient ) {
     this.id           = '';
     this.invoiceNo           = '';
     this.invoiceDate           = null;
+    this.invoiceAmount = null
+    this.invoiceAmountPayed = null
+    this.invoiceAmountDue = null
 
 
 
@@ -64,6 +80,13 @@ export class CustomerInvoiceComponent implements OnInit {
     this.creditLimit  = null;
     this.creditDays   = null;
     this.amountDue    = null;
+    this.invoiceLimit = null
+    this.discountRate = null
+    this.discountStartDate = null
+    this.discountEndDate = null
+    this.priceMargin = null
+    this.priceMarginStartDate = null
+    this.priceMarginEndDate = null
     
   }
 
@@ -112,6 +135,13 @@ export class CustomerInvoiceComponent implements OnInit {
 		return "CINV-"+result1+result2
   }
 
+  refreshAmount(detail : InvoiceDetail[]){
+    this.totalAmount = 0
+    for(var i = 0; i <detail.length; i++){
+      this.totalAmount = this.totalAmount + (detail[i].qty*detail[i].price)
+    }
+  }
+
   createInvoice(){
     this.clearInvoice()
     this.clearCustomer()
@@ -121,15 +151,53 @@ export class CustomerInvoiceComponent implements OnInit {
     this.invoiceNo = this.generateInvoiceNo()
     this.invoiceDetails = []
     this._new = true
+    this.refreshAmount(this.invoiceDetails)
     
 
   }
 
-  public searchInvoice(){
+  public viewInvoice(){
+    this.clearInvoice()
+    this.clearCustomer()
+    this.clearDetail()
+    this.unlockInvoice()
+    this.lockCustomer()
+    this.invoiceDetails = []
+    this._new = false
+    this.refreshAmount(this.invoiceDetails)
+  }
 
+  public async searchInvoice(invoiceNo : string){
+    this._new=false
+    this.lockCustomer()
+    var invoice : any =null
+    invoice = await (new CustomerInvoiceService(this.httpClient)).getInvoice(invoiceNo)
+    this.showInvoice(invoice)
+    this.refreshAmount(this.invoiceDetails)
+
+  }
+  public showInvoice(invoice : any){
+    this.id = invoice['id']
+    this.invoiceNo = invoice['invoiceNo']
+    this.invoiceDate = invoice['invoiceDate']
+    this.custId= invoice['customer'].id
+    this.customerNo=invoice['customer'].customerNo
+    this.customerName=invoice['customer'].customerName
+    this.invoiceAmount=invoice['invoiceAmount']
+    this.invoiceAmountPayed=invoice['invoiceAmountPayed']
+    this.invoiceAmountDue=invoice['invoiceAmountDue']
+    this.invoiceDetails = invoice['invoiceDetails']
+    this.searchCustomerById(this.custId)
   }
 
   public addInvoice(){
+
+  }
+
+  clearExpiredDiscountRate(){
+
+  }
+  clearExpiredPriceMargin(){
 
   }
 
@@ -144,6 +212,16 @@ export class CustomerInvoiceComponent implements OnInit {
     }
     this.lockCustomer()
 
+    this.refreshAmount(this.invoiceDetails)
+    if((this.totalAmount + (this.price * this.qty)) > this.invoiceLimit){
+      alert('Invoice limit exceeded')
+      return
+    }
+    if((this.totalAmount + (this.price * this.qty)) > (this.creditLimit - this.amountDue)){
+      alert('Maximum allowable limit exceeded')
+      return
+    }
+
     var _invoiceDetail : InvoiceDetail = new InvoiceDetail
     _invoiceDetail.detailId      = this.detailId
     _invoiceDetail.barcode       = this.barcode
@@ -155,6 +233,7 @@ export class CustomerInvoiceComponent implements OnInit {
       this.invoiceDetails.push(_invoiceDetail)
       this.clearDetail()
     }
+    this.refreshAmount(this.invoiceDetails)
     
 
   }
@@ -207,6 +286,13 @@ export class CustomerInvoiceComponent implements OnInit {
     this.creditLimit  = null;
     this.creditDays   = null;
     this.amountDue    = null;
+    this.invoiceLimit=null
+    this.discountRate = null
+    this.discountStartDate = null
+    this.discountEndDate = null
+    this.priceMargin = null
+    this.priceMarginStartDate = null
+    this.priceMarginEndDate = null
   }
 
   async saveInvoice(){
@@ -302,6 +388,16 @@ export class CustomerInvoiceComponent implements OnInit {
       this.showCustomer(customer)
     }
   }
+  async searchCustomerById(custId : any) { 
+    /**
+     * Search an existing customer by customer id
+     * First determine the customer id using getCustomerId(), then searches
+     * customer using respective supplier id
+     */
+    var customer =await (new CorporateCustomerService(this.httpClient)).getCustomer(custId)
+      this.showCustomer(customer)
+    
+  }
   showCustomer(customer : any){
     
     /**
@@ -318,6 +414,13 @@ export class CustomerInvoiceComponent implements OnInit {
     this.creditLimit  =customer['creditLimit']
     this.creditDays   =customer['creditDays']
     this.amountDue    =customer['amountDue']
+    this.invoiceLimit=customer['invoiceLimit']
+    this.discountRate = customer['discountRate']
+    this.discountStartDate=customer['discountStartDate']
+    this.discountEndDate = customer['discountEndDate']
+    this.priceMargin = customer['priceMargin']
+    this.priceMarginStartDate=customer['priceMarginStartDate']
+    this.priceMarginEndDate = customer['priceMarginEndDate']
   }
 
 
@@ -327,9 +430,7 @@ export class CustomerInvoiceComponent implements OnInit {
 		if(itemId != '' && itemId !=null){
 			var item = await (new ItemService(this.httpClient).getItem(itemId))
       this.lockDetail()
-			this.itemCode = item['itemCode']
-			this.description = item['longDescription']
-			this.price = item['unitRetailPrice']
+			this.setItem(item)
 		}else{
 			/** */
 		}
@@ -340,9 +441,7 @@ export class CustomerInvoiceComponent implements OnInit {
 		if(itemId != '' && itemId !=null){
 			var item = await (new ItemService(this.httpClient).getItem(itemId))
       this.lockDetail()
-			this.itemCode = item['itemCode']
-			this.description = item['longDescription']
-			this.price = item['unitRetailPrice']
+			this.setItem(item)
 		}else{
 			/** */
 		}
@@ -353,13 +452,22 @@ export class CustomerInvoiceComponent implements OnInit {
 		if(itemId != '' && itemId !=null){
 			var item = await (new ItemService(this.httpClient).getItem(itemId))
       this.lockDetail()
-			this.itemCode = item['itemCode']
-			this.description = item['longDescription']
-			this.price = item['unitRetailPrice']
+      this.setItem(item)
 		}else{
 			/** */
 		}
 	}
+  setItem(item : any){
+    this.itemCode = item['itemCode']
+    this.description = item['longDescription']
+    this.price = item['unitRetailPrice']
+    if(this.priceMargin > 0){
+      this.price=this.price*((this.priceMargin + 100)/100)
+    }
+    if(this.discountRate > 0){
+      this.price = this.price*(1-(this.discountRate/100))
+    }
+  }
 
 
   /**Lock variables */
