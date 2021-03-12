@@ -4,7 +4,7 @@
             <tr>
                 <td style="width:70mm"><h5 class="panel-title">Allocations</h5></td>
                 <td>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a (click)="newAllocation()" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
                 </td>
             </tr>
         </table>
@@ -17,21 +17,31 @@
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Code</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="customerNo" [disabled]="lockedCustomer" class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button (click)="searchCustomerByNo()" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
                     </tr>
                 </table>
                 <table>
                     <tr style="font-size: 12px;">
-                        <input type="hidden"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Name</td>
                         <td style="width: 80mm;">
-                            <select class="form-control" placeholder="--Customer Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
+                            <select [(ngModel)]="customerName" (change)="searchCustomerByName()" [disabled]="lockedCustomer" class="form-control" placeholder="--Customer Name--" style="margin: 2px;font-size: 11px; height: 5mm; padding-top: 1px;">
                                 <option></option>
-                                <option  ></option>
+                                <option *ngFor="let customer of customersNames" [ngValue]="customer">{{customer}}</option>
                             </select>
                         </td>
                     </tr>
+                </table>
+                <table class="table-bordered">
+                    <tr style="font-size: 12px;">
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Cr Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{creditLimit-amountDue|currency:'TSh':''}}</b></td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Amt Due</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{amountDue|currency:'TSh':''}}</b></td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Alloc Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{amountUnallocated|currency:'TSh':''}}</b></td>
+                    </tr>
+                    
                 </table>
                 <!--<table>
                     <tr style="font-size: 12px;">
@@ -40,53 +50,53 @@
                     </tr>
                 </table>-->
                 <hr>
-                <table>
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice No</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="--Invoice No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceNo" [disabled]="lockedInvoice" class="form-control" placeholder="--Invoice No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 5px;"><button (click)="searchInvoiceByInvoiceNoAndCustomerNo()" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
                     </tr>
                 </table>
-                <table>
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Invoice Date</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="width: 30mm; text-align: right;">{{invoiceDate}}</td>
                         <td style="padding-left: 5px;"></td>
                     </tr>
                 </table>
-                <table>
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Inv Total</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="width: 30mm; text-align: right;">{{invoiceAmount|currency:'TSh':''}}</td>
                         <td style="padding-left: 5px;"></td>
                     </tr>
                 </table>
-                <table>
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Payed</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="width: 30mm; text-align: right;">{{invoiceAmountPayed|currency:'TSh':''}}</td>
                         <td style="padding-left: 5px;"></td>
                     </tr>
                 </table>
-                <table>
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Due</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" readonly style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="width: 30mm; text-align: right;">{{invoiceAmountDue|currency:'TSh':''}}</td>
                         <td style="padding-left: 5px;"></td>
                     </tr>
                 </table>
                 <hr>
-                <table>
+                <table class="table-bordered">
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Allocate Amt</td>
-                        <td style="width: 30mm;"><input type="text"  class="form-control" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-ok"></span> Allocate</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="allocationAmount" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                        <td style="padding-left: 5px;"><button (click)="allocate()" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-ok"></span> Allocate</button></td>
                     </tr>
                 </table>
 

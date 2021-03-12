@@ -146,7 +146,7 @@
                             <td></td>
                             <td></td>
                             <td style="text-align: center;"></td>
-                            <td style="text-align: right;"><b>Total Amount</b></td>
+                            <td style="text-align: right;"></td>
                             <td style="text-align: right;"><b>{{totalAmount|currency:'TSh':''}}</b></td>
                             <td></td>
                         </tr>
@@ -156,8 +156,8 @@
                             <td><input [(ngModel)]="barcode" [disabled]="lockedBarcode" (keydown.enter)="searchItemByBarcode(barcode)" style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" ></td>
                             <td><input [(ngModel)]="itemCode" [disabled]="lockedItemCode" (keydown.enter)="searchItemByItemCode(itemCode)" style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" ></td>
                             <td><input [(ngModel)]="description" [disabled]="lockedDescription" #des list="description" type="text" (keydown.enter)="searchItemByDescription(description)"  style="width: 120mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
-                            <td style="text-align: center;"><input [(ngModel)]="qty" style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" ></td>
-                            <td style=" text-align: center;"><button><span class="glyphicon glyphicon-pencil"></span></button>..<input [(ngModel)]="price" style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white; text-align: right;" type="text" ></td>
+                            <td style="text-align: center;"><input [(ngModel)]="qty" style="max-width: 20mm; text-align: center; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" ></td>
+                            <td style=" text-align: right;"><button style="margin-right: 10mm;"><span class="glyphicon glyphicon-pencil"></span></button>  <b>{{price|currency:'TSh':''}}</b></td>
                             <td style=" text-align: right;">{{qty*price|currency:'TSh':''}}</td>
                             <td>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()">Add</a>

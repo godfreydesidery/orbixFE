@@ -21,6 +21,16 @@
             <div class="col-sm-8">
                 <table>
                     <tr style="font-size: 12px;">
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Receipt date</td>
+                        <td><input type="date" [(ngModel)]="receiptDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;  padding: 3mm;"></td>
+                        <td style="width: 25mm; padding-left: 3mm; color: rgba(45, 42, 48, 0.658);">Receipt No</td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="receiptNo" [disabled]="true" class="form-control" placeholder="Receipt No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                        <td style="padding-left: 2mm;">  <button type="button" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Receipt List</button></td>
+                    </tr>
+                </table>
+                <br>
+                <table>
+                    <tr style="font-size: 12px;">
                         <input type="hidden" name="custId" [(ngModel)]="custId">
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Customer Code</td>
                         <td style="width: 30mm;"><input type="text" [(ngModel)]="customerNo" [disabled]="lockedCustomer"  class="form-control" placeholder="Customer Code" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
@@ -40,26 +50,15 @@
                 </table>
                 <table class="table-bordered">
                     <tr style="font-size: 12px;">
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Amt Due</td>
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{amountDue|currency:'TSh':''}}</td>
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Cr Balance</td>
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditLimit-amountDue|currency:'TSh':''}}</td>
-                       
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 0mm;">Cr Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{creditLimit-amountDue|currency:'TSh':''}}</b></td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Amt Due</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{amountDue|currency:'TSh':''}}</b></td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Alloc Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{amountUnallocated|currency:'TSh':''}}</b></td>
                     </tr>
                     
                 </table>
-                <br>
-                <table>
-                    <tr style="font-size: 12px;">
-                        
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Receipt date</td>
-                        <td><input type="date" [(ngModel)]="receiptDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;  padding: 3mm;"></td>
-                        <td style="width: 25mm; padding-left: 3mm; color: rgba(45, 42, 48, 0.658);">Receipt No</td>
-                        <td style="width: 30mm;"><input type="text" [(ngModel)]="receiptNo" [disabled]="true" class="form-control" placeholder="Receipt No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 2mm;">  <button type="button" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Receipt List</button></td>
-                    </tr>
-                </table>
-                
             </div>
 
             <div class="col-sm-4">
@@ -88,7 +87,7 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Cheque No</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Cheque No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                <td style="width: 30mm;"><input type="text" [(ngModel)]="chequeNo" class="form-control" placeholder="Cheque No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
                                 <td style="padding-left: 5px;"></td>
                             </tr>
                         </table>
@@ -96,7 +95,7 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Bank</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Bank" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                <td style="width: 30mm;"><input type="text" [(ngModel)]="chequeBank" class="form-control" placeholder="Bank" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
                                 <td style="padding-left: 5px;"></td>
                             </tr>
                         </table>
@@ -104,7 +103,7 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Cheque Date</td>
-                                <td style="width: 30mm;"><input type="date"  class="form-control" placeholder="Cheque No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                <td style="width: 30mm;"><input type="date" [(ngModel)]="chequeDate"  class="form-control" placeholder="Cheque No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
                                 <td style="padding-left: 5px;"></td>
                             </tr>
                         </table>
@@ -112,7 +111,8 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Cheque Amount</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 25mm;"><input type="text" [(ngModel)]="receiptAmount" class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 35mm; text-align: right; font-size: 16px; font-weight: bold; font-family: monospace;">{{receiptAmount|currency:'TSh':''}}</td>
                                 <td style="padding-left: 5px;"><button (click)="saveChequeReceipt()">Receive</button></td>
                             </tr>
                         </table>
@@ -123,7 +123,8 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Cash Amount</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 25mm;"><input type="text" [(ngModel)]="receiptAmount" class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 35mm; text-align: right; font-size: 16px; font-weight: bold; font-family: monospace;">{{receiptAmount|currency:'TSh':''}}</td>
                                 <td style="padding-left: 5px;"><button (click)="saveCashReceipt()">Receive</button></td>
                             </tr>
                         </table>
@@ -134,15 +135,17 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Credit Note No</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Credit Note No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                                <td style="padding-left: 5px;"><button>Load Cr Note</button></td>
+                                <td style="width: 30mm;"><input type="text" [(ngModel)]="creditNoteNo" class="form-control" placeholder="Credit Note No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                <td style="width: 30mm; text-align: right;">{{creditNoteAmount|currency:'TSh':''}}</td>
+                                <td style="padding-left: 5px;"><button (click)="loadCreditNote()">Load Cr Note</button></td>
                             </tr>
                         </table>
                         <table>
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Credit Note Amount</td>
-                                <td style="width: 30mm;"><input type="text" [disabled]="true"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 25mm;"><input type="text" [(ngModel)]="receiptAmount" class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 35mm; text-align: right; font-size: 16px; font-weight: bold; font-family: monospace;">{{receiptAmount|currency:'TSh':''}}</td>
                                 <td style="padding-left: 5px;"><button (click)="saveCreditNoteReceipt()">Receive</button></td>
                             </tr>
                         </table>
@@ -153,7 +156,8 @@
                             <tr style="font-size: 12px;">
                                 <input type="hidden" >
                                 <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Amount</td>
-                                <td style="width: 30mm;"><input type="text"  class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 25mm;"><input type="text" [(ngModel)]="receiptAmount" class="form-control" placeholder="Amount" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                <td style="width: 35mm; text-align: right; font-size: 16px; font-weight: bold; font-family: monospace;">{{receiptAmount|currency:'TSh':''}}</td>
                                 <td style="padding-left: 5px;"><button (click)="saveOtherReceipt()">Receive</button></td>
                             </tr>
                         </table>
