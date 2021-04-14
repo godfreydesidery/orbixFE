@@ -114,11 +114,16 @@ export class AllocationComponent implements OnInit {
     this.clearCustomer()
     this.unlockCustomer()
     this.lockInvoice()
+    this.unlockValue()
     
     this.allocationNo = this.generateAllocationNo()
   }
 
   async allocate(){
+    
+    if(window.confirm('Saving allocation. Confirm?') == false){
+      return
+    }
     this.allocationDate = new Date()
     
     //alert(this.allocationDate)
@@ -138,9 +143,10 @@ export class AllocationComponent implements OnInit {
         this.searchInvoiceByInvoiceNoAndCustomerNo()
         this.lockInvoice()
 
-        alert('success')
+        alert('Allocation '+data['allocationNo']+ ' successifully allocated.')
 
         this.allocationAmount = 0
+        this.lockValue()
         
        // alert('Receipt No: '+data['receiptNo']+' Received successifully')
       }
@@ -349,6 +355,8 @@ export class AllocationComponent implements OnInit {
   lockedBarcode : boolean = false
   lockedItemCode : boolean = false
   lockedDescription : boolean = false
+
+  lockedValue : boolean = true
 	
 	private lockInvoice(){
 		this.lockedInvoice = true
@@ -372,6 +380,12 @@ export class AllocationComponent implements OnInit {
     this.lockedBarcode     = false
     this.lockedItemCode     = false
     this.lockedDescription = false
+  }
+  private lockValue(){
+    this.lockedValue = true
+  }
+  private unlockValue(){
+    this.lockedValue = false
   }
 
 }

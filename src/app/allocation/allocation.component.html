@@ -38,7 +38,7 @@
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{creditLimit-amountDue|currency:'TSh':''}}</b></td>
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Amt Due</td>
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{amountDue|currency:'TSh':''}}</b></td>
-                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Alloc Balance</td>
+                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); padding-left: 3mm;">Bal available</td>
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><b>{{amountUnallocated|currency:'TSh':''}}</b></td>
                     </tr>
                     
@@ -95,8 +95,8 @@
                     <tr style="font-size: 12px;">
                         <input type="hidden" >
                         <td style="width: 25mm;color: rgba(45, 42, 48, 0.658);">Allocate Amt</td>
-                        <td style="width: 30mm;"><input type="text" [(ngModel)]="allocationAmount" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
-                        <td style="padding-left: 5px;"><button (click)="allocate()" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-ok"></span> Allocate</button></td>
+                        <td style="width: 30mm;"><input type="text" [(ngModel)]="allocationAmount"  [disabled]="lockedValue" class="form-control" style="width: 35mm; text-align: right; font-size: 16px; font-weight: bold; font-family: monospace;"></td>
+                        <td style="padding-left: 5px;"><button (click)="allocate()"  [disabled]="lockedValue" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-ok"></span> Allocate</button></td>
                     </tr>
                 </table>
 

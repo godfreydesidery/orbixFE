@@ -123,7 +123,7 @@ export class LPOComponent implements OnInit {
 		this.unlockSupplier()
 		this.unlockItem()
 		this.lockAdd()
-		this.lpoNo = this.generateLpoNo()
+		this.lpoNo = 'NA'
 		return created
 	}
 	editLpo(){
@@ -169,7 +169,7 @@ export class LPOComponent implements OnInit {
 		this.unlockItem()
 		this.lockAdd()
 	}
-	generateLpoNo(){
+	generateLpoNoo(){
 		/**Generate a unique LPO No */
 
 		var anysize = 5;//the size of string 
@@ -182,7 +182,7 @@ export class LPOComponent implements OnInit {
 			result1 += charset1[Math.floor(Math.random() * charset1.length)];
 		for( var i=0; i < 1; i++ )
 			result2 += charset2[Math.floor(Math.random() * charset2.length)];
-		return "LPO-"+result1+result2
+		return "TEMP-"+result1+result2
 	}
 	async searchLpo(lpoNo : string){
 		/**Searches specified lpo, displays lpo and return true if found,

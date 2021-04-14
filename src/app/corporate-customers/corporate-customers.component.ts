@@ -38,7 +38,7 @@ export class CorporateCustomersComponent implements OnInit {
 
   constructor(private httpClient: HttpClient ) {
     this.id           = '';
-    this.customerNo   = '';
+    this.customerNo   = 'NA';
     this.customerName = '';
     this.contactName = '';
     this.address      = '';
@@ -81,9 +81,9 @@ export class CorporateCustomersComponent implements OnInit {
      * POS:empty fields
      */
     this.id           = '';
-    this.customerNo   = '';
+    this.customerNo   = 'NA';
     this.customerName = '';
-    this.contactName = '';
+    this.contactName  = '';
     this.address      = '';
     this.telephone    = '';
     this.vatNo        = '';
@@ -158,8 +158,8 @@ export class CorporateCustomersComponent implements OnInit {
     var valid : boolean = true
     var message : string = ''
     if(this.customerNo == ''){
-      valid = false
-      message = message+'\nCustomer No is a required field!'
+      //valid = false
+      //message = message+'\nCustomer No is a required field!'
     }
     if(this.customerName == ''){
       valid = false
@@ -210,7 +210,7 @@ export class CorporateCustomersComponent implements OnInit {
           },
           error=>{
             console.log(error)
-            alert("Operation failed\nError Code:"+error['status']+"\n"+error['statusText'])
+            alert(error['error'])
           }
         )
       }  

@@ -51,7 +51,7 @@
                                 <option *ngFor="let customer of customersNames" [ngValue]="customer">{{customer}}</option>
                             </select>
                         </td>
-                        <td style="width: 30mm; padding-left: 3mm;"><button type="button" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Invoice List</button></td>
+                        <td style="width: 30mm; padding-left: 3mm;"><button type="button" data-toggle="modal" data-target="#receiptModal"><span class="glyphicon glyphicon-list"></span> Pending Invoice List</button></td>
                     </tr>
                 </table>
                 <table class="table-bordered">
@@ -122,6 +122,7 @@
                             <td style="width: 20mm;">Qty</td>
                             <td>Price</td>
                             <td>Amount</td>
+                            <td>Warranty(Days)</td>
                             <td>Action</td>
                         </tr>
                     </thead>
@@ -136,6 +137,7 @@
                             <td style="text-align: center;">{{invoiceDetail.qty}}</td>
                             <td style="text-align: right;">{{invoiceDetail.price|currency:'TSh':''}}</td>
                             <td style="text-align: right;">{{invoiceDetail.qty*invoiceDetail.price|currency:'TSh':''}}</td>
+                            <td style="text-align: center;">{{invoiceDetail.returnPeriod}} Days</td>
                             <td>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" >Edit</a>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" >Remove</a>
@@ -149,6 +151,7 @@
                             <td style="text-align: right;"></td>
                             <td style="text-align: right;"><b>{{totalAmount|currency:'TSh':''}}</b></td>
                             <td></td>
+                            <td></td>
                         </tr>
 
                         <tr *ngIf="_new" style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">
@@ -159,6 +162,7 @@
                             <td style="text-align: center;"><input [(ngModel)]="qty" style="max-width: 20mm; text-align: center; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" ></td>
                             <td style=" text-align: right;"><button style="margin-right: 10mm;"><span class="glyphicon glyphicon-pencil"></span></button>  <b>{{price|currency:'TSh':''}}</b></td>
                             <td style=" text-align: right;">{{qty*price|currency:'TSh':''}}</td>
+                            <td style="text-align: center;"><input [(ngModel)]="returnPeriod" style="max-width: 20mm; text-align: center; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" ></td>
                             <td>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()">Add</a>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearDetail()">Clear</a>
@@ -226,7 +230,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h5 class="modal-title">Invoices for <b>(10001) Akili Ltd</b></h5>
+          <h5 class="modal-title"><b>Pending invoices {{customerNo}}  | {{customerName}}</b></h5>
         </div>
         <div class="modal-body">
           <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
@@ -235,16 +239,19 @@
                       <td style="position: sticky; top: 0;">Date#</td>
                       <td style="position: sticky; top: 0;">Invoice No</td>
                       <td style="position: sticky; top: 0;">Invoice Amount</td>
-                      <td style="position: sticky; top: 0;">Status</td>
+                      <td style="position: sticky; top: 0;">Amount Payed</td>
+                      <td style="position: sticky; top: 0;">Amount Due</td>
                   </tr>
               </thead>
               <tbody >
-                  <!--<tr *ngFor="let lpo of lpos" [ngValue]="lpo" style="font-size: 12px;">
-                      <td>{{lpo.lpoNo}}</td>
-                      <td>{{lpo.lpoDate}}</td>
-                      <td>{{lpo.status}}</td>
-                      <td><a class="badge badge-default" (click)="searchLpo(lpo.lpoNo)">Select</a></td>
-                  </tr>-->
+                  <tr *ngFor="let invoice of invoices" [ngValue]="invoice" style="font-size: 12px;">
+                      <td>{{invoice.invoiceDate}}</td>
+                      <td>{{invoice.invoiceNo}}</td>
+                      <td style="text-align: right;">{{invoice.invoiceAmount|currency:'TSh':''}}</td>
+                      <td style="text-align: right;">{{invoice.invoiceAmountPayed|currency:'TSh':''}}</td>
+                      <td style="text-align: right;"><b>{{invoice.invoiceAmountDue|currency:'TSh':''}}</b></td>
+                      <!--<td><a class="badge badge-default" (click)="searchLpo(lpo.lpoNo)">Select</a></td>-->
+                  </tr>
               </tbody>
           </table>
         </div>

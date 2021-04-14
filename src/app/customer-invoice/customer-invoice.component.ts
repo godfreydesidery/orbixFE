@@ -21,6 +21,8 @@ export class CustomerInvoiceComponent implements OnInit {
 
   invoice : Invoice   = new Invoice()
 
+  invoices  = {}
+
   id                 : any
   invoiceNo          : any
   invoiceDetails     : InvoiceDetail[] = []
@@ -39,6 +41,7 @@ export class CustomerInvoiceComponent implements OnInit {
   description : string
   price       : number
   qty         : number
+  returnPeriod : number
   
   
   custId               : any
@@ -142,6 +145,22 @@ export class CustomerInvoiceComponent implements OnInit {
     }
   }
 
+  async loadInvoices(custId : string){
+    this.invoices = []
+    await this.httpClient.get(Data.baseUrl+"/due_customer_invoices/customer_id="+this.custId)
+    .toPromise()
+    .then(
+      data => {
+        this.invoices = data
+      }
+    )
+    .catch(
+      error => {
+        alert(error['error'])
+      }
+    )
+  }
+
   createInvoice(){
     this.clearInvoice()
     this.clearCustomer()
@@ -161,7 +180,7 @@ export class CustomerInvoiceComponent implements OnInit {
     this.clearCustomer()
     this.clearDetail()
     this.unlockInvoice()
-    this.lockCustomer()
+    this.unlockCustomer()//
     this.invoiceDetails = []
     this._new = false
     this.refreshAmount(this.invoiceDetails)
@@ -238,6 +257,8 @@ export class CustomerInvoiceComponent implements OnInit {
     _invoiceDetail.description   = this.description
     _invoiceDetail.price         = this.price
     _invoiceDetail.qty           = this.qty
+    _invoiceDetail.returnPeriod  = this.returnPeriod
+    _invoiceDetail.returnFirstDate = new Date()
     if(this.checkDuplicate(this.itemCode,this.invoiceDetails) == false){
       this.invoiceDetails.push(_invoiceDetail)
       this.clearDetail()
@@ -270,6 +291,7 @@ export class CustomerInvoiceComponent implements OnInit {
     this.description = '';
     this.price       = null;
     this.qty         = null;
+    this.returnPeriod= null
     this.unlockDetail()
   }
   public validateDetail() : boolean{
@@ -302,6 +324,8 @@ export class CustomerInvoiceComponent implements OnInit {
     this.priceMargin          = null
     this.priceMarginStartDate = null
     this.priceMarginEndDate   = null
+
+    this.invoices = []
   }
 
   async saveInvoice(){
@@ -395,6 +419,8 @@ export class CustomerInvoiceComponent implements OnInit {
     this.priceMargin          = customer['priceMargin']
     this.priceMarginStartDate = customer['priceMarginStartDate']
     this.priceMarginEndDate   = customer['priceMarginEndDate']
+
+    this.loadInvoices(this.custId)
   }
 
 
@@ -453,6 +479,7 @@ export class CustomerInvoiceComponent implements OnInit {
     if(this.discountRate > 0){
       this.price = this.price*(1-(this.discountRate/100))
     }
+    this.returnPeriod = item['returnPeriod']
   }
 
 
@@ -505,4 +532,7 @@ export class InvoiceDetail{
   description : string
   price       : number
   qty         : number
+  returnPeriod : number
+  returnFirstDate : Date
+  returnLastDate : Date
 }
