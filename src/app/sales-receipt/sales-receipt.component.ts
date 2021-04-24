@@ -42,7 +42,7 @@ export class SalesReceiptComponent implements OnInit {
   creditLimit          : number
   invoiceLimit         : number
   creditDays           : number
-  amountDue            : number
+  outstandingBalance   : number
   amountUnallocated    : number
   discountRate         : number
   discountStartDate    : Date
@@ -78,7 +78,7 @@ export class SalesReceiptComponent implements OnInit {
     this.vatNo                = ''
     this.creditLimit          = null
     this.creditDays           = null
-    this.amountDue            = null
+    this.outstandingBalance            = null
     this.amountUnallocated    = null
     this.invoiceLimit         = null
     this.discountRate         = null
@@ -126,7 +126,7 @@ export class SalesReceiptComponent implements OnInit {
 
   createReceipt(){
     this.clearReceipt()
-    this.receiptNo = this.generateReceiptNo()
+    this.receiptNo = 'NA'
     this.clearCustomer()
     this.unlockCustomer()
     this.hideAll()
@@ -191,6 +191,7 @@ export class SalesReceiptComponent implements OnInit {
         this.searchCustomerByNo()
         alert('Receipt No: '+data['receiptNo']+' Successifully saved')
         this.id = data['id']
+        this.receiptNo = data['receiptNo']
       }
     )
     .catch(
@@ -254,7 +255,7 @@ export class SalesReceiptComponent implements OnInit {
     this.vatNo                = '';
     this.creditLimit          = null;
     this.creditDays           = null;
-    this.amountDue            = null;
+    this.outstandingBalance            = null;
     this.amountUnallocated    = null
     this.invoiceLimit         = null
     this.discountRate         = null
@@ -331,7 +332,7 @@ export class SalesReceiptComponent implements OnInit {
     this.vatNo                = customer['vatNo']
     this.creditLimit          = customer['creditLimit']
     this.creditDays           = customer['creditDays']
-    this.amountDue            = customer['amountDue']
+    this.outstandingBalance            = customer['outstandingBalance']
     this.amountUnallocated    = customer['amountUnallocated']
     this.invoiceLimit         = customer['invoiceLimit']
     this.discountRate         = customer['discountRate']

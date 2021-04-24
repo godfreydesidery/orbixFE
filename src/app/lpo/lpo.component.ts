@@ -404,6 +404,7 @@ export class LPOComponent implements OnInit {
 				}
 			)
 			if(this.id == ''){
+				this.spinnerService.hide()
 				return
 			}
 			await this.httpClient.get(Data.baseUrl+"/lpos/"+this.id)
@@ -415,10 +416,12 @@ export class LPOComponent implements OnInit {
 			)
 			.catch(
 				() => {
+					this.spinnerService.hide()
 					return
 				}
 			)
 			if(this.id == ''){
+				this.spinnerService.hide()
 				return
 			}
 		}

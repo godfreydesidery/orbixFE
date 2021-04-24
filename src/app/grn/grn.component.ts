@@ -19,6 +19,7 @@ export class GRNComponent implements OnInit {
   public orderType : string
   public orderNo   : string
   public invoiceNo : string
+  public invoiceTotal : number
   public grnDate   : Date
   public status    : string
 
@@ -32,6 +33,7 @@ export class GRNComponent implements OnInit {
     this.orderType = ''
     this.orderNo   = ''
     this.invoiceNo = ''
+    this.invoiceTotal = null
     this.grnDate   = null
     this.status    = ''
 	}
@@ -46,6 +48,7 @@ export class GRNComponent implements OnInit {
       orderType : this.orderType,
       orderNo   : this.orderNo,
       invoiceNo : this.invoiceNo,
+      invoiceTotal : this.invoiceTotal,
       grnDate   : this.grnDate,
       status    : this.status
     }
@@ -68,8 +71,10 @@ export class GRNComponent implements OnInit {
       )
     }
   }
+  
   validateGrnDetails(grnDetails : any){
     var valid : boolean = false
+    var total : number = 0
     for(var i = 0; i < grnDetails.length; i++ ){
       var grnDetail = grnDetails[i]
       var itemCode : string = grnDetail['itemCode']
@@ -92,7 +97,13 @@ export class GRNComponent implements OnInit {
         alert('Invalid entries, fractional values are not allowed in Quantity')
         return valid
       }
-      valid = true
+      total = total + (supplierCostPrice * qtyReceived)
+     valid = true
+    }
+    if(total != this.invoiceTotal){
+      alert('Invalid entries, GRN does not match invoice total, please cross check and re enter the entries')
+      valid = false
+      return valid
     }
     return valid
   }
@@ -131,6 +142,7 @@ export class GRNComponent implements OnInit {
 		this.orderType   = grn['orderType']
 		this.orderNo     = grn['orderNo']
 		this.invoiceNo   = grn['invoiceNo']
+    this.invoiceTotal   = grn['invoiceTotal']
 		this.grnDate     = grn['grnDate']
 		this.status      = grn['status']
     this.getGrnDetails(grn['id']) 

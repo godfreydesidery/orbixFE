@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">End of Day</h5></td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel-body well" style="padding: 5px;">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 20px; font-weight: bold;color: rgb(87, 82, 82); text-align: right; vertical-align: top;">System Date:</td>
+                            <td style="font-size: 20px; font-weight: bold;color: rgb(87, 82, 82); padding-left: 5mm; vertical-align: top;">{{systemDate}}</td>
+                        </tr>
+                        <br>
+                        <tr>
+                            <td style="font-size: 16px; color: rgb(87, 82, 82); text-align: right; vertical-align: top;"><i>Started at:</i></td>
+                            <td style="font-size: 16px; ;color: rgb(87, 82, 82); padding-left: 5mm; vertical-align: top;">{{startedAt}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 16px; color: rgb(87, 82, 82); text-align: right; vertical-align: top;"><i>Current Computer Date:</i></td>
+                            <td style="font-size: 16px; color: rgb(87, 82, 82); padding-left: 5mm; vertical-align: top;">{{computerDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <button class="form-control btn btn-danger" (click)="endDay()">End current day and start a new day</button>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+        
+        
+        
+    </div>
+  </div>

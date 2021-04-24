@@ -8,6 +8,15 @@
                 <div class="panel panel-default" style="border-radius: 0px;">
                     <div class="panel-heading">
                         <h4 class="panel-title">
+                            <a href="#" routerLink="home"><span class="glyphicon glyphicon-home">
+                            </span> Home</a>
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" style="border-radius: 0px;">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#masters"><span class="glyphicon glyphicon-globe">
                             </span>Masters</a>
                         </h4>
@@ -128,7 +137,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <span class="glyphicon glyphicon-book text-success"></span><a routerLink="customer-invoice">Customer Invoices</a>
+                                        <span class="glyphicon glyphicon-book text-success"></span><a routerLink="sales-invoice">Sales Invoices</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -295,8 +304,25 @@
                     </div>
                 </div>
 
-
-
+                <div class="panel panel-default" style="border-radius: 0px;">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#day_operations"><span class="glyphicon glyphicon-globe">
+                            </span>Day Operations</a>
+                        </h4>
+                    </div>
+                    <div id="day_operations" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <span class="glyphicon glyphicon-pencil text-primary"></span><a routerLink="end-of-day"> End of Day</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="panel panel-default" style="border-radius: 0px;">
                     <div class="panel-heading">

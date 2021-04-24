@@ -19,32 +19,57 @@
         <div class="row">
             <div class="col-sm-12">
                 <table>
-                    <tr style="font-size: 12px;">
-                        <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
-                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Order No</td>
-                        <td style="width: 30mm;"><input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="createGrn()" >Search/ Create GRN</button></td>
-                    </tr>
-                </table>
-                <table>
-                    <tr style="font-size: 12px;">
-                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Order Type</td>
-                        <td style="width: 60mm;">
-                            <select name="orderType" [(ngModel)]="orderType" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm;">
-                                <option></option>
-                                <option>LOCAL PURCHASE ORDER</option>
-                                <option>TRANSFER ORDER</option>
-                            </select>
-                        </td>
-                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Invoice No</td>
-                        <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                    
-                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658);">Receiving Date</td>
-                        <td style="width: 30mm;"><input type="date" name="grnDate" [(ngModel)]="grnDate" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td style="width: 100mm; vertical-align: top;">
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Order Type</td>
+                                        <td style="width: 60mm;">
+                                            <select name="orderType" [(ngModel)]="orderType" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;">
+                                                <option></option>
+                                                <option>LOCAL PURCHASE ORDER</option>
+                                                <option>TRANSFER ORDER</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <input type="hidden" name="id" [(ngModel)]="id" class="form-control">
+                                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Order No</td>
+                                        <td style="width: 30mm;"><input type="text" name="orderNo" [(ngModel)]="orderNo" class="form-control" placeholder="--Order No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="createGrn()" >Search/ Create GRN</button></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 150mm; vertical-align: top;">
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Receiving Date</td>
+                                        <td style="width: 30mm;"><input type="date" name="grnDate" [(ngModel)]="grnDate" class="form-control" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Invoice No</td>
+                                        <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceNo" class="form-control" placeholder="--Invoice No--" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Invoice Total</td>
+                                        <td style="width: 30mm;"><input type="text" [(ngModel)]="invoiceTotal" class="form-control" placeholder="" style="margin: 2px;font-size: 11px; height: 5mm; text-align: right;"></td>
+                                        <td style="width: 30mm; text-align: right; font-weight: bold; font-family: monospace;">{{invoiceTotal|currency:'TSh':''}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 50mm; vertical-align: top;">
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
-            
         </div>
         
         <div class="row">

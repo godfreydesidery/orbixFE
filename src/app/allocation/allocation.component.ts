@@ -41,7 +41,7 @@ export class AllocationComponent implements OnInit {
   creditLimit  : number
   invoiceLimit :number
   creditDays   : number
-  amountDue    : number
+  outstandingBalance    : number
   amountUnallocated : number
   discountRate :number
   discountStartDate : Date
@@ -79,7 +79,7 @@ export class AllocationComponent implements OnInit {
     this.vatNo                = ''
     this.creditLimit          = null
     this.creditDays           = null
-    this.amountDue            = null
+    this.outstandingBalance            = null
     this.amountUnallocated    = null
     this.invoiceLimit         = null
     this.discountRate         = null
@@ -264,7 +264,7 @@ export class AllocationComponent implements OnInit {
     this.vatNo        = '';
     this.creditLimit  = null;
     this.creditDays   = null;
-    this.amountDue    = null;
+    this.outstandingBalance    = null;
     this.amountUnallocated = null
     this.invoiceLimit = null
     this.discountRate = null
@@ -335,7 +335,7 @@ export class AllocationComponent implements OnInit {
     this.vatNo        =customer['vatNo']
     this.creditLimit  =customer['creditLimit']
     this.creditDays   =customer['creditDays']
-    this.amountDue    =customer['amountDue']
+    this.outstandingBalance    =customer['outstandingBalance']
     this.amountUnallocated = customer['amountUnallocated']
     this.invoiceLimit=customer['invoiceLimit']
     this.discountRate = customer['discountRate']

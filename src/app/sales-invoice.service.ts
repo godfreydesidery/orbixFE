@@ -5,7 +5,7 @@ import { Data } from './data';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerInvoiceService {
+export class SalesInvoiceService {
 
   constructor( private httpClient: HttpClient ) { }
 
@@ -14,7 +14,7 @@ export class CustomerInvoiceService {
      * gets 
      */
     var invoice = {}
-    await this.httpClient.get(Data.baseUrl+"/customer_invoices/invoice_no="+invoiceNo)
+    await this.httpClient.get(Data.baseUrl+"/sales_invoices/invoice_no="+invoiceNo)
     .toPromise()
     .then(
       data=>{

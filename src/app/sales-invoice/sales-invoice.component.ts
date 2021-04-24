@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CorporateCustomerService } from '../corporate-customer.service';
-import { CustomerInvoiceService } from '../customer-invoice.service';
+import { SalesInvoiceService } from '../sales-invoice.service';
 import { Data } from '../data';
 import { ItemService } from '../item.service';
 
 @Component({
-  selector: 'app-customer-invoice',
-  templateUrl: './customer-invoice.component.html',
-  styleUrls: ['./customer-invoice.component.css']
+  selector: 'app-sales-invoice',
+  templateUrl: './sales-invoice.component.html',
+  styleUrls: ['./sales-invoice.component.css']
 })
-export class CustomerInvoiceComponent implements OnInit {
+export class SalesInvoiceComponent implements OnInit {
 
   public customersNames: string [] = []
   public customers                 = {}
@@ -30,6 +30,10 @@ export class CustomerInvoiceComponent implements OnInit {
   invoiceAmount      : number
   invoiceAmountPayed : number
   invoiceAmountDue   : number
+  terms : string
+  orderNo : string
+  dateShipped : Date
+  shippedVia : string
 
   totalAmount        : number = 0
 
@@ -69,6 +73,11 @@ export class CustomerInvoiceComponent implements OnInit {
     this.invoiceAmount      = null
     this.invoiceAmountPayed = null
     this.invoiceAmountDue   = null
+    this.terms = ''
+    this.orderNo = ''
+    this.dateShipped = null
+    this.shippedVia = ''
+
 
 
 
@@ -122,7 +131,7 @@ export class CustomerInvoiceComponent implements OnInit {
 
   }
 
-  generateInvoiceNo(){
+  generateInvoiceNoo(){
     /**Generate a unique Invoice No */
 
 		var anysize = 5;//the size of string 
@@ -136,6 +145,7 @@ export class CustomerInvoiceComponent implements OnInit {
 		for( var i=0; i < 1; i++ )
 			result2 += charset2[Math.floor(Math.random() * charset2.length)];
 		return "CINV-"+result1+result2
+
   }
 
   refreshAmount(detail : InvoiceDetail[]){
@@ -167,7 +177,7 @@ export class CustomerInvoiceComponent implements OnInit {
     this.clearDetail()
     this.lockInvoice()
     this.unlockCustomer()
-    this.invoiceNo = this.generateInvoiceNo()
+    this.invoiceNo = 'NA'
     this.invoiceDetails = []
     this._new = true
     this.refreshAmount(this.invoiceDetails)
@@ -190,7 +200,7 @@ export class CustomerInvoiceComponent implements OnInit {
     this._new=false
     this.lockCustomer()
     var invoice : any =null
-    invoice = await (new CustomerInvoiceService(this.httpClient)).getInvoice(invoiceNo)
+    invoice = await (new SalesInvoiceService(this.httpClient)).getInvoice(invoiceNo)
     this.showInvoice(invoice)
     this.refreshAmount(this.invoiceDetails)
 
@@ -206,6 +216,11 @@ export class CustomerInvoiceComponent implements OnInit {
     this.invoiceAmountPayed = invoice['invoiceAmountPayed']
     this.invoiceAmountDue   = invoice['invoiceAmountDue']
     this.invoiceDetails     = invoice['invoiceDetails']
+    this.terms              = invoice['terms']
+    this.orderNo            = invoice['orderNo']
+    this.dateShipped        = invoice['dateShipped']
+    this.shippedVia         = invoice['shippedVia']
+
     this.searchCustomerById(this.custId)
   }
 
@@ -341,10 +356,16 @@ export class CustomerInvoiceComponent implements OnInit {
     this.invoice.invoiceDate    = this.invoiceDate
     this.invoice.invoiceDetails = this.invoiceDetails
     this.invoice.custId         = this.custId
+    this.invoice.terms          = this.terms
+    this.invoice.orderNo        = this.orderNo
+    this.invoice.dateShipped    = this.dateShipped
+    this.invoice.shippedVia     = this.shippedVia
+
     await this.httpClient.post(Data.baseUrl + "/customer_invoices" , this.invoice)
 			.toPromise()
 			.then(
 				data => {
+          this.invoiceNo = data['invoiceNo']
           alert('Customer invoice '+data['invoiceNo']+ ' successifully saved.')
 				}
 			)
@@ -522,6 +543,10 @@ export class Invoice{
   invoiceDate    : Date
   custId         : any
   invoiceDetails : InvoiceDetail[]
+  terms          : string
+  orderNo        : string
+  dateShipped    : Date
+  shippedVia     : string
 
 }
 

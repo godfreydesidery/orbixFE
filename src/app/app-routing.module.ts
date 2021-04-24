@@ -46,12 +46,13 @@ import { BiometricEnrolmentComponent } from './biometric-enrolment/biometric-enr
 import { PersonaEnrolmentComponent } from './persona-enrolment/persona-enrolment.component';
 import { TillAdministrationComponent } from './till-administration/till-administration.component';
 import { TillPositionComponent } from './till-position/till-position.component';
-import { CustomerInvoiceComponent } from './customer-invoice/customer-invoice.component';
+import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
 import { SalesReceiptComponent } from './sales-receipt/sales-receipt.component';
 
 import { DepartmentComponent } from './department/department.component';
 import { ClassComponent } from './class/class.component';
 import { SubClassComponent } from './sub-class/sub-class.component';
+import { EndOfDayComponent } from './end-of-day/end-of-day.component';
 
 
 const routes: Routes = [
@@ -103,8 +104,9 @@ const routes: Routes = [
   { path :'department',component : DepartmentComponent },
   { path :'class',component : ClassComponent },
   { path :'sub-class',component : SubClassComponent },
-  { path :'customer-invoice',component : CustomerInvoiceComponent},
-  { path :'sales-receipt',component : SalesReceiptComponent}
+  { path :'sales-invoice',component : SalesInvoiceComponent},
+  { path :'sales-receipt',component : SalesReceiptComponent},
+  { path :'end-of-day',component : EndOfDayComponent}
 
 ];
 

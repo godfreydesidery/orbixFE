@@ -26,11 +26,11 @@
                     <div class="row">
                         <div class="col-sm-9">
                             <div class="row">
-                                <div class="col-sm-4">Primary Barcode</div>
+                                <div class="col-sm-4" style="text-align: right;">Primary Barcode</div>
                                 <div class="col-sm-8">
                                     <input type="text" name="primaryBarcode" [(ngModel)]="primaryBarcode" class="form-control" placeholder="--Primary Barcode--">
                                 </div>
-                                <div class="col-sm-4">Item Code</div>
+                                <div class="col-sm-4" style="text-align: right;">Item Code</div>
                                 <div class="col-sm-8"><input type="text" name="itemCode" [(ngModel)]="itemCode" ngDefaultControl class="form-control" placeholder="--Item Code--"></div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                         
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Long Description</div>
+                        <div class="col-sm-3" style="text-align: right;">Long Description</div>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" #des [(ngModel)]="longDescription" name="longDescription" list="description" style=" font-size: 11px; padding: 0px; border-top:white; border-left:white; border-right:white;">
                             <!--<ng2-completer style="width: 100%; overflow-y: visible;" [autofocus]="true" name="longDescription" [(ngModel)]="longDescription" [inputClass]="'form-control form-control-inline'" [datasource]="items" [minSearchLength]="3" placeholder="--Long Description--"></ng2-completer>-->
@@ -54,7 +54,7 @@
                         <option *ngFor="let d of items" [ngValue]="d">{{d}}</option>
                     </datalist>
                     <div class="row">
-                        <div class="col-sm-3">Short Description</div>
+                        <div class="col-sm-3" style="text-align: right;">Short Description</div>
                         <div class="col-sm-9"><input type="text" name="shortDescription" [(ngModel)]="shortDescription" class="form-control" placeholder="--Short Description--"></div>
                     </div>
                     
@@ -62,15 +62,15 @@
                 <div class="col-sm-6 ">
                     
                     <div class="row">
-                        <div class="col-sm-3">Ingredients</div>
+                        <div class="col-sm-3" style="text-align: right;">Ingredients</div>
                         <div class="col-sm-9"><input type="text" name="ingredients" [(ngModel)]="ingredients" class="form-control" placeholder="--Ingredients--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Pack Size</div>
+                        <div class="col-sm-3" style="text-align: right;">Pack Size</div>
                         <div class="col-sm-9"><input type="text" name="packSize" [(ngModel)]="packSize" class="form-control" placeholder="--Pack Size--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Supplier</div>
+                        <div class="col-sm-3" style="text-align: right;">Supplier</div>
                         <div class="col-sm-9">
                             <select [(ngModel)]="supplierName" name="supplierName" class="form-control" placeholder="--Supplier--">
                                 <option></option>
@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col-sm-6 ">
                     <div class="row">
-                        <div class="col-sm-3">Department</div>
+                        <div class="col-sm-3" style="text-align: right;">Department</div>
                         <div class="col-sm-9">
                             <select [(ngModel)]="departmentName" name="departmentName"(change)="getClasses(departmentName)" class="form-control">
                                 <option></option>
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Class</div>
+                        <div class="col-sm-3" style="text-align: right;">Class</div>
                         <div class="col-sm-9">
                             <select [(ngModel)]="clasName" name="clasName"(change)="getSubClasses(clasName)" class="form-control">
                                 <option></option>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Sub Class</div>
+                        <div class="col-sm-3" style="text-align: right;">Sub Class</div>
                         <div class="col-sm-9">
                             <select [(ngModel)]="subClassName" name="subClassName" class="form-control">
                                 <option></option>
@@ -115,50 +115,50 @@
 
 
                     <div class="row">
-                        <div class="col-sm-3">Quantity</div>
+                        <div class="col-sm-3" style="text-align: right;">Quantity</div>
                         <div class="col-sm-9"><input type="text" name="quantity" [(ngModel)]="quantity" class="form-control" placeholder="--Quantity--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Maximum Inventory</div>
+                        <div class="col-sm-3" style="text-align: right;">Maximum Inventory</div>
                         <div class="col-sm-9"><input type="text" name="maximumInventory" [(ngModel)]="maximumInventory" class="form-control" placeholder="--Maximum Inventory--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Minimum Inventory</div>
+                        <div class="col-sm-3" style="text-align: right;">Minimum Inventory</div>
                         <div class="col-sm-9"><input type="text" name="minimumInventory" [(ngModel)]="minimumInventory" class="form-control" placeholder="--Minimum Inventory--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Default Re-Order Level</div>
+                        <div class="col-sm-3" style="text-align: right;">Re-Order Level</div>
                         <div class="col-sm-9"><input type="text" name="defaultReOrderLevel" [(ngModel)]="defaultReOrderLevel" class="form-control" placeholder="--Default Re Order Level--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Re Order quantity</div>
+                        <div class="col-sm-3" style="text-align: right;">Re Order quantity</div>
                         <div class="col-sm-9"><input type="text" name="reOrderQuantity" [(ngModel)]="reOrderQuantity" class="form-control" placeholder="--Re Order Quantity--"></div>
                     </div>
 
                 </div>
                 <div class="col-sm-6 ">
                     <div class="row">
-                        <div class="col-sm-3">Cost Price @</div>
+                        <div class="col-sm-3" style="text-align: right;">Cost Price @</div>
                         <div class="col-sm-9"><input type="text" name="unitCostPrice" [(ngModel)]="unitCostPrice" class="form-control" placeholder="--Cost Price @--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Retail Price @</div>
+                        <div class="col-sm-3" style="text-align: right;">Retail Price @</div>
                         <div class="col-sm-9"><input type="text" name="unitRetailPrice" [(ngModel)]="unitRetailPrice" class="form-control" placeholder="--Retail Price @--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Profit Margin(%)</div>
+                        <div class="col-sm-3" style="text-align: right;">Profit Margin(%)</div>
                         <div class="col-sm-9"><input type="text" name="profitMargin" [(ngModel)]="profitMargin" class="form-control" placeholder="--Profit Margin--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Standard UOM</div>
+                        <div class="col-sm-3" style="text-align: right;">Standard UOM</div>
                         <div class="col-sm-9"><input type="text" name="standardUom" [(ngModel)]="standardUom" class="form-control" placeholder="--Standard UOM--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">VAT(%)</div>
+                        <div class="col-sm-3" style="text-align: right;">VAT(%)</div>
                         <div class="col-sm-9"><input type="text" name="vat" [(ngModel)]="vat" class="form-control" placeholder="--VAT(%)--"></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">Discount(%)</div>
+                        <div class="col-sm-3" style="text-align: right;">Discount(%)</div>
                         <div class="col-sm-9"><input type="text" name="discount" [(ngModel)]="discount" class="form-control" placeholder="--Discount(%)--"></div>
                     </div>
                 </div>
