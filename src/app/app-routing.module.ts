@@ -53,6 +53,7 @@ import { DepartmentComponent } from './department/department.component';
 import { ClassComponent } from './class/class.component';
 import { SubClassComponent } from './sub-class/sub-class.component';
 import { EndOfDayComponent } from './end-of-day/end-of-day.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
@@ -106,7 +107,8 @@ const routes: Routes = [
   { path :'sub-class',component : SubClassComponent },
   { path :'sales-invoice',component : SalesInvoiceComponent},
   { path :'sales-receipt',component : SalesReceiptComponent},
-  { path :'end-of-day',component : EndOfDayComponent}
+  { path :'end-of-day',component : EndOfDayComponent},
+  { path :'',component : HomeComponent}
 
 ];
 

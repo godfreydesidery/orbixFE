@@ -74,6 +74,7 @@ import { SubClassComponent } from './sub-class/sub-class.component';
 import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
 import { SalesReceiptComponent } from './sales-receipt/sales-receipt.component';
 import { EndOfDayComponent } from './end-of-day/end-of-day.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import { EndOfDayComponent } from './end-of-day/end-of-day.component';
     SalesInvoiceComponent,
     SalesReceiptComponent,
     EndOfDayComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
