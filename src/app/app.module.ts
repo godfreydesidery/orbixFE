@@ -75,6 +75,8 @@ import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
 import { SalesReceiptComponent } from './sales-receipt/sales-receipt.component';
 import { EndOfDayComponent } from './end-of-day/end-of-day.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuardService } from './quards/auth-guard.service';
+import { SalesReturnComponent } from './sales-return/sales-return.component';
 
 @NgModule({
   declarations: [
@@ -139,6 +141,7 @@ import { HomeComponent } from './home/home.component';
     SalesReceiptComponent,
     EndOfDayComponent,
     HomeComponent,
+    SalesReturnComponent,
   ],
   imports: [
     BrowserModule,
@@ -156,7 +159,8 @@ import { HomeComponent } from './home/home.component';
       //useClass: HttpErrorInterceptor,
       //multi: true
     //}
+    AuthGuardService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

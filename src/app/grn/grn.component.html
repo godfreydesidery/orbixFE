@@ -89,42 +89,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let grnDetail of grnDetails" [ngValue]="grnDetail">
-                            <td>{{grnDetail.itemCode}}</td>
-                            <td>{{grnDetail.description}}</td>
-                            <td>{{grnDetail.qtyOrdered}}</td>
-                            <td><input type="text" style="border-width: 1px; background-color: transparent;width: 50px;" [(ngModel)]="grnDetail.qtyReceived"></td>
-                            <td style="text-align: right;">{{grnDetail.clientCostPrice|currency:'TSh':''}}</td>
-                            <td style="text-align: right;"><input type="text" style="border-width: 1px; background-color: transparent;width: 100px; text-align: right;" [(ngModel)]="grnDetail.supplierCostPrice"></td>
-                            <td><input type="text" style="border-width: 1px; background-color: transparent;width: 100px;" [(ngModel)]="grnDetail.lotNo"></td>
-                            <td><input type="date" style="border-width: 1px; background-color: transparent;width: 130px;" [(ngModel)]="grnDetail.expiryDate"></td>
-                            <td>{{grnDetail.status}}</td>
+                        <tr *ngFor="let grnDetail of grnDetails" [ngValue]="grnDetail" style="font-size: 12px; padding: 0mm;">
+                            <td style="padding: 0mm;">{{grnDetail.itemCode}}</td>
+                            <td style="padding: 0mm;">{{grnDetail.description}}</td>
+                            <td style="padding: 0mm;">{{grnDetail.qtyOrdered}}</td>
+                            <td style="padding: 0mm;"><input type="text" style="font-size: 12px; padding: 0px; border: white; background-color: transparent;" [(ngModel)]="grnDetail.qtyReceived"></td>
+                            <td style="padding: 0mm; text-align: right;">{{grnDetail.clientCostPrice|currency:'TSh':''}}</td>
+                            <td style="padding: 0mm; text-align: right;"><input type="text"  style="font-size: 12px; padding: 0px; margin-right: 5mm; border: white;  background-color: transparent; text-align: right;" [(ngModel)]="grnDetail.supplierCostPrice"></td>
+                            <td style="padding: 0mm;"><input type="text"  style="font-size: 12px; padding: 0px; border: white;  background-color: transparent;" [(ngModel)]="grnDetail.lotNo"></td>
+                            <td style="padding: 0mm;"><input type="date"  style="font-size: 12px; padding: 0px; border: white;  background-color: transparent;" [(ngModel)]="grnDetail.expiryDate"></td>
+                            <td style="padding: 0mm;">{{grnDetail.status}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <!--{{ grnDetails | json }}-->
             </div>
-        </div>
-        <!--<div class="row">
-            <div class="col-sm-12">
-                <button class="btn btn-success" (click)="receiveGoods(grnDetails)"><span class="glyphicon glyphicon-ok"></span> Receive Goods</button>
-            </div>
-        </div>-->
-        
-        
-        
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <span style="font-size: 12px;color: rgb(120, 136, 136);"><b>Summary</b>
-            Grn no:{{grnNo}}
-            Order type:{{orderType}}
-            Order no:{{orderNo}}
-            Invoice no:{{invoiceNo}}
-            Invoice no:{{invoiceNo}}
-            Date  :{{grnDate}}
-            Vendor:(1001) ANDE AND SANILI
-            </span>
         </div>
     </div>
   </div>

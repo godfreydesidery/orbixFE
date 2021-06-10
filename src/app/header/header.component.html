@@ -2,17 +2,14 @@
 
     <div class="navbar-inner" style="padding-top: 0px;padding-bottom: 0px;margin-top: 0px;margin-bottom: 0px;">
         
-        <a class="navbar-brand" > <!--<img alt="`" src="" class="hidden-xs"/>-->
-            <span>ORBIX - BO</span></a>
+        <a class="navbar-brand" style="padding-top: 2mm; padding-bottom: 2mm; margin: 0mm;"> <!--<img alt="`" src="" class="hidden-xs"/>-->
+            <span>ORBIX - ERP</span></a><span style="color: rgba(161, 26, 26, 0.788);">System Date: {{systemDate}}</span>
         <!-- user dropdown starts -->
         <div class=" pull-right">
-            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> user</span>
-                <span class="caret"></span>
+            <i class="glyphicon glyphicon-user"  *ngIf="isLoggedIn===true"></i><span *ngIf="isLoggedIn===true">Godfrey Desidery  </span>
+            <button class="btn btn-danger" *ngIf="isLoggedIn===true" style="border-radius: 8px; padding: 1mm;">
+                <span a href="" (click)="logout()">Log out</span>
             </button>
-            <ul class="dropdown-menu">
-            <li><a href="">Logout</a></li>
-            </ul>
         </div>
         <!-- user dropdown ends -->
   

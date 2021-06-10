@@ -4,15 +4,8 @@
             <tr>
                 <td style="width:70mm"><h5 class="panel-title">Goods Return to Vendor (RTV)</h5></td>
                 <td>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="newRtv()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="editRtv()"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a> |
-
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="approveRtv(rtvNo)"><span class="glyphicon glyphicon-ok"></span> Approve</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="confirmRtv(rtvNo)"><span class="glyphicon glyphicon-ok"></span> Confirm</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="printRtv(rtvNo)"><span class="glyphicon glyphicon-print"></span> Print</a>
-                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="cancelRtv(rtvNo)"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="createRtv()" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="confirmReturn()" ><span class="glyphicon glyphicon-ok"></span> Confirm Return</a>
                 </td>
             </tr>
         </table>
@@ -20,72 +13,67 @@
     <div class="panel-body well" style="padding: 5px;">
         <div class="row">
             <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <table>
-                            <tr style="font-size: 12px;">
-                                <input type="hidden" name="id" [(ngModel)]="id">
-                                <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">RTV No</td>
-                                <td style="width: 30mm;"><input type="text" name="rtvNo" [(ngModel)]="rtvNo" [readonly]="lockedRtv" class="form-control" placeholder="RTV No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
-                                <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="searchRtv(rtvNo)" [disabled]="lockedRtv"><span class="glyphicon glyphicon-search"></span> Search</button></td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr style="font-size: 12px;">
-                                <input type="hidden" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
-                                <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Supplier</td>
-                                <td style="width: 80mm;">
-                                    <select [(ngModel)]="supplierName" name="supplierName" (change)="searchBySupplierName()" [disabled]="lockedSupplier" class="form-control" placeholder="--Supplier Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
-                                        <option></option>
-                                        <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        <table>
-                            <tr style="font-size: 12px;">
-                                <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">RTV Date</td>
-                                <td><input type="date" name="rtvDate" [(ngModel)]="rtvDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
-                            </tr>
-                        </table>
-                    </div>
 
-                    <div class="col-sm-6">
-                        <div class="panel panel-default" style="border-radius: 0px;">
-                            <div class="panel-heading" style="height: 5mm; padding: 0px;" >
-                                <span class="panel-title" style="font-size: 12px;">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#rtv_list"><span class="glyphicon glyphicon-list-alt">
-                                    </span>RTV List</a>
-                                </span>
-                            </div>
-                            <div id="rtv_list" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
-                                        <thead>
-                                            <tr class="info">
-                                                <td style="position: sticky; top: 0;">RTV#</td>
-                                                <td style="position: sticky; top: 0;">Date</td>
-                                                <td style="position: sticky; top: 0;">Supplier</td>
-                                                <td style="position: sticky; top: 0;">Status</td>
-                                                <td style="position: sticky; top: 0;">Select</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let rtv of rtvs" [ngValue]="rtv" style="font-size: 12px;">
-                                                <td>{{rtv.rtvNo}}</td>
-                                                <td>{{rtv.rtvDate}}</td>
-                                                <td>{{rtv.supplier.supplierName}}</td>
-                                                <td>{{rtv.status}}</td>
-                                                <td><a class="badge badge-default" (click)="searchRtv(rtv.rtvNo)">Select</a></td>
-                                            </tr>
-                                        </tbody>
+                <table>
+                    <tbody>
+                    <tr >
+                        <td style="width: 100mm; vertical-align: top;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tr style="font-size: 12px;">
+                                            <input type="hidden" name="id" [(ngModel)]="id">
+                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">RTV No</td>
+                                            <td style="width: 30mm;"><input type="text" name="rtvNo" [(ngModel)]="rtvNo" [readonly]="lockedRtv" class="form-control" placeholder="RTV No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                            <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="searchRtv(rtvNo)" [disabled]="lockedRtv"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tr style="font-size: 12px;">
+                                            <input type="hidden" name="supplierCode" [(ngModel)]="supplierCode"  class="form-control" placeholder="Supplier" readonly="true" style="margin: 2px;border-width: 0px;">
+                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">Vendor</td>
+                                            <td style="width: 80mm;">
+                                                <select [(ngModel)]="supplierName" name="supplierName" (change)="searchBySupplierName()" [disabled]="lockedSupplier" class="form-control" placeholder="--Supplier Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
+                                                    <option></option>
+                                                    <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tr style="font-size: 12px;">
+                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658);">RTV Date</td>
+                                            <td><input type="date" name="rtvDate" [(ngModel)]="rtvDate"  class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <td style="width: 150mm; vertical-align: top;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table>
+                                        <tr style="font-size: 12px;">
+                                            <td>
+                                                <button type="button" data-toggle="modal" data-target="#lpoModal"><span class="glyphicon glyphicon-list"></span> RTV List</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="row">
@@ -104,38 +92,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let rtvDetail of rtvDetails" [ngValue]="rtvDetail">
-                            <td>{{rtvDetail.itemCode}}</td>
-                            <td>{{rtvDetail.itemCode}}</td>
-                            <td>{{rtvDetail.description}}</td>
-                            <td>{{rtvDetail.qty}}</td>
-                            <td style="text-align: right;">{{rtvDetail.price|currency:'TSh':''}}</td>
-                            <td style="text-align: right;">{{rtvDetail.qty*rtvDetail.price|currency:'TSh':''}}</td>
-                            <td>{{rtvDetail.reason}}</td>
-                            <td>
-                                <button type="button" class="btn btn-default btn-small" (click)="searchRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                <button type="button" class="btn btn-danger" (click)="deleteRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-trash"></span> Remove</button>
+                        <tr *ngFor="let rtvDetail of rtvDetails" [ngValue]="rtvDetail" style="margin-top: 2px;margin-bottom: 2px;font-size: 12px;">
+                            <td style="padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.barcode}}</td>
+                            <td style="padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.itemCode}}</td>
+                            <td style="padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.description}}</td>
+                            <td style="padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.qty}}</td>
+                            <td style="text-align: right; padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.costPrice|currency:'TSh':''}}</td>
+                            <td style="text-align: right;padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.qty*rtvDetail.costPrice|currency:'TSh':''}}</td>
+                            <td style="padding: 0mm; padding-left: 2mm; padding-right: 2mm;">{{rtvDetail.reason}}</td>
+                            <td style="padding: 0mm; padding-left: 2mm; padding-right: 2mm;">
+                                <a (click)="searchRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                <a (click)="deleteRtvDetail(rtvDetail.id)" style="border-radius: 10px;margin: 1px;padding: 2px;"><span class="glyphicon glyphicon-trash"></span> Remove</a>
                             </td>
                         </tr>
-
-                        <tr>
-                            <input type="hidden" name="rtvDetailId" [(ngModel)]="rtvDetailId">
-                            <td><input style="max-width: 25mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" (keydown.enter)="searchItemByBarcode(barcode)" [(ngModel)]="barcode" [readonly]="lockedItem"></td>
-                            <td><input style="max-width: 25mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" (keydown.enter)="searchItemByItemCode(itemCode)" [(ngModel)]="itemCode" [readonly]="lockedItem"></td>
-                            <td><input type="text" #des [(ngModel)]="description" list="description" (keydown.enter)="searchItemByDescription(description)" style="width: 120mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
-                            <td><input style="max-width: 20mm; font-size: 11px; padding: 2px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" name="qty" [(ngModel)]="qty"></td>
-                            <td style="text-align: right;">{{price|currency:'TSh':''}}</td>
-                            <td style="text-align: right;">{{qty*price|currency:'TSh':''}}</td>
-                            <td><input type="text" name="reason" [(ngModel)]="reason" class="form-control" placeholder="Reason for return" style="margin: 2px; font-size: 12px;"></td>
-                            <td>
-                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveRtvDetail()">Add</a>
-                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearItem()">Clear</a>
+                        <tr style="font-size: 12px;">
+                            <input type="hidden" name="detailId" [(ngModel)]="detailId">
+                            <td style="width: 25mm; padding: 0mm;"><input style="width: 25mm; font-size: 12px; padding: 0px; border: white;" type="text" name="barcode" (keydown.enter)="searchItemByBarcode(barcode)" [(ngModel)]="barcode" [readonly]="lockedItem"></td>
+                            <td style="width: 25mm; padding: 0mm;"><input style="width: 25mm; font-size: 12px; padding: 0px; border: white;" type="text" name="barcode" type="text" name="itemCode" (keydown.enter)="searchItemByItemCode(itemCode)" [(ngModel)]="itemCode" [readonly]="lockedItem"></td>
+                            <td style="width: 120mm; padding: 0mm;"><input type="text" #des [(ngModel)]="description" list="description" (keydown.enter)="searchItemByDescription(description)" style="width: 120mm; font-size: 12px; padding: 0px;  border: white;"></td>
+                            <td style="width: 20mm; padding: 0mm;"><input style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border: white; text-align: center;" type="number" name="qty" [(ngModel)]="qty"></td>
+                            <td style="text-align: right;">{{costPrice|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{qty*costPrice|currency:'TSh':''}}</td>
+                            <td style="width: 35mm; padding: 0mm;"><input type="text" style="width: 50mm; font-size: 12px; padding: 0px; border: white;" name="reason" [(ngModel)]="reason" class="form-control" placeholder="Reason for return"></td>
+                            <td style="padding: 0mm;">
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()"><span class="glyphicon glyphicon-cross"></span>Add</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearDetail()"><span class="glyphicon glyphicon-cancel"></span>Clear</a>
                             </td>
                         </tr>
-                        
-                        
                     </tbody>
                 </table>
+
                 <datalist id="description" style="padding: 0px;">
                     <option *ngFor="let d of descriptions" [ngValue]="d">{{d}}</option>
                 </datalist>
@@ -143,16 +129,44 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <span style="font-size: 12px;">
-                <b>Summary</b>
-                Supplier: ({{supplierCode}}) {{supplierName}}
-                Created by: 
-                Approved by: 
-                RTV Date: 
-                Status: 
-            </span>
+   
+  </div>
+  <!-- Modal -->
+<div id="lpoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title"><b>RTV List</b></h5>
         </div>
+        <div class="modal-body">
+            <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                <thead>
+                    <tr class="info">
+                        <td style="position: sticky; top: 0;">RTV#</td>
+                        <td style="position: sticky; top: 0;">Date</td>
+                        <td style="position: sticky; top: 0;">Supplier</td>
+                        <td style="position: sticky; top: 0;">Status</td>
+                        <td style="position: sticky; top: 0;">Select</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let rtv of rtvs" [ngValue]="rtv" style="font-size: 12px;">
+                        <td>{{rtv.rtvNo}}</td>
+                        <td>{{rtv.rtvDate}}</td>
+                        <td>{{rtv.supplier.supplierName}}</td>
+                        <td>{{rtv.status}}</td>
+                        <td><a class="badge badge-default" (click)="searchRtv(rtv.rtvNo)">Select</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
     </div>
   </div>

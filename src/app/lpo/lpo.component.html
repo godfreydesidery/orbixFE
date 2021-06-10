@@ -136,14 +136,13 @@
                                 <a style="cursor: pointer;" (click)="deleteLpoDetail(lpoDetail.id)"><span class="glyphicon glyphicon-trash"></span> Remove</a>
                             </td>
                         </tr>
-                        <br>
 
                         <tr style="font-size: 11px;">
                             <input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">
-                            <td style="width: 25mm;"><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" (keydown.enter)="searchItemByBarcode(barcode)" [(ngModel)]="barcode" [readonly]="lockedItem"></td>
-                            <td style="width: 20mm;"><input style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" (keydown.enter)="searchItemByItemCode(itemCode)" [(ngModel)]="itemCode" [readonly]="lockedItem"></td>
-                            <td style="width: 100mm;"><input type="text" #des [(ngModel)]="description" list="description" (keydown.enter)="searchItemByDescription(description)" style="width: 100mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
-                            <td style="text-align: center; width: 10mm;"><input style="max-width: 12mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" name="qtyOrdered" [(ngModel)]="qtyOrdered"></td>
+                            <td style="width: 25mm; padding: 0mm;"><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border: white;" type="text" name="barcode" (keydown.enter)="searchItemByBarcode(barcode)" [(ngModel)]="barcode" [readonly]="lockedItem"></td>
+                            <td style="width: 20mm; padding: 0mm;"><input style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border: white;" type="text" name="itemCode" (keydown.enter)="searchItemByItemCode(itemCode)" [(ngModel)]="itemCode" [readonly]="lockedItem"></td>
+                            <td style="width: 100mm; padding: 0mm;"><input type="text" #des [(ngModel)]="description" list="description" (keydown.enter)="searchItemByDescription(description)" style="width: 100mm; font-size: 11px; padding: 0px; border-width: 2px; border: white;"></td>
+                            <td style="text-align: center; width: 10mm; padding: 0mm;"><input style="max-width: 12mm; font-size: 11px; padding: 0px; border-width: 2px; border: white;" type="number" name="qtyOrdered" [(ngModel)]="qtyOrdered"></td>
                             <td style=" text-align: right;">{{qtyOrdered}} * @{{clientCostPrice|currency:'TSh':''}} ~ {{qtyOrdered*clientCostPrice|currency:'TSh':''}}</td>
                             <td style=" text-align: right;">{{qtyOrdered}} * @{{sellingPrice|currency:'TSh':''}} ~ {{qtyOrdered*sellingPrice|currency:'TSh':''}}</td>
                             <td style=" text-align: right;">{{(sellingPrice-clientCostPrice)*qtyOrdered|currency:'TSh':''}}</td>
@@ -162,23 +161,7 @@
                 <!--{{ cartDetails | json }}-->
             </div>
         </div>
-        
-    
     </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <span style="font-size: 12px;">
-                    <b>Summary</b>
-                    Supplier: ({{supplierCode}}) {{supplierName}}
-                    Created by: {{createdBy}}
-                    Approved by: {{approvedBy}}
-                    Order Date: {{lpoDate}}
-                    Validity Period: {{validityPeriod}} days
-                    Valid Until: {{validUntil}} 
-                    Status: <b>{{status}}</b>
-                </span>
-            </div>
-        </div>
   </div>
 
   <!-- Modal -->

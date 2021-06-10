@@ -58,7 +58,7 @@ export class SalesInvoiceComponent implements OnInit {
   creditLimit          : number
   invoiceLimit         : number
   creditDays           : number
-  amountDue            : number
+  outstandingBalance   : number
   discountRate         : number
   discountStartDate    : Date
   discountEndDate      : Date
@@ -91,7 +91,7 @@ export class SalesInvoiceComponent implements OnInit {
     this.vatNo                = '';
     this.creditLimit          = null;
     this.creditDays           = null;
-    this.amountDue            = null;
+    this.outstandingBalance            = null;
     this.invoiceLimit         = null
     this.discountRate         = null
     this.discountStartDate    = null
@@ -157,7 +157,7 @@ export class SalesInvoiceComponent implements OnInit {
 
   async loadInvoices(custId : string){
     this.invoices = []
-    await this.httpClient.get(Data.baseUrl+"/due_customer_invoices/customer_id="+this.custId)
+    await this.httpClient.get(Data.baseUrl+"/due_sales_invoices/customer_id="+this.custId)
     .toPromise()
     .then(
       data => {
@@ -223,6 +223,7 @@ export class SalesInvoiceComponent implements OnInit {
 
     this.searchCustomerById(this.custId)
   }
+  
 
   public addInvoice(){
 
@@ -260,7 +261,7 @@ export class SalesInvoiceComponent implements OnInit {
       alert('Could not add item, invoice limit exceeded')
       return
     }
-    if((this.totalAmount + (this.price * this.qty)) > (this.creditLimit - this.amountDue)){
+    if((this.totalAmount + (this.price * this.qty)) > (this.creditLimit - this.outstandingBalance)){
       alert('Could not add item, maximum allowable limit exceeded')
       return
     }
@@ -320,6 +321,14 @@ export class SalesInvoiceComponent implements OnInit {
     this.id          = null;
     this.invoiceNo   = '';
     this.invoiceDate = null;
+    this.invoiceAmount      = null
+    this.invoiceAmountPayed = null
+    this.invoiceAmountDue   = null
+    this.invoiceDetails     = null
+    this.terms              = ''
+    this.orderNo            = ''
+    this.dateShipped        = null
+    this.shippedVia         = ''
   }
   clearCustomer(){
     this.custId               = '';
@@ -331,7 +340,7 @@ export class SalesInvoiceComponent implements OnInit {
     this.vatNo                = '';
     this.creditLimit          = null;
     this.creditDays           = null;
-    this.amountDue            = null;
+    this.outstandingBalance            = null;
     this.invoiceLimit         = null
     this.discountRate         = null
     this.discountStartDate    = null
@@ -361,7 +370,7 @@ export class SalesInvoiceComponent implements OnInit {
     this.invoice.dateShipped    = this.dateShipped
     this.invoice.shippedVia     = this.shippedVia
 
-    await this.httpClient.post(Data.baseUrl + "/customer_invoices" , this.invoice)
+    await this.httpClient.post(Data.baseUrl + "/sales_invoices" , this.invoice)
 			.toPromise()
 			.then(
 				data => {
@@ -432,7 +441,7 @@ export class SalesInvoiceComponent implements OnInit {
     this.vatNo                = customer['vatNo']
     this.creditLimit          = customer['creditLimit']
     this.creditDays           = customer['creditDays']
-    this.amountDue            = customer['amountDue']
+    this.outstandingBalance   = customer['outstandingBalance']
     this.invoiceLimit         = customer['invoiceLimit']
     this.discountRate         = customer['discountRate']
     this.discountStartDate    = customer['discountStartDate']

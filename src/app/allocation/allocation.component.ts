@@ -12,6 +12,8 @@ export class AllocationComponent implements OnInit {
 
   public customersNames: string [] = []
   public customers = {}
+  public invoices = {}
+  public receipts = {}
 
   _new : boolean = true
 
@@ -141,6 +143,7 @@ export class AllocationComponent implements OnInit {
       data => {
         this.searchCustomerByNo()
         this.searchInvoiceByInvoiceNoAndCustomerNo()
+        
         this.lockInvoice()
 
         alert('Allocation '+data['allocationNo']+ ' successifully allocated.')
@@ -159,6 +162,43 @@ export class AllocationComponent implements OnInit {
     )
   }
 
+  async getPendingInvoices(customerId){
+    await this.httpClient.get(Data.baseUrl+"/sales_invoices/customer_id="+customerId)
+    .toPromise()
+    .then(
+      data => {
+        this.invoices = data
+        console.log(this.invoices)
+      }
+      
+    )
+    .catch(
+      error => {
+
+      }
+    )
+  }
+  async getValidReceiptsByCustomer(customerId){
+    await this.httpClient.get(Data.baseUrl+"/sales_receipts/customer_id="+customerId)
+    .toPromise()
+    .then(
+      data => {
+        this.receipts = data
+        console.log(this.invoices)
+      }
+      
+    )
+    .catch(
+      error => {
+
+      }
+    )
+  }
+
+  showAllocationModal(invoiceNo : string){
+    this.searchInvoiceByInvoiceNo(invoiceNo)
+  }
+
   getAllocationData(){
     return {
       allocationNo : this.allocationNo,
@@ -169,7 +209,7 @@ export class AllocationComponent implements OnInit {
         customerNo : this.customerNo,
         customerName : this.customerName
       },
-      customerInvoice : {
+      salesInvoice : {
         invId : this.invId,
         invoiceNo : this.invoiceNo,
         invoiceDate : this.invoiceDate,
@@ -220,7 +260,29 @@ export class AllocationComponent implements OnInit {
 
   async searchInvoiceByInvoiceNoAndCustomerNo(){
     var invoice = null
-    await this.httpClient.get(Data.baseUrl+"/customer_invoices/invoice_no="+this.invoiceNo+"/customer_no="+this.customerNo)
+    await this.httpClient.get(Data.baseUrl+"/sales_invoices/invoice_no="+this.invoiceNo+"/customer_no="+this.customerNo)
+    .toPromise()
+    .then(
+      data => {
+        invoice = data
+        this.showInvoice(invoice)
+        this.lockInvoice()
+        this._new = false
+      }
+    )
+    .catch(
+      error => {
+        alert(error['error'])
+        console.log(error)
+      }
+    )
+    
+
+
+  }
+  async searchInvoiceByInvoiceNo(invoiceNo : any){
+    var invoice = null
+    await this.httpClient.get(Data.baseUrl+"/sales_invoices/invoice_no="+invoiceNo)
     .toPromise()
     .then(
       data => {
@@ -304,6 +366,10 @@ export class AllocationComponent implements OnInit {
       var customer =await (new CorporateCustomerService(this.httpClient)).getCustomer(customerId)
       this.showCustomer(customer)
       this.lockCustomer()
+      this.invoices = {}
+      this.receipts = {}
+      this.getPendingInvoices(customerId)
+      this.getValidReceiptsByCustomer(customerId)
       if(this._new == true){
         this.unlockInvoice()
       }

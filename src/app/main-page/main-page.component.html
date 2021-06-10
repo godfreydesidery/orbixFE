@@ -2,33 +2,42 @@
     <div class="row">
         <div class="col-sm-12">
             <table>
-                <tr>
-                    <td style="width: 390mm;">
-                        <app-header></app-header>
-                    </td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: top; align-items: center;">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="min-width: 390mm; width: 390mm;">
+                                            <app-header></app-header>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td style="min-width: 50mm; width: 50mm; vertical-align: top;">
+                                        <app-sidebar></app-sidebar>
+                                    </td>
+                                    <td style="min-width: 340mm; width: 340mm; vertical-align: top;">
+                                        <router-outlet></router-outlet>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="min-width: 390mm; width: 390mm;">
+                                            <app-footer></app-footer>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
             
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <table>
-                <tr>
-                    <td style="min-width: 55mm; vertical-align: top;">
-                        <app-sidebar></app-sidebar>
-                    </td>
-                    <td style="min-width: 330mm; vertical-align: top;">
-                        <router-outlet></router-outlet>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-12">
-            <app-footer></app-footer>
         </div>
     </div>
 </div>

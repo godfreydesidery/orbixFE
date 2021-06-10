@@ -5,11 +5,11 @@ import { ItemService } from '../item.service';
 import { SalesInvoiceService } from '../sales-invoice.service';
 
 @Component({
-  selector: 'app-return-by-customer',
-  templateUrl: './return-by-customer.component.html',
-  styleUrls: ['./return-by-customer.component.css']
+  selector: 'app-sales-return',
+  templateUrl: './sales-return.component.html',
+  styleUrls: ['./sales-return.component.css']
 })
-export class ReturnByCustomerComponent implements OnInit {
+export class SalesReturnComponent implements OnInit {
 
   id : any
 
@@ -342,7 +342,7 @@ export class ReturnByCustomerComponent implements OnInit {
     this.salesInvoice.invoiceNo = this.invoiceNo
     this.salesReturn.id                 = this.id
     this.salesReturn.returnDate = null
-    this.salesReturn.salesReturnDetail = this.salesReturnDetails
+    this.salesReturn.salesReturnDetails = this.salesReturnDetails
     this.salesReturn.salesInvoice = this.salesInvoice
     
     await this.httpClient.post(Data.baseUrl + "/sales_returns" , this.salesReturn)
@@ -409,7 +409,7 @@ export class SalesReturn{
   salesInvoice : SalesInvoice
   salesReturnNo : string
   returnDate : any
-  salesReturnDetail : SalesReturnDetail[]
+  salesReturnDetails : SalesReturnDetail[]
 }
 export class SalesReturnDetail{
   detailId    : any
@@ -419,3 +419,4 @@ export class SalesReturnDetail{
   qtyReturned : number
   reason      : string
 }
+

@@ -1,9 +1,218 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Quotations</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Quotations</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="newQuotation()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="editQuotation()"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="viewQuotation()"><span class="glyphicon glyphicon-zoom-out"></span> View</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="deleteQuotation()"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="saveQuotation()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" ><span class="glyphicon glyphicon-print"></span> Print</a>
+                </td>
+            </tr>
+        </table>
+      
     </div>
-    <div class="panel-body">
-        
+    <div class="panel-body well" style="padding: 5px;">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width: 80mm; vertical-align: top;">
+
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Quotation No</td>
+                                        <td style="width: 30mm;"><input type="text" [(ngModel)]="quotationNo" [disabled]="quotationNoLocked" class="form-control" placeholder="Quotation No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                        <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="searchQuotation(quotationNo)"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 20mm; color: rgba(45, 42, 48, 0.658); text-align: right;">Issue date</td>
+                                        <td><input type="date" [(ngModel)]="issueDate" [disabled]="issueDateLocked" class="form-control" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 20mm; color: rgba(45, 42, 48, 0.658); text-align: right;">Expiry date</td>
+                                        <td><input type="date" [(ngModel)]="expiryDate" [disabled]="expiryDateLocked" class="form-control" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 150mm; vertical-align: top;">
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Customer Name</td>
+                                        <td style="width: 60mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><input type="text" [(ngModel)]="customerName" [disabled]="customerLocked" class="form-control" placeholder="" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Customer Address</td>
+                                        <td style="width: 60mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><input type="text" [(ngModel)]="customerAddress" [disabled]="customerLocked" class="form-control" placeholder="" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Telephone</td>
+                                        <td style="width: 60mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><input type="tel" [(ngModel)]="customerTelephone" [disabled]="customerLocked" class="form-control" placeholder="" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Email</td>
+                                        <td style="width: 60mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><input type="email" [(ngModel)]="customerEmail" [disabled]="customerLocked" class="form-control" placeholder="" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Fax</td>
+                                        <td style="width: 60mm;color: rgba(45, 42, 48, 0.658); text-align: right;"><input type="tel" [(ngModel)]="customerFax" [disabled]="customerLocked" class="form-control" placeholder="" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 50mm; vertical-align: top;">
+                                <table>
+                                    <tr style="font-size: 12px;">
+                                        <td style="width: 50mm; padding-left: 3mm;"><button type="button" data-toggle="modal" data-target="#quotationModal"><span class="glyphicon glyphicon-list"></span> Quotations List</button></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-12">
+                <table datatable="" id="data-table" style="font-size: 13px;" class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                    <thead>
+                        <tr class="info">
+                            <td style="width: 30mm;">Barcode</td>
+                            <td style="width: 30mm;">Code</td>
+                            <td style="width: 100mm;">Descr</td>
+                            <td style="width: 20mm;">Qty</td>
+                            <td>Price@</td>
+                            <td>Amount</td>
+                            <td>Tax</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr *ngFor="let quotationDetail of quotationDetails" [ngValue]="quotationDetail" style="margin-top: 2px;margin-bottom: 2px;font-size: 11px;">
+                            <td>{{quotationDetail.barcode}}</td>
+                            <td>{{quotationDetail.itemCode}}</td>
+                            <td>{{quotationDetail.description}}</td>
+                            <td>{{quotationDetail.qty}}</td>
+                            <td style="text-align: right;">{{quotationDetail.price|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{quotationDetail.qty*quotationDetail.price|currency:'TSh':''}}</td>
+                            <td style="text-align: right;"></td>
+                            <td>
+                                <a style="cursor: pointer;" (click)="searchQuotationDetail(quotationDetail.id)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                <a style="cursor: pointer;" (click)="deleteQuotationDetail(quotationDetail.id)"><span class="glyphicon glyphicon-trash"></span> Remove</a>
+                            </td>
+                        </tr>
+                        
+                        <tr style="margin-top: 2px;margin-bottom: 2px; font-size: 12px;">
+                            <!--<input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">-->
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="barcode" [disabled]="detailLocked" style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;" (keydown.enter)="searchItemByBarcode(barcode)" type="text" name="barcode" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="itemCode" [disabled]="detailLocked" style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;" (keydown.enter)="searchItemByItemCode(itemCode)" type="text" name="itemCode" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="description" [disabled]="detailLocked" #des list="description" (keydown.enter)="searchItemByDescription(description)" type="text"  style="width: 120mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;"></td>
+                            <td style="padding: 0mm; text-align: center;"><input class="form-control" [(ngModel)]="qty" [disabled]="detailLocked"  style="max-width: 20mm; text-align: center; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="number" ></td>
+                            <td style=" text-align: right;">{{price|currency:'TSh':''}}</td>
+                            <td style=" text-align: right;">{{price*qty|currency:'TSh':''}}</td>
+                            <td style="padding: 0mm; text-align: center;"></td>
+                            <td>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()">Add</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clear()">Clear</a>
+                            </td>
+                        </tr>
+
+                        <!--<tr style="margin-top: 2px;margin-bottom: 2px; font-size: 12px;">
+                            <input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="barcode" [disabled]="lockedBarcode" (keydown.enter)="searchItemByBarcode(barcode)" style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="text" name="barcode" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="itemCode" [disabled]="lockedItemCode" (keydown.enter)="searchItemByItemCode(itemCode)" style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="text" name="itemCode" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="description" [disabled]="lockedDescription" #des list="description" type="text" (keydown.enter)="searchItemByDescription(description)"  style="width: 120mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;"></td>
+                            <td style="padding: 0mm; text-align: center;"><input class="form-control" [(ngModel)]="qty" style="max-width: 20mm; text-align: center; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="number" ></td>
+                            <td style=" text-align: right;"><button style="margin-right: 10mm;"><span class="glyphicon glyphicon-pencil"></span></button>  <b>{{price|currency:'TSh':''}}</b></td>
+                            <td style=" text-align: right;">{{qty*price|currency:'TSh':''}}</td>
+                            <td style="padding: 0mm; text-align: center;"><input class="form-control" [(ngModel)]="returnPeriod" style="max-width: 20mm; text-align: center; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="text" ></td>
+                            <td>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()">Add</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearDetail()">Clear</a>
+                            </td>
+                        </tr>-->
+
+                        
+                        <hr>
+
+                        <!--<tr style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">
+                            <input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">
+                            <td><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" (keydown.enter)="searchItemByBarcode(barcode)" [(ngModel)]="barcode" [readonly]="lockedItem"></td>
+                            <td><input style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" (keydown.enter)="searchItemByItemCode(itemCode)" [(ngModel)]="itemCode" [readonly]="lockedItem"></td>
+                            <td><input type="text" #des [(ngModel)]="description" list="description" (keydown.enter)="searchItemByDescription(description)" style="width: 120mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
+                            <td style="text-align: center;"><input style="max-width: 20mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" name="qtyOrdered" [(ngModel)]="qtyOrdered"></td>
+                            <td style=" text-align: right;">{{qtyOrdered}} * @{{clientCostPrice|currency:'TSh':''}} ~ {{qtyOrdered*clientCostPrice|currency:'TSh':''}}</td>
+                            <td style=" text-align: right;">{{qtyOrdered}} * @{{sellingPrice|currency:'TSh':''}} ~ {{qtyOrdered*sellingPrice|currency:'TSh':''}}</td>
+                            <td style=" text-align: right;">{{(sellingPrice-clientCostPrice)*qtyOrdered|currency:'TSh':''}}</td>
+                            <td>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="saveLpoDetail()">Add</a>
+                                <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearItem()">Clear</a>
+                            </td>
+                        </tr>-->
+                        
+                        
+                    </tbody>
+                </table>
+                <datalist id="description" style="padding: 0px;">
+                    <option *ngFor="let d of descriptions" [ngValue]="d">{{d}}</option>
+                </datalist>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="quotationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title"><b>Quotation List</b></h5>
+        </div>
+        <div class="modal-body">
+                <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                    <thead>
+                        <tr class="info">
+                            <td style="position: sticky; top: 0;">Quotation No</td>
+                            <td style="position: sticky; top: 0;">Customer</td>
+                            <td style="position: sticky; top: 0;">Issue date</td>
+                            <td style="position: sticky; top: 0;">Expiry date</td>
+                            <td style="position: sticky; top: 0;">Select</td>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let quotation of quotations" [ngValue]="quotation" style="font-size: 12px;">
+                            <td>{{quotation.quotationNo}}</td>
+                            <td>{{quotation.customerName}}</td>
+                            <td>{{quotation.issueDate}}</td>
+                            <td>{{quotation.expiryDate}}</td>
+                            <td><a class="badge badge-default" (click)="searchLpo(lpo.lpoNo)">Select</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>

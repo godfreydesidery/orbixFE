@@ -57,7 +57,7 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width: 150mm; vertical-align: top;">
+                            <!--<td style="width: 150mm; vertical-align: top;">
                                 <table>
                                     <tr style="font-size: 12px;">
                                         <input type="hidden" >
@@ -96,7 +96,7 @@
                                 <table>
                                     <tr style="font-size: 12px;">
                                         <input type="hidden" >
-                                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Due</td>
+                                        <td style="width: 25mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Inv Due</td>
                                         <td style="width: 35mm; text-align: right;">{{invoiceAmountDue|currency:'TSh':''}}</td>
                                         <td style="padding-left: 5px;"></td>
                                     </tr>
@@ -111,48 +111,107 @@
                                         <td style="padding-left: 5px;"><button (click)="allocate()"  [disabled]="lockedValue" style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-ok"></span> Allocate</button></td>
                                     </tr>
                                 </table>
-                            </td>
+                            </td>-->
                             <td style="width: 50mm; vertical-align: top;">
                             </td>
                         </tr>
                     </tbody>
                 </table>
+
+                <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                    <thead>
+                        <tr class="info">
+                            <td style="position: sticky; top: 0;">Invoice#</td>
+                            <td style="position: sticky; top: 0;">Invoice Date</td>
+                            <td style="position: sticky; top: 0;">Amount</td>
+                            <td style="position: sticky; top: 0;">Amount Paid</td>
+                            <td style="position: sticky; top: 0;">Balance</td>
+                            <td style="position: sticky; top: 0;">Status</td>
+                            <td style="position: sticky; top: 0;">Select</td>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr *ngFor="let invoice of invoices" [ngValue]="invoice" style="font-size: 12px;">
+                            <td>{{invoice.invoiceNo}}</td>
+                            <td>{{invoice.invoiceDate}}</td>
+                            <td style="text-align: right;">{{invoice.invoiceAmount|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{invoice.invoiceAmountPayed|currency:'TSh':''}}</td>
+                            <td style="text-align: right;">{{invoice.invoiceAmountDue|currency:'TSh':''}}</td>
+                            <td>{{invoice.invoiceStatus}}</td>
+                            <td><button data-toggle="modal" data-target="#allocationModal" (click)="showAllocationModal(invoice.invoiceNo)">Select to allocate</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-           
-        
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <span style="font-size: 12px;">
-                <b>Summary</b>
-                
-            </span>
         </div>
     </div>
 </div>
 
  <!-- Modal -->
- <div id="invoiceModal" class="modal fade" role="dialog">
+ <div id="allocationModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
   
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h5 class="modal-title"><b>Invoice List</b></h5>
-        </div>
-        <div class="modal-body">
-            <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="modal-title"><b>Allocate Invoice </b></h5>
+          </div>
+          <div class="modal-body">
+              <table>
+                  <tbody>
+                      <tr>
+                          <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Customer: </td>
+                          <td style="color: rgba(5, 4, 7, 0.658); text-align: left; padding-right: 2mm; padding-left: 2mm;"><b>{{customerNo}} {{customerName}}</b></td>
+                      </tr>
+                     
+                  </tbody>
+              </table>
+              <br>
+              <table>
+                  <tbody style="font-size: 12px;">
+                      <tr>
+                          <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice No: </td>
+                          <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: left; padding-right: 2mm; padding-left: 2mm;">{{invoiceNo}}</td>
+                      </tr>
+                      
+                      
+                  </tbody>
+              </table>
+              <table>
+                <tbody style="font-size: 12px;">
+                   
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice Total: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: right; padding-right: 2mm; padding-left: 2mm;">{{invoiceAmount|currency:'TSh':''}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Amount Paid: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: right; padding-right: 2mm; padding-left: 2mm;">{{invoiceAmountPayed|currency:'TSh':''}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Outstanding Balance: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: right; padding-right: 2mm; padding-left: 2mm;">{{invoiceAmountDue|currency:'TSh':''}}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+              <hr>
+              <table id="data-table" style="font-size: 13px;display: block; height: 150px; width: 100%; overflow-y: auto;overflow-x: auto;"  class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
                 <thead>
                     <tr class="info">
-                        <td style="position: sticky; top: 0;">Invoice#</td>
-                        <td style="position: sticky; top: 0;">Invoice Date</td>
-                        <td style="position: sticky; top: 0;">Amount</td>
-                        <td style="position: sticky; top: 0;">Status</td>
-                        <td style="position: sticky; top: 0;">Select</td>
+                        <td style="position: sticky; top: 0;">Receipt No</td>
+                        <td style="position: sticky; top: 0;">Balance</td>
+                        <td style="position: sticky; top: 0;">Action</td>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr *ngFor="let receipt of receipts" [ngValue]="receipt" style="font-size: 12px;">
+                        <td>{{receipt.receiptNo}}</td>
+                        <td>{{receipt.receiptAmount|currency:'TSh':''}}</td>
+                        <td><button>Allocate</button></td>
+                    </tr>
+                </tbody>
                 <tbody >
                     <!--<tr *ngFor="let lpo of lpos" [ngValue]="lpo" style="font-size: 12px;">
                         <td>{{lpo.lpoNo}}</td>
@@ -162,13 +221,14 @@
                     </tr>-->
                 </tbody>
             </table>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+    
       </div>
-  
-    </div>
   </div>
 
   

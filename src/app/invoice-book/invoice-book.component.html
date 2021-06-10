@@ -1,9 +1,217 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h3 class="panel-title">Invoice Book</h3>      
+        <table>
+            <tr>
+                <td style="width:70mm"><h5 class="panel-title">Vendor Invoice Book</h5></td>
+                <td>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="newInvoice()"><span class="glyphicon glyphicon-folder-open"></span> New</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                    <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
+                </td>
+            </tr>
+        </table>     
     </div>
-    <div class="panel-body">
-        
+    <div class="panel-body well" style="padding: 5px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Vendor</td>
+                            <td style="width: 80mm;">
+                                <select [(ngModel)]="supplierName" name="supplierName" (change)="searchBySupplierName()" class="form-control" placeholder="--Supplier Name--" style="margin: 2px;font-size: 11px; height: 5mm; padding: 0px;">
+                                    <option></option>
+                                    <option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>
+                                </select>
+                                    <!--<option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice No</td>
+                            <td style="width: 30mm;"><input type="text" class="form-control" placeholder="Invoice No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                            <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;"><span class="glyphicon glyphicon-search"></span> Search</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice Date</td>
+                            <td><input type="date" name="lpoDate" class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Booking Date</td>
+                            <td><input type="date" name="lpoDate" class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice Total</td>
+                            <td style="width: 30mm;"><input type="text" class="form-control" placeholder="Invoice Total" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: center;">{{10000|currency:'TSh':''}}</td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Amount Paid</td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">{{10000|currency:'TSh':''}}</td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Balance</td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">{{10000|currency:'TSh':''}}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Status</td>
+                            <td style="width: 30mm; color: rgba(5, 4, 7, 0.658); text-align: right;">PARTIAL</td>
+                            <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px; border-radius: 2px;" data-toggle="modal" data-target="#invoiceModal" class="btn btn-danger"><span class="glyphicon glyphicon-dollar"></span> Pay Invoice</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr>
+                <table>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">From</td>
+                            <td><input type="date" name="lpoDate" class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">To</td>
+                            <td><input type="date" name="lpoDate" class="form-control" placeholder="Date" style="margin: 2px;padding-top: 0px;font-size: 11px; height: 5mm;"></td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Vendor</td>
+                            <td style="width: 60mm;">
+                                <select  name="supplierName" class="form-control" placeholder="--Supplier Name--" style="margin: 2px;font-size: 11px; height: 5mm;">
+                                    <option></option>
+                                    <!--<option *ngFor="let supplierName of supplierNames" [ngValue]="supplierName">{{supplierName}}</option>-->
+                                </select>
+                            </td>
+                            <td style="width: 20mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Status</td>
+                            <td style="width: 20mm;">
+                                <select  class="form-control" placeholder="--Supplier Name--" style="margin: 2px;font-size: 11px; padding: 0px; height: 5mm;">
+                                    <option></option>
+                                    <option>ALL</option>
+                                    <option>PENDING</option>
+                                    <option>PARTIAL</option>
+                                    <option>PAID</option>
+                                </select>
+                            </td>
+                            <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" class="btn btn-success"><span class="glyphicon glyphicon-arrow-right"></span> List Invoices</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table datatable="" id="data-table" style="font-size: 13px;" class="table table-bordered table-striped table-condensed data-table table-hover table-responsive">
+                    <thead>
+                        <tr class="info">
+                            <td >Invoice No</td>
+                            <td>Vendor</td>
+                            <td>Invoice Date</td>
+                            <td>Booking Date</td>
+                            <td>Invoice Total</td>
+                            <td>Paid</td>
+                            <td>Balance</td>
+                            <td>Status</td>
+                            <td>Select</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        
+
+                        <tr style="margin-top: 2px;margin-bottom: 2px;font-size: 11px;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        
+                        
+                    </tbody>
+                </table>
+                
+                <!--{{ cartDetails | json }}-->
+            </div>
+        </div>
     </div>
 </div>
+<!-- Modal -->
+<div id="invoiceModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h5 class="modal-title"><b>Pay Invoice </b></h5>
+        </div>
+        <div class="modal-body">
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Vendor: </td>
+                        <td style="color: rgba(5, 4, 7, 0.658); text-align: left; padding-right: 2mm; padding-left: 2mm;"><b>{{supplierCode}} {{supplierName}}</b></td>
+                    </tr>
+                   
+                </tbody>
+            </table>
+            <br>
+            <table>
+                <tbody style="font-size: 12px;">
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice No: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: left; padding-right: 2mm; padding-left: 2mm;">XXXXXXXXX</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Invoice Total: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: right; padding-right: 2mm; padding-left: 2mm;">{{10000|currency:'TSh':''}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Amount Paid: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: right; padding-right: 2mm; padding-left: 2mm;">{{10000|currency:'TSh':''}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Outstanding Balance: </td>
+                        <td style="width: 30mm;color: rgba(5, 4, 7, 0.658); text-align: right; padding-right: 2mm; padding-left: 2mm;">{{10000|currency:'TSh':''}}</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <hr>
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width: 40mm;color: rgba(5, 4, 7, 0.658); text-align: right;">Enter Amount</td>
+                        <td style="width: 30mm; padding-left: 2mm; padding-right: 2mm;"><input type="text" class="form-control" style="text-align: right;"></td>
+                        <td style="padding-left: 2mm; padding-right: 2mm;">{{10000|currency:'TSh':''}}</td>
+                        <td><button class="btn btn-default" (click)="test()">Pay</button></td>
+                    </tr>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>

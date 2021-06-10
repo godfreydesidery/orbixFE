@@ -21,12 +21,12 @@
                                 <br>
                                 <tr>
                                     <td style="width: 40mm; text-align: right; padding-right: 2mm;">Username</td>
-                                    <td style="width: 60mm; padding-right: 2mm;"><input type="text" class="form-control"></td>
+                                    <td style="width: 60mm; padding-right: 2mm;"><input type="text" [(ngModel)]="username" class="form-control"></td>
                                 </tr>
                                 <br>
                                 <tr>
                                     <td style="width: 40mm; text-align: right; padding-right: 2mm;">Password</td>
-                                    <td style="width: 60mm; padding-right: 2mm;"><input type="password" class="form-control"></td>
+                                    <td style="width: 60mm; padding-right: 2mm;"><input type="password" [(ngModel)]="password" class="form-control"></td>
                                 </tr>
                                 <br>
                                 <tr>
@@ -36,7 +36,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="width: 30mm;"><button class="btn btn-primary" (click)="login()">Login</button></td>
-                                                    <td style="width: 30mm;"><button class="btn btn-danger">Cancel</button></td>
+                                                    <td style="width: 30mm;"><button class="btn btn-danger"><span class="glyphicon glyphicon-cancel"></span> Cancel</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -46,7 +46,7 @@
                                 <br>
                             </tbody>
                         </table>
-                        <span style="text-align: center;" class="text-danger" *ngIf="isLoginFailed===true">Login failed: Invalid username and password</span>
+                        <span style="text-align: center;" class="text-danger" *ngIf="isLoginFailed===true">Login failed</span>
                     </td>
                     <td style="width: 100mm;"></td>
                 </tr>

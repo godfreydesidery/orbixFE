@@ -18,7 +18,6 @@
     </div>
     <div class="panel-body well" style="padding: 5px;">
 
-
         <div class="row">
             <div class="col-sm-12">
                 <table>
@@ -144,13 +143,13 @@
                                 <table>
                                     <tr style="font-size: 12px;">
                                         <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Ostanding Balance</td>
-                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{amountDue|currency:'TSh':''}}</td>
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{outstandingBalance|currency:'TSh':''}}</td>
                                     </tr>
                                 </table>
                                 <table>
                                     <tr style="font-size: 12px;">
                                         <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Credit Balance</td>
-                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditLimit-amountDue|currency:'TSh':''}}</td>
+                                        <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); text-align: right;">{{creditLimit-outstandingBalance|currency:'TSh':''}}</td>
                                     </tr>
                                 </table>
 
@@ -232,15 +231,15 @@
                             <td></td>
                         </tr>
 
-                        <tr *ngIf="_new" style="margin-top: 2px;margin-bottom: 2px; background-color: rgb(192, 158, 175); font-size: 11px;">
+                        <tr *ngIf="_new" style="margin-top: 2px;margin-bottom: 2px; font-size: 12px;">
                             <!--<input type="hidden" name="lpoDetailId" [(ngModel)]="lpoDetailId">-->
-                            <td><input [(ngModel)]="barcode" [disabled]="lockedBarcode" (keydown.enter)="searchItemByBarcode(barcode)" style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="barcode" ></td>
-                            <td><input [(ngModel)]="itemCode" [disabled]="lockedItemCode" (keydown.enter)="searchItemByItemCode(itemCode)" style="max-width: 25mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" name="itemCode" ></td>
-                            <td><input [(ngModel)]="description" [disabled]="lockedDescription" #des list="description" type="text" (keydown.enter)="searchItemByDescription(description)"  style="width: 120mm; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;"></td>
-                            <td style="text-align: center;"><input [(ngModel)]="qty" style="max-width: 20mm; text-align: center; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="number" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="barcode" [disabled]="lockedBarcode" (keydown.enter)="searchItemByBarcode(barcode)" style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="text" name="barcode" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="itemCode" [disabled]="lockedItemCode" (keydown.enter)="searchItemByItemCode(itemCode)" style="width: 30mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="text" name="itemCode" ></td>
+                            <td style="padding: 0mm;"><input class="form-control" [(ngModel)]="description" [disabled]="lockedDescription" #des list="description" type="text" (keydown.enter)="searchItemByDescription(description)"  style="width: 120mm; font-size: 12px; padding: 0px; border-width: 2px; border:white;"></td>
+                            <td style="padding: 0mm; text-align: center;"><input class="form-control" [(ngModel)]="qty" style="max-width: 20mm; text-align: center; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="number" ></td>
                             <td style=" text-align: right;"><button style="margin-right: 10mm;"><span class="glyphicon glyphicon-pencil"></span></button>  <b>{{price|currency:'TSh':''}}</b></td>
                             <td style=" text-align: right;">{{qty*price|currency:'TSh':''}}</td>
-                            <td style="text-align: center;"><input [(ngModel)]="returnPeriod" style="max-width: 20mm; text-align: center; font-size: 11px; padding: 0px; border-width: 2px; border-top:white; border-left:white; border-right:white;" type="text" ></td>
+                            <td style="padding: 0mm; text-align: center;"><input class="form-control" [(ngModel)]="returnPeriod" style="max-width: 20mm; text-align: center; font-size: 12px; padding: 0px; border-width: 2px; border:white;" type="text" ></td>
                             <td>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" (click)="addDetail()">Add</a>
                                 <a class="" style="cursor: pointer; margin-right: 30px;" (click)="clearDetail()">Clear</a>
@@ -290,16 +289,6 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <span style="font-size: 12px;">
-                <b>Summary</b>
-                
-            </span>
-        </div>
-    </div>
-
-
     <!-- Modal -->
 <div id="receiptModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -318,7 +307,7 @@
                       <td style="position: sticky; top: 0;">Invoice No</td>
                       <td style="position: sticky; top: 0;">Invoice Amount</td>
                       <td style="position: sticky; top: 0;">Amount Payed</td>
-                      <td style="position: sticky; top: 0;">Amount Due</td>
+                      <td style="position: sticky; top: 0;">Balance</td>
                   </tr>
               </thead>
               <tbody >

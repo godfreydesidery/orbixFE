@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <table>
             <tr>
-                <td style="width:70mm"><h5 class="panel-title">Returned by Customers (RBC)</h5></td>
+                <td style="width:70mm"><h5 class="panel-title">Sales Return (SRT)</h5></td>
                 <td>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="createSalesReturn()" ><span class="glyphicon glyphicon-folder-open"></span> New</a>
                     <a class="" style="cursor: pointer; margin-right: 30px; font-size: 12px;" (click)="confirmReturn()" ><span class="glyphicon glyphicon-ok"></span> Confirm Return</a>
@@ -20,7 +20,7 @@
                                 <table>
                                     <tr style="font-size: 12px;">
                                         <input type="hidden" [(ngModel)]="invoiceId">
-                                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Receipt No</td>
+                                        <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Invoice No</td>
                                         <td style="width: 35mm;"><input type="text" [(ngModel)]="invoiceNo" [disabled]="lockedInvoice" class="form-control" placeholder="Invoice No" style="margin: 2px;font-size: 11px; height: 5mm;"></td>
                                         <td style="padding-left: 5px;"><button  style="height: 5mm; padding: 0px;" (click)="searchInvoice(invoiceNo)" ><span class="glyphicon glyphicon-search"></span> Search</button></td>
                                         <td style="padding-left: 5px;"><button type="button" data-toggle="modal" data-target="#lpoModal"><span class="glyphicon glyphicon-list"></span> SRT</button></td>
@@ -29,15 +29,15 @@
                                 <table>
                                     <tbody style="font-size: 12px;">
                                         <tr>
-                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Receipt No</td>
+                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Inv No</td>
                                             <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); padding-left: 2mm;">{{invoiceNo}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Receipt Date</td>
+                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Inv Date</td>
                                             <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); padding-left: 2mm;">{{invoiceDate}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Receipt Amount</td>
+                                            <td style="width: 20mm;color: rgba(45, 42, 48, 0.658); text-align: right;">Inv Amount</td>
                                             <td style="width: 30mm;color: rgba(45, 42, 48, 0.658); padding-left: 2mm; text-align: right;">{{invoiceAmount|currency:'TSh':''}}</td>
                                         </tr>
                                         <tr>
